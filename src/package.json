@@ -1,0 +1,60 @@
+{
+  "name": "vhv-cms-app",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Enterprise CMS built with VHV Platform React Framework",
+  "author": "VHV Platform",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "format": "prettier --write \"src/**/*.{ts,tsx,json,css}\"",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist node_modules/.vite"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.22.0",
+    "@longvhv/core": "^1.0.0",
+    "@longvhv/api-client": "^1.0.0",
+    "@longvhv/auth": "^1.0.0",
+    "@longvhv/ui-components": "^1.0.0",
+    "@longvhv/theme": "^1.0.0",
+    "@longvhv/notifications": "^1.0.0",
+    "@longvhv/query": "^1.0.0",
+    "@longvhv/forms": "^1.0.0",
+    "@longvhv/shared": "^1.0.0",
+    "@longvhv/context": "^1.0.0",
+    "@longvhv/crud": "^1.0.0",
+    "@longvhv/i18n": "^1.0.0",
+    "@longvhv/cache": "^1.0.0",
+    "@tanstack/react-query": "^5.17.0",
+    "lucide-react": "^0.344.0",
+    "clsx": "^2.1.0",
+    "date-fns": "^3.3.1",
+    "react-hook-form": "^7.55.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.27",
+    "@types/react-dom": "^18.3.7",
+    "@types/node": "^25.0.3",
+    "@vitejs/plugin-react": "^4.7.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.1.4",
+    "eslint": "^8.57.1",
+    "prettier": "^3.1.1",
+    "tailwindcss": "^4.1.18",
+    "postcss": "^8.5.6",
+    "autoprefixer": "^10.4.23"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  }
+}

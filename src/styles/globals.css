@@ -1,0 +1,221 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Primary Color - Blue */
+    --primary: 214 95% 60%;
+    --primary-foreground: 0 0% 100%;
+    
+    /* Background */
+    --background: 220 20% 97%;
+    --foreground: 222 47% 11%;
+    
+    /* Muted */
+    --muted: 220 13% 91%;
+    --muted-foreground: 215 16% 47%;
+    
+    /* Card */
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    
+    /* Border */
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    
+    /* Ring */
+    --ring: 214 95% 60%;
+    
+    /* Radius */
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-feature-settings: 'cv11', 'ss01';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Typography - NO Tailwind classes for font-size/weight/line-height */
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: -0.025em;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: -0.025em;
+  }
+
+  h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  p {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  label, button {
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.5);
+  }
+}
+
+@layer utilities {
+  /* Glassmorphism */
+  .glass {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .glass-strong {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+
+  /* Gradients */
+  .gradient-mesh {
+    background-image: 
+      radial-gradient(at 0% 0%, hsla(214, 95%, 60%, 0.05) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, hsla(214, 95%, 60%, 0.08) 0px, transparent 50%);
+  }
+
+  /* Animations */
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-in-from-top {
+    from {
+      transform: translateY(-8px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-in-from-bottom {
+    from {
+      transform: translateY(8px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes zoom-in {
+    from {
+      transform: scale(0.95);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  .animate-in {
+    animation: fade-in 0.3s ease-out;
+  }
+
+  .animate-slide-in-top {
+    animation: slide-in-from-top 0.3s ease-out;
+  }
+
+  .animate-slide-in-bottom {
+    animation: slide-in-from-bottom 0.3s ease-out;
+  }
+
+  .animate-zoom-in {
+    animation: zoom-in 0.3s ease-out;
+  }
+
+  .animate-shimmer {
+    animation: shimmer 2s linear infinite;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    background-size: 1000px 100%;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* Custom utilities */
+  .text-balance {
+    text-wrap: balance;
+  }
+}

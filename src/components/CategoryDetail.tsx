@@ -9,6 +9,7 @@ import { PageHeader } from './PageHeader';
 import { Card } from './Card';
 import { ArticleListView, Article } from './ArticleListView';
 import { ArticleTableView } from './ArticleTableView';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface CategoryDetailProps {
   categoryId?: number;
@@ -190,7 +191,7 @@ export function CategoryDetail({
   };
 
   const handleDelete = () => {
-    if (confirm('Bạn có chắc chắn muốn xóa danh mục này? Tất cả bài viết trong danh mục sẽ bị di chuyển về "Chưa phân loại".')) {
+    if (confirm(t('confirmations.deleteCategoryWithArticles'))) {
       onDelete?.(categoryId);
       onBack();
     }
@@ -467,7 +468,7 @@ export function CategoryDetail({
                     type="text"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    placeholder="Tìm kiếm bài viết..."
+                    placeholder={t('placeholders.searchArticles')}
                     className="w-full pl-10 pr-4 py-2.5 bg-secondary border border-border/60 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
                   />
                 </div>
@@ -502,7 +503,7 @@ export function CategoryDetail({
                 };
 
                 const handleDelete = (articleId: number) => {
-                  if (confirm('Bạn có chắc chắn muốn xóa bài viết này?')) {
+                  if (confirm(t('confirmations.deleteArticle'))) {
                     console.log('Delete article:', articleId);
                   }
                 };

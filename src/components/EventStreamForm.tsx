@@ -6,6 +6,7 @@ import {
 import { PageWrapper } from './PageWrapper';
 import { PageHeader } from './PageHeader';
 import { Card } from './Card';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface Article {
   id: string;
@@ -213,6 +214,8 @@ export function EventStreamForm({ onNavigate, streamId }: { onNavigate: (page: a
       onNavigate({ page: 'event-series' });
     }
   };
+
+  const { t } = useLanguage();
 
   return (
     <PageWrapper>
@@ -473,7 +476,7 @@ export function EventStreamForm({ onNavigate, streamId }: { onNavigate: (page: a
                     type="text"
                     value={articleSearchTerm}
                     onChange={(e) => setArticleSearchTerm(e.target.value)}
-                    placeholder="Tìm kiếm bài viết..."
+                    placeholder={t('placeholders.searchArticles')}
                     className="w-full pl-10 pr-4 py-2 bg-card border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                   />
                 </div>

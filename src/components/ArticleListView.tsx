@@ -6,6 +6,7 @@ import {
   Grid, List, Check, X
 } from 'lucide-react';
 import { Card } from './Card';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export interface Article {
   id: number;
@@ -163,6 +164,8 @@ export function ArticleListView({
       setSelectedArticles(selectedIds);
     }
   }, [selectedIds]);
+
+  const { t } = useLanguage();
 
   return (
     <div className="space-y-4">

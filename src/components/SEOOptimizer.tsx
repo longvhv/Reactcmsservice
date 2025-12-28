@@ -6,6 +6,7 @@ import {
   MessageSquare, Clock, Users, ThumbsUp, Lightbulb
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface SEOScore {
   overall: number;
@@ -82,6 +83,7 @@ export function SEOOptimizer({
 }: SEOOptimizerProps) {
   const [activeTab, setActiveTab] = useState<'overview' | 'keywords' | 'suggestions'>('overview');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const { t } = useLanguage();
 
   // Mock SEO Analysis
   const analysis: SEOAnalysis = {

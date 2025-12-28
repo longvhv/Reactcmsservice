@@ -1,7 +1,9 @@
 import { Wifi, Database, Activity, AlertCircle } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export function StatusBar() {
+  const { t } = useLanguage();
   const [status, setStatus] = useState({
     connection: 'online' as 'online' | 'offline',
     database: 'connected' as 'connected' | 'disconnected',
@@ -35,12 +37,12 @@ export function StatusBar() {
         {status.connection === 'online' ? (
           <>
             <Wifi className="w-3.5 h-3.5 text-green-600" />
-            <span className="text-muted-foreground">Đang kết nối</span>
+            <span className="text-muted-foreground">{t('status.connected')}</span>
           </>
         ) : (
           <>
             <AlertCircle className="w-3.5 h-3.5 text-red-600" />
-            <span className="text-muted-foreground">Mất kết nối</span>
+            <span className="text-muted-foreground">{t('status.disconnected')}</span>
           </>
         )}
       </div>

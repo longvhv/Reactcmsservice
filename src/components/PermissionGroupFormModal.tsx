@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { X, Save, Plus, AlertCircle, Shield, Lock, Users, Tag, CheckCircle } from 'lucide-react';
 import { Card } from './Card';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface PermissionGroupFormModalProps {
   isOpen: boolean;
@@ -65,6 +66,7 @@ export function PermissionGroupFormModal({
   onSave, 
   editingGroup 
 }: PermissionGroupFormModalProps) {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState<PermissionGroupFormData>({
     name: '',
     description: '',

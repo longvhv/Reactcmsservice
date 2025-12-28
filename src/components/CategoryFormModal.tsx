@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { X, Save, Plus, AlertCircle, Link as LinkIcon, Eye, EyeOff, Folder, Tag, FileText } from 'lucide-react';
 import { Card } from './Card';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface CategoryFormModalProps {
   isOpen: boolean;
@@ -246,6 +247,8 @@ export function CategoryFormModal({
 
   if (!isOpen) return null;
 
+  const { t } = useLanguage();
+
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
       <Card className="w-full max-w-3xl max-h-[90vh] overflow-y-auto">
@@ -478,7 +481,7 @@ export function CategoryFormModal({
                 type="text"
                 value={formData.seoTitle}
                 onChange={(e) => setFormData(prev => ({ ...prev, seoTitle: e.target.value }))}
-                placeholder={formData.name || 'Tiêu đề tối ưu cho công cụ tìm kiếm'}
+                placeholder={formData.name || t('placeholders.seoTitle')}
                 maxLength={60}
                 className="w-full px-4 py-2.5 bg-secondary border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
               />

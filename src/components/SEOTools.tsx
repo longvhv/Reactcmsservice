@@ -1,8 +1,10 @@
 // SEO Tools Component
 import { useState } from 'react';
 import { Search, TrendingUp, Target, BarChart3, Globe, Link as LinkIcon, Hash, FileText, CheckCircle, AlertCircle } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export function SEOTools() {
+  const { t } = useLanguage();
   const [url, setUrl] = useState('');
   const [analyzing, setAnalyzing] = useState(false);
 

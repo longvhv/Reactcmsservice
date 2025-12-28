@@ -7,6 +7,7 @@ import {
 import { Card } from './Card';
 import { PageWrapper } from './PageWrapper';
 import { PageHeader } from './PageHeader';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface StreamTemplate {
   id: string;
@@ -31,6 +32,7 @@ export function EventStreamTemplates({ onNavigate, onUseTemplate }: {
   onNavigate: (page: any) => void;
   onUseTemplate?: (template: StreamTemplate) => void;
 }) {
+  const { t } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -292,7 +294,7 @@ export function EventStreamTemplates({ onNavigate, onUseTemplate }: {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <input
               type="text"
-              placeholder="Tìm kiếm template..."
+              placeholder={t('placeholders.searchTemplates')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-10 pr-4 py-2 bg-secondary border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"

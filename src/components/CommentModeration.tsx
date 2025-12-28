@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { MessageCircle, ThumbsUp, ThumbsDown, Flag, Trash2, CheckCircle, XCircle, Eye, User, Clock, Search, Filter, MoreVertical } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface Comment {
   id: number;
@@ -15,6 +16,7 @@ interface Comment {
 }
 
 export function CommentModeration() {
+  const { t } = useLanguage();
   const [selectedTab, setSelectedTab] = useState<'pending' | 'approved' | 'spam' | 'all'>('pending');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedComments, setSelectedComments] = useState<number[]>([]);
@@ -157,7 +159,7 @@ export function CommentModeration() {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
               <input
                 type="text"
-                placeholder="Tìm kiếm bình luận..."
+                placeholder={t('placeholders.searchArticles')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-12 pr-4 py-3 border border-border/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all duration-200"

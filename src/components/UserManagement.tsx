@@ -3,6 +3,7 @@ import { Search, Plus, Edit2, Trash2, Shield, Mail, Phone, Calendar, Lock, Check
 import { PageWrapper } from './PageWrapper';
 import { PageHeader } from './PageHeader';
 import { Card } from './Card';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface User {
   id: number;
@@ -18,6 +19,7 @@ interface User {
 }
 
 export function UserManagement() {
+  const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedRole, setSelectedRole] = useState('all');
   const [showAddUser, setShowAddUser] = useState(false);
@@ -182,7 +184,7 @@ export function UserManagement() {
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <input
                   type="text"
-                  placeholder="Tìm kiếm người dùng..."
+                  placeholder={t('placeholders.searchArticles')}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full pl-12 pr-4 py-3 border border-border/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all duration-200"
@@ -256,10 +258,10 @@ export function UserManagement() {
                       <button className="p-2 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors" title="Chỉnh sửa">
                         <Edit2 className="w-4 h-4" />
                       </button>
-                      <button className="p-2 hover:bg-yellow-100 text-yellow-600 rounded-lg transition-colors" title="Đổi mật khẩu">
+                      <button className="p-2 hover:bg-yellow-100 text-yellow-600 rounded-lg transition-colors" title={t('tooltips.changePassword')}>
                         <Lock className="w-4 h-4" />
                       </button>
-                      <button className="p-2 hover:bg-red-100 text-red-600 rounded-lg transition-colors" title="Xóa">
+                      <button className="p-2 hover:bg-red-100 text-red-600 rounded-lg transition-colors" title={t('tooltips.delete')}>
                         <Trash2 className="w-4 h-4" />
                       </button>
                       <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">

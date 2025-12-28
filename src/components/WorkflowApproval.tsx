@@ -3,6 +3,7 @@ import { CheckCircle, XCircle, Clock, AlertCircle, User, Calendar, MessageSquare
 import { PageWrapper } from './PageWrapper';
 import { PageHeader } from './PageHeader';
 import { Card } from './Card';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface WorkflowItem {
   id: number;
@@ -19,6 +20,7 @@ interface WorkflowItem {
 }
 
 export function WorkflowApproval() {
+  const { t } = useLanguage();
   const [selectedTab, setSelectedTab] = useState<'pending' | 'in-review' | 'approved' | 'rejected'>('pending');
 
   const workflowItems: WorkflowItem[] = [

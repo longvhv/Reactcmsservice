@@ -3,6 +3,7 @@ import {
   BarChart3, PieChart, TrendingUp, Activity, Users, Clock, 
   Calendar, Target, Zap, Globe, Database, Shield 
 } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface AnalyticsData {
   byType: { [key: string]: number };
@@ -19,6 +20,7 @@ interface ActivityAnalyticsProps {
 }
 
 export function ActivityAnalytics({ data }: ActivityAnalyticsProps) {
+  const { t } = useLanguage();
   const [selectedMetric, setSelectedMetric] = useState<'type' | 'entity' | 'severity'>('type');
 
   // Mock comprehensive analytics data

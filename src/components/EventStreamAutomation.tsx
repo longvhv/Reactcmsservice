@@ -7,6 +7,7 @@ import {
 import { Card } from './Card';
 import { PageWrapper } from './PageWrapper';
 import { PageHeader } from './PageHeader';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface AutomationRule {
   id: string;
@@ -27,6 +28,7 @@ interface AutomationRule {
 }
 
 export function EventStreamAutomation({ streamId, streamColor }: { streamId: string; streamColor: string }) {
+  const { t } = useLanguage();
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [selectedRule, setSelectedRule] = useState<AutomationRule | null>(null);
 

@@ -5,6 +5,7 @@ import {
   ArrowRight, Copy, Eye, Code, Zap, AlertCircle
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 // Workflow Node Types
 export type NodeType = 'start' | 'approval' | 'notification' | 'condition' | 'action' | 'end';
@@ -48,6 +49,7 @@ export interface Workflow {
 }
 
 export function WorkflowBuilder() {
+  const { t } = useLanguage();
   const [workflows, setWorkflows] = useState<Workflow[]>([]);
   const [selectedWorkflow, setSelectedWorkflow] = useState<Workflow | null>(null);
   const [selectedNode, setSelectedNode] = useState<WorkflowNode | null>(null);

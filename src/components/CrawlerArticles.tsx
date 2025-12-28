@@ -16,6 +16,7 @@ import {
   ThumbsDown,
   AlertCircle
 } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface CrawlerArticle {
   id: string;
@@ -243,6 +244,8 @@ export function CrawlerArticles() {
   const approvedCount = articles.filter(a => a.status === 'approved').length;
   const rejectedCount = articles.filter(a => a.status === 'rejected').length;
 
+  const { t } = useLanguage();
+
   return (
     <div className="p-6 space-y-6">
       {/* Header */}
@@ -340,7 +343,7 @@ export function CrawlerArticles() {
                 type="search"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Tìm kiếm bài viết..."
+                placeholder={t('placeholders.searchArticles')}
                 className="w-full pl-10 pr-4 py-2 bg-secondary border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
               />
             </div>
@@ -501,7 +504,7 @@ export function CrawlerArticles() {
                     <button
                       onClick={() => handleDelete(article.id)}
                       className="p-2 hover:bg-secondary rounded-lg transition-colors"
-                      title="Xóa"
+                      title={t('tooltips.delete')}
                     >
                       <Trash2 className="w-4 h-4 text-red-600" />
                     </button>

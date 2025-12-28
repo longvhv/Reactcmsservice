@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Send, MessageSquare, ThumbsUp, Reply, MoreVertical, Edit3, Trash2, CheckCircle2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface Comment {
   id: string;
@@ -35,6 +36,7 @@ export function ReviewComments({
   onEditComment,
   onLikeComment,
 }: ReviewCommentsProps) {
+  const { t } = useLanguage();
   const [newComment, setNewComment] = useState('');
   const [replyingTo, setReplyingTo] = useState<string | null>(null);
   const [replyContent, setReplyContent] = useState('');

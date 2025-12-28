@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { ChevronUp, ChevronDown, ChevronsUpDown, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export interface Column<T> {
   key: string;
@@ -30,6 +31,7 @@ export function DataTable<T extends Record<string, any>>({
   emptyMessage = 'No data available',
   isLoading = false,
 }: DataTableProps<T>) {
+  const { t } = useLanguage();
   const [currentPage, setCurrentPage] = useState(1);
   const [sortColumn, setSortColumn] = useState<string | null>(null);
   const [sortDirection, setSortDirection] = useState<SortDirection>(null);

@@ -1,5 +1,6 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { X, Save, Eye, Sparkles, Languages, CheckCircle, ImagePlus, Video, FileText, Briefcase, Mic, Calendar, FolderTree, Tag, Upload, Link, Bold, Italic, List, Code, Heading, Quote, Image as ImageIcon, Maximize2, Minimize2, Clock, Globe, ChevronDown, Plus, Search, Wand2, AlignLeft, GripVertical, Trash2, Edit2, User } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface ArticleEditorProps {
   articleId?: number;
@@ -15,6 +16,7 @@ interface GalleryImage {
 }
 
 export function ArticleEditor({ articleId, onClose, onSave }: ArticleEditorProps) {
+  const { t } = useLanguage();
   const [isFullscreen, setIsFullscreen] = useState(true);
   const [articleType, setArticleType] = useState('news');
   const [activeTab, setActiveTab] = useState<'edit' | 'preview'>('edit');
@@ -35,15 +37,55 @@ export function ArticleEditor({ articleId, onClose, onSave }: ArticleEditorProps
   const [draggedImageId, setDraggedImageId] = useState<number | null>(null);
   const [editingImageId, setEditingImageId] = useState<number | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const categoryPickerRef = useRef<HTMLDivElement>(null);
+
+  // Close category picker when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (categoryPickerRef.current && !categoryPickerRef.current.contains(event.target as Node)) {
+        setShowCategoryPicker(false);
+      }
+    };
+
+    if (showCategoryPicker) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showCategoryPicker]);
+
+  // Close editor with ESC key
+  useEffect(() => {
+    const handleEscKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        // If category picker is open, close it first
+        if (showCategoryPicker) {
+          setShowCategoryPicker(false);
+        } else if (showAiTools) {
+          setShowAiTools(false);
+        } else {
+          // Otherwise close the entire editor
+          onClose();
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleEscKey);
+    return () => {
+      document.removeEventListener('keydown', handleEscKey);
+    };
+  }, [showCategoryPicker, showAiTools, onClose]);
 
   const articleTypes = [
-    { id: 'news', label: 'Tin tức', icon: FileText, color: 'blue' },
-    { id: 'video', label: 'Video', icon: Video, color: 'red' },
-    { id: 'gallery', label: 'Thư viện ảnh', icon: ImageIcon, color: 'purple' },
-    { id: 'legal', label: 'Văn bản PL', icon: FileText, color: 'indigo' },
-    { id: 'job', label: 'Tuyển dụng', icon: Briefcase, color: 'green' },
-    { id: 'podcast', label: 'Podcast', icon: Mic, color: 'pink' },
-    { id: 'event', label: 'Sự kiện', icon: Calendar, color: 'orange' },
+    { id: 'news', label: t('articleTypes.news'), icon: FileText, color: 'blue' },
+    { id: 'video', label: t('articleTypes.video'), icon: Video, color: 'red' },
+    { id: 'gallery', label: t('articleTypes.gallery'), icon: ImageIcon, color: 'purple' },
+    { id: 'legal', label: t('articleTypes.legalShort'), icon: FileText, color: 'indigo' },
+    { id: 'job', label: t('articleTypes.job'), icon: Briefcase, color: 'green' },
+    { id: 'podcast', label: t('articleTypes.podcast'), icon: Mic, color: 'pink' },
+    { id: 'event', label: t('articleTypes.event'), icon: Calendar, color: 'orange' },
   ];
 
   const availableCategories = [
@@ -218,7 +260,7 @@ export function ArticleEditor({ articleId, onClose, onSave }: ArticleEditorProps
         <textarea
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          placeholder="Bắt đầu viết nội dung..."
+          placeholder={t('placeholders.startWriting')}
           className="w-full h-full min-h-[400px] resize-none border-none focus:outline-none bg-transparent text-foreground placeholder:text-muted-foreground leading-relaxed"
         />
       </div>
@@ -260,7 +302,7 @@ export function ArticleEditor({ articleId, onClose, onSave }: ArticleEditorProps
               <label className="block text-foreground mb-2">Mô tả ngắn</label>
               <textarea
                 rows={3}
-                placeholder="Mô tả ngắn gọn về bài viết..."
+                placeholder={t('placeholders.shortDescription')}
                 className="w-full px-4 py-3 border border-border/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50 transition-all duration-200 resize-none"
               />
             </div>
@@ -269,7 +311,7 @@ export function ArticleEditor({ articleId, onClose, onSave }: ArticleEditorProps
               <label className="block text-foreground mb-2">Thời gian đọc (phút)</label>
               <input
                 type="number"
-                placeholder="5"
+                placeholder={t('placeholders.readingTime')}
                 className="w-full px-4 py-3 border border-border/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50 transition-all duration-200"
               />
             </div>
@@ -283,7 +325,7 @@ export function ArticleEditor({ articleId, onClose, onSave }: ArticleEditorProps
               <label className="block text-foreground mb-2">URL Video *</label>
               <input
                 type="url"
-                placeholder="https://youtube.com/watch?v=..."
+                placeholder={t('placeholders.videoUrl')}
                 className="w-full px-4 py-3 border border-border/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50 transition-all duration-200"
               />
             </div>
@@ -292,7 +334,7 @@ export function ArticleEditor({ articleId, onClose, onSave }: ArticleEditorProps
               <label className="block text-foreground mb-2">Thời lượng</label>
               <input
                 type="text"
-                placeholder="15:30"
+                placeholder={t('placeholders.timestamp')}
                 className="w-full px-4 py-3 border border-border/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50 transition-all duration-200"
               />
             </div>
@@ -311,7 +353,7 @@ export function ArticleEditor({ articleId, onClose, onSave }: ArticleEditorProps
               <label className="block text-foreground mb-2">Transcript (phụ đề)</label>
               <textarea
                 rows={4}
-                placeholder="00:00 - Giới thiệu..."
+                placeholder={t('placeholders.timestamps')}
                 className="w-full px-4 py-3 border border-border/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50 transition-all duration-200 resize-none font-mono text-sm"
               />
             </div>
@@ -325,7 +367,7 @@ export function ArticleEditor({ articleId, onClose, onSave }: ArticleEditorProps
               <label className="block text-foreground mb-2">Mô tả gallery</label>
               <textarea
                 rows={3}
-                placeholder="Mô tả về bộ sưu tập ảnh này..."
+                placeholder={t('placeholders.galleryDescription')}
                 className="w-full px-4 py-3 border border-border/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50 transition-all duration-200 resize-none"
               />
             </div>
@@ -340,7 +382,7 @@ export function ArticleEditor({ articleId, onClose, onSave }: ArticleEditorProps
                 <label className="block text-foreground mb-2">Số hiệu văn bản *</label>
                 <input
                   type="text"
-                  placeholder="15/2024/NĐ-CP"
+                  placeholder={t('placeholders.documentNumber')}
                   className="w-full px-4 py-3 border border-border/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50 transition-all duration-200"
                 />
               </div>
@@ -376,7 +418,7 @@ export function ArticleEditor({ articleId, onClose, onSave }: ArticleEditorProps
               <label className="block text-foreground mb-2">Cơ quan ban hành</label>
               <input
                 type="text"
-                placeholder="Chính phủ"
+                placeholder={t('placeholders.issuingAuthority')}
                 className="w-full px-4 py-3 border border-border/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50 transition-all duration-200"
               />
             </div>
@@ -398,7 +440,7 @@ export function ArticleEditor({ articleId, onClose, onSave }: ArticleEditorProps
               <label className="block text-foreground mb-2">Vị trí tuyển dụng *</label>
               <input
                 type="text"
-                placeholder="Senior Frontend Developer"
+                placeholder={t('placeholders.jobPosition')}
                 className="w-full px-4 py-3 border border-border/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50 transition-all duration-200"
               />
             </div>
@@ -540,12 +582,15 @@ export function ArticleEditor({ articleId, onClose, onSave }: ArticleEditorProps
   return (
     <div className="fixed inset-0 bg-background z-50 flex flex-col animate-in">
       {/* Top Bar */}
-      <div className="glass-strong border-b border-border/40 px-6 py-4">
+      <div className="glass-strong border-b border-border/40 px-6 py-4 relative z-50">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-4">
             <button
-              onClick={onClose}
-              className="p-2 hover:bg-muted/50 rounded-xl transition-all duration-200"
+              onClick={() => {
+                console.log('Close button clicked!');
+                onClose();
+              }}
+              className="p-2 hover:bg-muted/50 rounded-xl transition-all duration-200 relative z-50 pointer-events-auto"
             >
               <X className="w-5 h-5" />
             </button>
@@ -640,7 +685,7 @@ export function ArticleEditor({ articleId, onClose, onSave }: ArticleEditorProps
               <div className="p-6 pb-4">
                 <input
                   type="text"
-                  placeholder="Tiêu đề bài viết..."
+                  placeholder={t('editor.titlePlaceholder')}
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   className="w-full text-3xl border-none focus:outline-none bg-transparent text-foreground placeholder:text-muted-foreground"
@@ -768,7 +813,7 @@ export function ArticleEditor({ articleId, onClose, onSave }: ArticleEditorProps
                     <FolderTree className="w-4 h-4" />
                     Danh mục *
                   </label>
-                  <div className="relative">
+                  <div className="relative" ref={categoryPickerRef}>
                     <button
                       onClick={() => setShowCategoryPicker(!showCategoryPicker)}
                       className="w-full px-4 py-3 border border-border/60 rounded-xl hover:bg-muted/30 transition-all duration-200 flex items-center justify-between"
@@ -780,7 +825,7 @@ export function ArticleEditor({ articleId, onClose, onSave }: ArticleEditorProps
                     </button>
 
                     {showCategoryPicker && (
-                      <div className="absolute top-full left-0 right-0 mt-2 bg-card border border-border/60 rounded-xl shadow-xl z-10 max-h-64 overflow-y-auto animate-slide-in-top">
+                      <div className="absolute top-full left-0 right-0 mt-2 bg-card border border-border/60 rounded-xl shadow-xl z-20 max-h-64 overflow-y-auto animate-slide-in-top">
                         <div className="p-3 border-b border-border/60">
                           <div className="relative">
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
@@ -1287,13 +1332,13 @@ export function ArticleEditor({ articleId, onClose, onSave }: ArticleEditorProps
       </div>
 
       {/* Bottom Toolbar - AI Tools & Actions */}
-      <div className="glass-strong border-t border-border/40 px-6 py-4">
+      <div className="glass-strong border-t border-border/40 px-6 py-4 relative z-50">
         <div className="flex items-center justify-between max-w-full">
           {/* AI Tools */}
           <div className="flex items-center gap-2">
             <button
               onClick={() => setShowAiTools(!showAiTools)}
-              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-200"
+              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-200 relative z-50"
             >
               <Sparkles className="w-4 h-4" />
               <span>AI Tools</span>
@@ -1306,7 +1351,7 @@ export function ArticleEditor({ articleId, onClose, onSave }: ArticleEditorProps
                   return (
                     <button
                       key={tool.id}
-                      className={`flex items-center gap-2 px-4 py-2 bg-${tool.color}-100 text-${tool.color}-700 rounded-xl hover:bg-${tool.color}-200 transition-all duration-200`}
+                      className={`flex items-center gap-2 px-4 py-2 bg-${tool.color}-100 text-${tool.color}-700 rounded-xl hover:bg-${tool.color}-200 transition-all duration-200 relative z-50`}
                     >
                       <Icon className="w-4 h-4" />
                       <span className="text-sm">{tool.label}</span>
@@ -1320,22 +1365,25 @@ export function ArticleEditor({ articleId, onClose, onSave }: ArticleEditorProps
           {/* Action Buttons */}
           <div className="flex items-center gap-3">
             <button
-              onClick={onClose}
-              className="px-6 py-2 border border-border/60 rounded-xl hover:bg-muted/50 transition-all duration-200"
+              onClick={() => {
+                console.log('Hủy button clicked!');
+                onClose();
+              }}
+              className="px-6 py-2 border border-border/60 rounded-xl hover:bg-muted/50 transition-all duration-200 relative z-50 pointer-events-auto"
             >
               Hủy
             </button>
-            <button className="px-6 py-2 border border-border/60 rounded-xl hover:bg-muted/50 transition-all duration-200">
+            <button className="px-6 py-2 border border-border/60 rounded-xl hover:bg-muted/50 transition-all duration-200 relative z-50">
               Lưu nháp
             </button>
-            <button className="flex items-center gap-2 px-6 py-2 border border-border/60 rounded-xl hover:bg-muted/50 transition-all duration-200">
+            <button className="flex items-center gap-2 px-6 py-2 border border-border/60 rounded-xl hover:bg-muted/50 transition-all duration-200 relative z-50">
               <Eye className="w-4 h-4" />
               <span>Xem trước</span>
             </button>
             <button
               onClick={handleSave}
               disabled={isSaving}
-              className="flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-200 disabled:opacity-50"
+              className="flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-200 disabled:opacity-50 relative z-50"
             >
               {isSaving ? (
                 <>

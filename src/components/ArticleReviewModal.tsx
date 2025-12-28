@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useFocusTrap } from '../hooks/useFocusTrap';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface ArticleReviewModalProps {
   isOpen: boolean;
@@ -38,6 +39,7 @@ export function ArticleReviewModal({
   onReject,
   onRequestChanges,
 }: ArticleReviewModalProps) {
+  const { t } = useLanguage();
   const modalRef = useFocusTrap(isOpen);
   const [activeTab, setActiveTab] = useState<'preview' | 'metadata' | 'history'>('preview');
   const [comment, setComment] = useState('');
@@ -59,13 +61,13 @@ export function ArticleReviewModal({
       onApprove(comment || undefined);
     } else if (action === 'reject') {
       if (!comment.trim()) {
-        alert('Vui lòng nhập lý do từ chối');
+        alert(t('Vui lòng nhập lý do từ chối'));
         return;
       }
       onReject(comment);
     } else if (action === 'changes') {
       if (!comment.trim()) {
-        alert('Vui lòng nhập yêu cầu chỉnh sửa');
+        alert(t('Vui lòng nhập yêu cầu chỉnh sửa'));
         return;
       }
       onRequestChanges(comment);

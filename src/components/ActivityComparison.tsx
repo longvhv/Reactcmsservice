@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Users, TrendingUp, TrendingDown, Minus, BarChart3, Activity, Clock, Target } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface UserActivity {
   userId: string;
@@ -109,6 +110,8 @@ export function ActivityComparison({ users: initialUsers, onClose }: ActivityCom
   };
 
   const userColors = ['#3B82F6', '#10B981', '#F59E0B', '#8B5CF6'];
+
+  const { t } = useLanguage();
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">

@@ -1,4 +1,5 @@
 import { Plus, Upload, TrendingUp, Settings, FileText, Users, Calendar } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface QuickAction {
   id: string;
@@ -10,8 +11,9 @@ interface QuickAction {
 }
 
 export function QuickActionsPanel() {
+  const { t } = useLanguage();
   const quickActions: QuickAction[] = [
-    { id: 'new-article', label: 'Tạo bài viết', icon: Plus, color: 'blue', shortcut: '⌘N' },
+    { id: 'new-article', label: t('create_article'), icon: Plus, color: 'blue', shortcut: '⌘N' },
     { id: 'upload', label: 'Upload media', icon: Upload, color: 'purple', shortcut: '⌘U' },
     { id: 'stats', label: 'Xem thống kê', icon: TrendingUp, color: 'green', shortcut: '⌘S' },
     { id: 'users', label: 'Quản lý users', icon: Users, color: 'orange' },

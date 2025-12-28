@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import {
   CheckSquare, Trash2, Archive, Eye, EyeOff, Calendar, Tag,
   Folder, User, Send, Download, Copy, FileText, AlertTriangle,
-  X, Check, Clock, Zap, Globe, Lock
+  X, Check, Clock, Zap, Globe, Lock, ChevronRight
 } from 'lucide-react';
 import { Card } from './Card';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface BulkOperation {
   id: string;
@@ -30,13 +31,14 @@ export function BulkOperations({ selectedCount, selectedIds, onClear, onComplete
   const [showScheduleModal, setShowScheduleModal] = useState(false);
   const [showTagModal, setShowTagModal] = useState(false);
   const [showAssignModal, setShowAssignModal] = useState(false);
+  const { t } = useLanguage();
 
   const quickOperations: BulkOperation[] = [
     {
       id: 'publish',
       icon: Globe,
-      label: 'Xuất bản',
-      description: 'Xuất bản ngay lập tức',
+      label: t('publish'),
+      description: t('publish_description'),
       color: '#10B981',
       requiresConfirmation: true,
       action: (ids) => {
@@ -47,8 +49,8 @@ export function BulkOperations({ selectedCount, selectedIds, onClear, onComplete
     {
       id: 'unpublish',
       icon: EyeOff,
-      label: 'Hủy xuất bản',
-      description: 'Chuyển về nháp',
+      label: t('unpublish'),
+      description: t('unpublish_description'),
       color: '#F59E0B',
       requiresConfirmation: true,
       action: (ids) => {
@@ -59,8 +61,8 @@ export function BulkOperations({ selectedCount, selectedIds, onClear, onComplete
     {
       id: 'schedule',
       icon: Calendar,
-      label: 'Lên lịch',
-      description: 'Đặt thời gian xuất bản',
+      label: t('schedule'),
+      description: t('schedule_description'),
       color: '#3B82F6',
       requiresConfirmation: false,
       action: () => setShowScheduleModal(true),
@@ -68,8 +70,8 @@ export function BulkOperations({ selectedCount, selectedIds, onClear, onComplete
     {
       id: 'archive',
       icon: Archive,
-      label: 'Lưu trữ',
-      description: 'Chuyển vào kho lưu trữ',
+      label: t('archive'),
+      description: t('archive_description'),
       color: '#8B5CF6',
       requiresConfirmation: true,
       action: (ids) => {
@@ -80,8 +82,8 @@ export function BulkOperations({ selectedCount, selectedIds, onClear, onComplete
     {
       id: 'delete',
       icon: Trash2,
-      label: 'Xóa',
-      description: 'Xóa vĩnh viễn',
+      label: t('delete'),
+      description: t('delete_description'),
       color: '#EF4444',
       requiresConfirmation: true,
       action: (ids) => {
@@ -95,8 +97,8 @@ export function BulkOperations({ selectedCount, selectedIds, onClear, onComplete
     {
       id: 'move-category',
       icon: Folder,
-      label: 'Chuyển danh mục',
-      description: 'Di chuyển sang danh mục khác',
+      label: t('move_category'),
+      description: t('move_category_description'),
       color: '#6366F1',
       requiresConfirmation: false,
       action: () => setShowCategoryModal(true),
@@ -104,8 +106,8 @@ export function BulkOperations({ selectedCount, selectedIds, onClear, onComplete
     {
       id: 'assign-author',
       icon: User,
-      label: 'Gán tác giả',
-      description: 'Thay đổi tác giả bài viết',
+      label: t('assign_author'),
+      description: t('assign_author_description'),
       color: '#EC4899',
       requiresConfirmation: false,
       action: () => setShowAssignModal(true),
@@ -113,8 +115,8 @@ export function BulkOperations({ selectedCount, selectedIds, onClear, onComplete
     {
       id: 'add-tags',
       icon: Tag,
-      label: 'Thêm tags',
-      description: 'Thêm tags cho bài viết',
+      label: t('add_tags'),
+      description: t('add_tags_description'),
       color: '#14B8A6',
       requiresConfirmation: false,
       action: () => setShowTagModal(true),
@@ -122,8 +124,8 @@ export function BulkOperations({ selectedCount, selectedIds, onClear, onComplete
     {
       id: 'export',
       icon: Download,
-      label: 'Xuất dữ liệu',
-      description: 'Xuất ra file CSV/JSON',
+      label: t('export'),
+      description: t('export_description'),
       color: '#059669',
       requiresConfirmation: false,
       action: (ids) => {
@@ -133,8 +135,8 @@ export function BulkOperations({ selectedCount, selectedIds, onClear, onComplete
     {
       id: 'duplicate',
       icon: Copy,
-      label: 'Nhân bản',
-      description: 'Tạo bản sao',
+      label: t('duplicate'),
+      description: t('duplicate_description'),
       color: '#F97316',
       requiresConfirmation: true,
       action: (ids) => {
@@ -145,8 +147,8 @@ export function BulkOperations({ selectedCount, selectedIds, onClear, onComplete
     {
       id: 'private',
       icon: Lock,
-      label: 'Chuyển riêng tư',
-      description: 'Đặt chế độ riêng tư',
+      label: t('private'),
+      description: t('private_description'),
       color: '#64748B',
       requiresConfirmation: true,
       action: (ids) => {

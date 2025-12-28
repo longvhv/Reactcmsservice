@@ -7,6 +7,7 @@ import {
 import { Card } from './Card';
 import { PageWrapper } from './PageWrapper';
 import { PageHeader } from './PageHeader';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface AnalyticsMetric {
   label: string;

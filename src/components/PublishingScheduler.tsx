@@ -5,6 +5,7 @@ import {
   Globe, Eye, BarChart3, Zap, CalendarDays, Plus
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export interface ScheduledPost {
   id: string;
@@ -34,6 +35,7 @@ export function PublishingScheduler({
   onCancel,
   onReschedule,
 }: PublishingSchedulerProps) {
+  const { t } = useLanguage();
   const [view, setView] = useState<'calendar' | 'list'>('list');
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showScheduleModal, setShowScheduleModal] = useState(false);

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ArrowLeft, Edit, Trash2, Globe, Calendar, User, Eye, MessageCircle, Heart, Clock, Share2, Bookmark, MapPin, Briefcase, DollarSign, FileText, Download, Play, Image as ImageIcon, Users, RotateCcw, GitBranch, Upload, FolderOpen, Film, Headphones, X, ExternalLink, Tag, Building2, Mail, Phone, Gavel, Scale, FileCheck } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface ArticleDetailProps {
   articleId: number;
@@ -7,6 +8,7 @@ interface ArticleDetailProps {
 }
 
 export function ArticleDetail({ articleId, onNavigate }: ArticleDetailProps) {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState('preview');
   const [selectedVersion, setSelectedVersion] = useState(3);
   const [showRestoreConfirm, setShowRestoreConfirm] = useState(false);
@@ -800,7 +802,7 @@ export function ArticleDetail({ articleId, onNavigate }: ArticleDetailProps) {
             </button>
             <button 
               onClick={() => {
-                if (confirm('Bạn có chắc chắn muốn xóa bài viết này?')) {
+                if (confirm(t('confirmations.deleteArticle'))) {
                   onNavigate({ page: 'articles' });
                 }
               }}

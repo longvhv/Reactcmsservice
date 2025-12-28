@@ -9,6 +9,7 @@ import {
 import { PageWrapper } from './PageWrapper';
 import { PageHeader } from './PageHeader';
 import { Card } from './Card';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface AIToolsProps {
   onNavigate?: (page: any) => void;
@@ -45,6 +46,7 @@ interface Template {
 }
 
 export function AITools({ onNavigate }: AIToolsProps) {
+  const { t } = useLanguage();
   const [selectedTool, setSelectedTool] = useState<string | null>(null);
   const [inputText, setInputText] = useState('');
   const [outputText, setOutputText] = useState('');

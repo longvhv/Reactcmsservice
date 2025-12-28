@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Download, FileDown, FileText, Calendar, Check } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface ExportOptions {
   format: 'json' | 'csv' | 'pdf' | 'excel';
@@ -50,6 +51,8 @@ export function ActivityExport({ onClose, onExport }: ActivityExportProps) {
   const handleExport = () => {
     onExport(options);
   };
+
+  const { t } = useLanguage();
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">

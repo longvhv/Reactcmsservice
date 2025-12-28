@@ -5,6 +5,7 @@ import {
   CheckCircle2, Sparkles, Layout, Code, Image, Zap
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export interface ContentTemplate {
   id: string;
@@ -48,6 +49,7 @@ export function ContentTemplates({
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTemplate, setSelectedTemplate] = useState<ContentTemplate | null>(null);
   const [showPreview, setShowPreview] = useState(false);
+  const { t } = useLanguage();
 
   // Mock templates
   const templates: ContentTemplate[] = [

@@ -10,6 +10,7 @@ import {
   Menu, HelpCircle, Bell, ChevronDown, SlidersHorizontal, LayoutGrid, Columns
 } from 'lucide-react';
 import { Card } from './Card';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface MediaFile {
   id: number;
@@ -42,6 +43,7 @@ interface MediaManagementProps {
 }
 
 export function MediaManagement({ onNavigate }: MediaManagementProps = {}) {
+  const { t } = useLanguage();
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [selectedFolder, setSelectedFolder] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -1249,7 +1251,7 @@ export function MediaManagement({ onNavigate }: MediaManagementProps = {}) {
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
           <input
             type="text"
-            placeholder="Tìm kiếm trong Media Library..."
+            placeholder={t('placeholders.searchMedia')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-12 pr-4 py-2.5 bg-muted/50 border-0 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:bg-card transition-all"
@@ -1977,7 +1979,7 @@ export function MediaManagement({ onNavigate }: MediaManagementProps = {}) {
                                   <button 
                                     onClick={() => handleDelete([file.id])}
                                     className="p-2 hover:bg-red-50 text-red-600 rounded-lg transition-colors" 
-                                    title="Xóa"
+                                    title={t('tooltips.delete')}
                                   >
                                     <Trash2 className="w-4 h-4" />
                                   </button>
@@ -2522,14 +2524,14 @@ export function MediaManagement({ onNavigate }: MediaManagementProps = {}) {
                     value={advancedFilters.dateFrom}
                     onChange={(e) => handleAdvancedFilterChange('dateFrom', e.target.value)}
                     className="w-full px-3 py-2 bg-muted/50 border border-border/60 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20"
-                    placeholder="Từ ngày"
+                    placeholder={t('placeholders.dateFrom')}
                   />
                   <input
                     type="date"
                     value={advancedFilters.dateTo}
                     onChange={(e) => handleAdvancedFilterChange('dateTo', e.target.value)}
                     className="w-full px-3 py-2 bg-muted/50 border border-border/60 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20"
-                    placeholder="Đến ngày"
+                    placeholder={t('placeholders.dateTo')}
                   />
                 </div>
               </div>
@@ -2543,14 +2545,14 @@ export function MediaManagement({ onNavigate }: MediaManagementProps = {}) {
                     value={advancedFilters.sizeMin}
                     onChange={(e) => handleAdvancedFilterChange('sizeMin', e.target.value)}
                     className="px-3 py-2 bg-muted/50 border border-border/60 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20"
-                    placeholder="Min"
+                    placeholder={t('placeholders.sizeMin')}
                   />
                   <input
                     type="number"
                     value={advancedFilters.sizeMax}
                     onChange={(e) => handleAdvancedFilterChange('sizeMax', e.target.value)}
                     className="px-3 py-2 bg-muted/50 border border-border/60 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20"
-                    placeholder="Max"
+                    placeholder={t('placeholders.sizeMax')}
                   />
                 </div>
               </div>
@@ -2581,7 +2583,7 @@ export function MediaManagement({ onNavigate }: MediaManagementProps = {}) {
                   value={advancedFilters.uploader}
                   onChange={(e) => handleAdvancedFilterChange('uploader', e.target.value)}
                   className="w-full px-3 py-2 bg-muted/50 border border-border/60 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20"
-                  placeholder="Tên người upload..."
+                  placeholder={t('placeholders.uploaderName')}
                 />
               </div>
 
@@ -3001,13 +3003,13 @@ export function MediaManagement({ onNavigate }: MediaManagementProps = {}) {
 
               <div>
                 <label className="block text-sm font-medium mb-2">Mô tả</label>
-                <textarea value={editForm.description} onChange={(e) => setEditForm(prev => ({ ...prev, description: e.target.value }))} rows={4} className="w-full px-4 py-3 bg-secondary border border-border/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 resize-none" placeholder="Nhập mô tả cho file..." />
+                <textarea value={editForm.description} onChange={(e) => setEditForm(prev => ({ ...prev, description: e.target.value }))} rows={4} className="w-full px-4 py-3 bg-secondary border border-border/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 resize-none" placeholder={t('placeholders.fileDescription')} />
               </div>
 
               <div>
                 <label className="block text-sm font-medium mb-2">Tags</label>
                 <div className="flex gap-2 mb-3">
-                  <input type="text" value={newTag} onChange={(e) => setNewTag(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleAddTag()} placeholder="Nhập tag mới..." className="flex-1 px-4 py-2.5 bg-secondary border border-border/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20" />
+                  <input type="text" value={newTag} onChange={(e) => setNewTag(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleAddTag()} placeholder={t('placeholders.addNewTag')} className="flex-1 px-4 py-2.5 bg-secondary border border-border/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20" />
                   <button onClick={handleAddTag} className="px-4 py-2.5 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition-colors flex items-center gap-2">
                     <Plus className="w-4 h-4" />
                     Thêm

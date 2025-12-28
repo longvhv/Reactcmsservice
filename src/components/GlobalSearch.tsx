@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Search as SearchIcon, FileText, Video, Image, User, Calendar, TrendingUp, Filter, X, Clock } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface SearchResult {
   id: number;
@@ -12,6 +13,7 @@ interface SearchResult {
 }
 
 export function GlobalSearch() {
+  const { t } = useLanguage();
   const [query, setQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState<'all' | 'articles' | 'users' | 'media'>('all');
@@ -52,7 +54,7 @@ export function GlobalSearch() {
         <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors" />
         <input
           type="text"
-          placeholder="Tìm kiếm... (⌘K)"
+          placeholder={t('placeholders.searchCommand')}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => setIsOpen(true)}

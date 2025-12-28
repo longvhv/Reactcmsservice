@@ -7,8 +7,10 @@ import { Card } from './Card';
 import { PageWrapper } from './PageWrapper';
 import { PageHeader } from './PageHeader';
 import { ArticleListView, Article } from './ArticleListView';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export function AdvancedSearch({ onNavigate }: { onNavigate: (page: any) => void }) {
+  const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
   const [showFilters, setShowFilters] = useState(true);
   const [filters, setFilters] = useState({
@@ -411,7 +413,7 @@ export function AdvancedSearch({ onNavigate }: { onNavigate: (page: any) => void
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <input
                   type="text"
-                  placeholder="Tìm kiếm theo tiêu đề, nội dung, tác giả..."
+                  placeholder={t('placeholders.searchAdvanced')}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full pl-11 pr-4 py-3 bg-secondary border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 text-base"

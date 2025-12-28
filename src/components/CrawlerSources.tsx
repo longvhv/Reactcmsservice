@@ -19,6 +19,7 @@ import {
   Download,
   Activity
 } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface Source {
   id: string;
@@ -42,6 +43,7 @@ const showNotification = (message: string, type: 'success' | 'error' | 'info' = 
 };
 
 export function CrawlerSources() {
+  const { t } = useLanguage();
   const [sources, setSources] = useState<Source[]>([
     {
       id: '1',
@@ -312,7 +314,7 @@ export function CrawlerSources() {
             <BarChart3 className="w-5 h-5 text-blue-600" />
           </div>
           <p className="text-3xl font-bold">{totalArticles.toLocaleString()}</p>
-          <p className="text-xs text-green-600 mt-1 flex items-center gap-1">
+          <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
             <Activity className="w-3 h-3" />
             +127 hôm nay
           </p>
@@ -352,7 +354,7 @@ export function CrawlerSources() {
                 type="search"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Tìm kiếm nguồn..."
+                placeholder={t('placeholders.searchCrawler')}
                 className="w-full pl-10 pr-4 py-2 bg-secondary border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500/20"
               />
             </div>

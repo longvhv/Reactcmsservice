@@ -5,6 +5,7 @@ import { PageHeader } from './PageHeader';
 import { Card } from './Card';
 import { PermissionGroupFormModal } from './PermissionGroupFormModal';
 import { PermissionGroupDetail } from './PermissionGroupDetail';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface PermissionGroupsProps {
   onNavigate?: (page: any) => void;
@@ -21,6 +22,7 @@ interface PermissionGroup {
 }
 
 export function PermissionGroups({ onNavigate }: PermissionGroupsProps) {
+  const { t } = useLanguage();
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [editingGroup, setEditingGroup] = useState<PermissionGroup | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -112,7 +114,7 @@ export function PermissionGroups({ onNavigate }: PermissionGroupsProps) {
 
   const handleDeleteGroup = (id: number) => {
     const group = permissionGroups.find(g => g.id === id);
-    if (group && confirm(`Bạn có chắc chắn muốn xóa nhóm quyền "${group.name}"?`)) {
+    if (group && confirm(t('confirmations.deletePermissionGroup', { name: group.name }))) {
       setPermissionGroups(prev => prev.filter(g => g.id !== id));
     }
   };
@@ -192,7 +194,7 @@ export function PermissionGroups({ onNavigate }: PermissionGroupsProps) {
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Tìm kiếm nhóm quyền..."
+              placeholder={t('permissions.searchPlaceholder')}
               className="w-full pl-10 pr-4 py-2.5 bg-secondary border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
             />
           </div>
@@ -249,14 +251,14 @@ export function PermissionGroups({ onNavigate }: PermissionGroupsProps) {
                   <button
                     onClick={() => handleEditGroup(group.id)}
                     className="p-2 hover:bg-purple-100 dark:hover:bg-purple-900/30 text-purple-600 rounded-lg transition-colors"
-                    title="Chỉnh sửa"
+                    title="Chỉnh sa"
                   >
                     <Edit2 className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => handleDeleteGroup(group.id)}
                     className="p-2 hover:bg-red-100 dark:hover:bg-red-900/30 text-red-600 rounded-lg transition-colors"
-                    title="Xóa"
+                    title={t('tooltips.delete')}
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>

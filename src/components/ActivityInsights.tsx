@@ -3,6 +3,7 @@ import {
   Sparkles, TrendingUp, AlertTriangle, CheckCircle, Info, 
   Brain, Target, Clock, Users, Zap, Shield, Activity
 } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface Insight {
   id: string;
@@ -25,6 +26,7 @@ interface ActivityInsightsProps {
 }
 
 export function ActivityInsights({ onClose }: ActivityInsightsProps) {
+  const { t } = useLanguage();
   const insights: Insight[] = [
     {
       id: '1',

@@ -3,8 +3,10 @@ import { BarChart3, TrendingUp, Users, Eye, Calendar, Download, Filter, ArrowUp,
 import { PageWrapper } from './PageWrapper';
 import { PageHeader } from './PageHeader';
 import { Card } from './Card';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export function StatsAnalytics() {
+  const { t } = useLanguage();
   const [dateRange, setDateRange] = useState('7days');
   const [selectedMetric, setSelectedMetric] = useState('all');
 

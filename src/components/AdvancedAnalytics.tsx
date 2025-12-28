@@ -6,6 +6,7 @@ import {
   ArrowUp, ArrowDown, Minus, Zap, Target, Award
 } from 'lucide-react';
 import { motion } from 'motion/react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface AnalyticsData {
   overview: {
@@ -115,6 +116,8 @@ export function AdvancedAnalytics() {
   };
 
   const maxViews = Math.max(...analytics.timeSeriesData.map(d => d.views));
+
+  const { t } = useLanguage();
 
   return (
     <div className="space-y-6">

@@ -7,6 +7,7 @@ import {
 import { PageWrapper } from './PageWrapper';
 import { PageHeader } from './PageHeader';
 import { Card } from './Card';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface PermissionGroupDetailProps {
   groupId?: number;
@@ -53,6 +54,7 @@ export function PermissionGroupDetail({
   onEdit,
   onDelete 
 }: PermissionGroupDetailProps) {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState<'overview' | 'members' | 'permissions' | 'settings'>('overview');
   const [selectedMembers, setSelectedMembers] = useState<number[]>([]);
 
@@ -129,14 +131,14 @@ export function PermissionGroupDetail({
   };
 
   const handleDelete = () => {
-    if (confirm(`Bạn có chắc chắn muốn xóa nhóm quyền "${group.name}"? Tất cả thành viên sẽ mất quyền truy cập này.`)) {
+    if (confirm(t('confirmations.deletePermissionGroupWithMembers', { name: group.name }))) {
       onDelete?.(groupId);
       onBack();
     }
   };
 
   const handleRemoveMember = (memberId: number) => {
-    if (confirm('Bạn có chắc chắn muốn xóa thành viên này khỏi nhóm?')) {
+    if (confirm(t('confirmations.removeMember'))) {
       console.log('Remove member:', memberId);
     }
   };

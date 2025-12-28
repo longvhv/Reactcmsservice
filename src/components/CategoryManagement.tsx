@@ -10,6 +10,7 @@ import { PageHeader } from './PageHeader';
 import { Card } from './Card';
 import { CategoryFormModal } from './CategoryFormModal';
 import { CategoryDetail } from './CategoryDetail';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface CategoryManagementProps {
   onNavigate: (page: any) => void;
@@ -56,6 +57,8 @@ function CategoryItem({
   onViewDetail: (id: number) => void;
   onMove: (dragId: number, hoverId: number) => void;
 }) {
+  // Get translation function from context
+  const { t } = useLanguage();
   const hasChildren = category.children && category.children.length > 0;
   const isExpanded = expandedCategories.includes(category.id);
 
@@ -202,7 +205,7 @@ function CategoryItem({
           <button
             onClick={() => onDelete(category.id)}
             className="p-2 hover:bg-red-100 dark:hover:bg-red-900/30 text-red-600 rounded-lg transition-colors"
-            title="Xóa"
+            title={t('tooltips.delete')}
           >
             <Trash2 className="w-4 h-4" />
           </button>
@@ -233,6 +236,7 @@ function CategoryItem({
 }
 
 export function CategoryManagement({ onNavigate }: CategoryManagementProps) {
+  const { t } = useLanguage();
   const [expandedCategories, setExpandedCategories] = useState<number[]>([1, 2]);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
@@ -356,7 +360,7 @@ export function CategoryManagement({ onNavigate }: CategoryManagementProps) {
   };
 
   const deleteCategory = (id: number) => {
-    if (confirm('Bạn có chắc chắn muốn xóa danh mục này?')) {
+    if (confirm(t('confirmations.deleteCategory'))) {
       setCategories(prev => {
         const removeCategory = (cats: Category[]): Category[] => {
           return cats.filter(cat => {
@@ -493,8 +497,8 @@ export function CategoryManagement({ onNavigate }: CategoryManagementProps) {
     <DndProvider backend={HTML5Backend}>
       <PageWrapper>
         <PageHeader
-          title="Quản lý danh mục"
-          description="Tổ chức và quản lý danh mục bài viết theo cấu trúc cây"
+          title={t('categories.title')}
+          description={t('categories.noCategories')}
           action={
             <button
               onClick={() => {
@@ -504,7 +508,7 @@ export function CategoryManagement({ onNavigate }: CategoryManagementProps) {
               className="px-4 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:shadow-lg hover:shadow-blue-500/20 transition-all flex items-center gap-2"
             >
               <Plus className="w-4 h-4" />
-              Thêm danh mục
+              {t('categories.createNew')}
             </button>
           }
         />
@@ -518,7 +522,7 @@ export function CategoryManagement({ onNavigate }: CategoryManagementProps) {
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Tìm kiếm danh mục..."
+                placeholder={t('search.placeholder')}
                 className="w-full pl-10 pr-4 py-2.5 bg-secondary border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
               />
             </div>

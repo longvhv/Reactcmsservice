@@ -1,6 +1,7 @@
 // Toast Notification System
 import { CheckCircle, XCircle, AlertCircle, Info, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface Toast {
   id: number;

@@ -31,6 +31,8 @@ import { ActivityTimeline } from './components/ActivityTimeline';
 import { AnalyticsDashboard } from './components/AnalyticsDashboard';
 import { AITools } from './components/AITools';
 import { ErrorBoundary } from './components/ErrorBoundary';
+import { LanguageProvider } from './contexts/LanguageContext';
+import { I18nTestSuite } from './components/I18nTestSuite';
 
 type PageState = 
   | { page: 'dashboard' }
@@ -58,7 +60,8 @@ type PageState =
   | { page: 'workflow-manager' }
   | { page: 'activity-log' }
   | { page: 'analytics' }
-  | { page: 'ai-tools' };
+  | { page: 'ai-tools' }
+  | { page: 'i18n-test' };
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<PageState>({ page: 'dashboard' });
@@ -87,7 +90,8 @@ export default function App() {
       case 'event-stream-detail':
         return <EventStreamDetailEnhanced streamId={currentPage.id} onNavigate={setCurrentPage} />;
       case 'media':
-        return <MediaManagement onNavigate={setCurrentPage} />;
+        // Media is handled separately as fullscreen below
+        return null;
       case 'crawler':
         // Handle crawler submenu routing
         if (currentPage.subPage === 'campaigns') {
@@ -118,7 +122,7 @@ export default function App() {
       case 'approval-dashboard':
         return <ApprovalDashboard />;
       case 'content-moderation':
-        return <ContentModeration />;
+        return <ContentModeration onNavigate={setCurrentPage} />;
       case 'advanced-search':
         return <AdvancedSearch onNavigate={setCurrentPage} />;
       case 'workflow-manager':
@@ -129,6 +133,8 @@ export default function App() {
         return <AnalyticsDashboard onNavigate={setCurrentPage} />;
       case 'ai-tools':
         return <AITools onNavigate={setCurrentPage} />;
+      case 'i18n-test':
+        return <I18nTestSuite />;
       default:
         return <Dashboard onNavigate={setCurrentPage} />;
     }
@@ -137,31 +143,35 @@ export default function App() {
   // Fullscreen pages without sidebar/header
   if (currentPage.page === 'media') {
     return (
-      <ErrorBoundary>
-        <MediaManagement onNavigate={setCurrentPage} />
-      </ErrorBoundary>
+      <LanguageProvider>
+        <ErrorBoundary>
+          <MediaManagement onNavigate={setCurrentPage} />
+        </ErrorBoundary>
+      </LanguageProvider>
     );
   }
 
   return (
-    <div className="flex h-screen bg-background gradient-mesh">
-      <Sidebar 
-        currentPage={currentPage} 
-        onPageChange={(page) => setCurrentPage(typeof page === 'string' ? { page: page as any } : page)}
-        isCollapsed={sidebarCollapsed}
-        onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
-      />
-      <div className={`flex-1 flex flex-col overflow-hidden transition-all duration-300 ${sidebarCollapsed ? 'ml-20' : 'ml-72'}`}>
-        <Header 
-          onToggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)} 
-          onNavigate={setCurrentPage}
+    <LanguageProvider>
+      <div className="flex h-screen bg-background gradient-mesh">
+        <Sidebar 
+          currentPage={currentPage} 
+          onPageChange={(page) => setCurrentPage(typeof page === 'string' ? { page: page as any } : page)}
+          isCollapsed={sidebarCollapsed}
+          onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
         />
-        <main className="flex-1 overflow-y-auto">
-          <ErrorBoundary>
-            {renderPage()}
-          </ErrorBoundary>
-        </main>
+        <div className={`flex-1 flex flex-col overflow-hidden transition-all duration-300 ${sidebarCollapsed ? 'ml-20' : 'ml-72'}`}>
+          <Header 
+            onToggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)} 
+            onNavigate={setCurrentPage}
+          />
+          <main className="flex-1 overflow-y-auto">
+            <ErrorBoundary>
+              {renderPage()}
+            </ErrorBoundary>
+          </main>
+        </div>
       </div>
-    </div>
+    </LanguageProvider>
   );
 }

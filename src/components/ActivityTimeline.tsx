@@ -15,6 +15,7 @@ import { ActivityAnalytics } from './ActivityAnalytics';
 import { ActivityExport } from './ActivityExport';
 import { ActivityComparison } from './ActivityComparison';
 import { ActivityInsights } from './ActivityInsights';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface ActivityEvent {
   id: string;
@@ -160,7 +161,7 @@ export function ActivityTimeline() {
       entity: 'article',
       entityId: 'art-002',
       title: 'Cập nhật bài viết "TypeScript Best Practices"',
-      description: 'Chỉnh sửa nội dung và thêm ví dụ mới',
+      description: 'Chỉnh sửa ni dung và thêm ví dụ mới',
       user: {
         id: 'u2',
         name: 'Trần Thị B',
@@ -766,7 +767,7 @@ export function ActivityTimeline() {
                     type="search"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    placeholder="Tìm kiếm sự kiện..."
+                    placeholder={t('placeholders.searchEvents')}
                     className="w-full pl-10 pr-4 py-3 bg-secondary border border-border/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
                   />
                 </div>

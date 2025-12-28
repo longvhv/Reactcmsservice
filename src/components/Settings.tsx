@@ -3,18 +3,20 @@ import { Settings as SettingsIcon, Globe, Bell, Shield, Palette, Database, Mail,
 import { PageWrapper } from './PageWrapper';
 import { PageHeader } from './PageHeader';
 import { Card } from './Card';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export function Settings() {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState('general');
 
   const tabs = [
-    { id: 'general', label: 'Cài đặt chung', icon: SettingsIcon },
-    { id: 'appearance', label: 'Giao diện', icon: Palette },
-    { id: 'notifications', label: 'Thông báo', icon: Bell },
-    { id: 'security', label: 'Bảo mật', icon: Shield },
-    { id: 'email', label: 'Email', icon: Mail },
-    { id: 'api', label: 'API & Webhooks', icon: Code },
-    { id: 'database', label: 'Database', icon: Database },
+    { id: 'general', label: t('settings.general'), icon: SettingsIcon },
+    { id: 'appearance', label: t('settings.appearance'), icon: Palette },
+    { id: 'notifications', label: t('settings.notifications'), icon: Bell },
+    { id: 'security', label: t('settings.security'), icon: Shield },
+    { id: 'email', label: t('settings.email'), icon: Mail },
+    { id: 'api', label: t('settings.api_webhooks'), icon: Code },
+    { id: 'database', label: t('settings.database'), icon: Database },
   ];
 
   return (

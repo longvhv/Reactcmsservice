@@ -2,6 +2,8 @@ import { Search, Command, Bell, Settings, User, LogOut, HelpCircle, Moon, Sun, M
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { NotificationCenter } from './NotificationCenter';
+import { LanguageSwitcher } from './LanguageSwitcher';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface HeaderProps {
   onToggleSidebar?: () => void;
@@ -9,6 +11,7 @@ interface HeaderProps {
 }
 
 export function Header({ onToggleSidebar, onNavigate }: HeaderProps) {
+  const { t } = useLanguage();
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
@@ -33,23 +36,23 @@ export function Header({ onToggleSidebar, onNavigate }: HeaderProps) {
   }, []);
 
   const notifications = [
-    { id: 1, type: 'comment', message: '5 bình luận mới cần duyệt', time: '5 phút trước', unread: true, icon: MessageSquare, color: 'blue' },
-    { id: 2, type: 'approval', message: '3 bài viết chờ phê duyệt', time: '1 giờ trước', unread: true, icon: CheckCircle, color: 'green' },
-    { id: 3, type: 'crawler', message: 'Crawler thu thập 15 bài mới', time: '2 giờ trước', unread: false, icon: Zap, color: 'purple' },
-    { id: 4, type: 'system', message: 'Backup hoàn tất thành công', time: '3 giờ trước', unread: false, icon: CheckCircle, color: 'gray' },
+    { id: 1, type: 'comment', message: t('header.newComments', { count: 5 }), time: t('header.minutesAgo', { count: 5 }), unread: true, icon: MessageSquare, color: 'blue' },
+    { id: 2, type: 'approval', message: t('header.pendingApproval', { count: 3 }), time: t('header.hoursAgo', { count: 1 }), unread: true, icon: CheckCircle, color: 'green' },
+    { id: 3, type: 'crawler', message: t('header.crawlerCollected', { count: 15 }), time: t('header.hoursAgo', { count: 2 }), unread: false, icon: Zap, color: 'purple' },
+    { id: 4, type: 'system', message: t('header.backupComplete'), time: t('header.hoursAgo', { count: 3 }), unread: false, icon: CheckCircle, color: 'gray' },
   ];
 
   const recentSearches = [
-    { query: 'Bài viết về AI', type: 'Bài viết' },
-    { query: 'Video hướng dẫn React', type: 'Media' },
-    { query: 'Thư viện ảnh 2024', type: 'Gallery' },
+    { query: t('header.recentSearch1.query'), type: t('header.recentSearch1.type') },
+    { query: t('header.recentSearch2.query'), type: t('header.recentSearch2.type') },
+    { query: t('header.recentSearch3.query'), type: t('header.recentSearch3.type') },
   ];
 
   const quickActions = [
-    { label: 'Tạo bài viết mới', shortcut: '⌘N', icon: Plus, color: 'blue' },
-    { label: 'Upload media', shortcut: '⌘U', icon: Upload, color: 'purple' },
-    { label: 'Xem thống kê', shortcut: '⌘S', icon: TrendingUp, color: 'green' },
-    { label: 'Quản lý danh mục', shortcut: '⌘D', icon: Layout, color: 'orange' },
+    { label: t('header.createArticle'), shortcut: '⌘N', icon: Plus, color: 'blue' },
+    { label: t('header.uploadMedia'), shortcut: '⌘U', icon: Upload, color: 'purple' },
+    { label: t('header.viewStats'), shortcut: '⌘S', icon: TrendingUp, color: 'green' },
+    { label: t('header.manageCategories'), shortcut: '⌘D', icon: Layout, color: 'orange' },
   ];
 
   const unreadCount = notifications.filter(n => n.unread).length;
@@ -72,7 +75,7 @@ export function Header({ onToggleSidebar, onNavigate }: HeaderProps) {
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Tìm kiếm nhanh..."
+                  placeholder={t('search.placeholder')}
                   onFocus={() => setShowSearch(true)}
                   onBlur={() => setTimeout(() => setShowSearch(false), 200)}
                   className="w-full pl-11 pr-24 py-2.5 bg-muted/40 border border-border/60 rounded-xl 
@@ -153,7 +156,7 @@ export function Header({ onToggleSidebar, onNavigate }: HeaderProps) {
             {/* Quick Action Button */}
             <button className="hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-200 active:scale-95 group">
               <Plus className="w-4 h-4 group-hover:rotate-90 transition-transform duration-200" />
-              <span className="text-sm font-medium">Tạo mới</span>
+              <span className="text-sm font-medium">{t('header.createNew')}</span>
             </button>
 
             {/* Divider */}
@@ -180,6 +183,9 @@ export function Header({ onToggleSidebar, onNavigate }: HeaderProps) {
 
             {/* Notifications with Enhanced Badge */}
             <NotificationCenter onNavigate={onNavigate} />
+
+            {/* Language Switcher - Compact version */}
+            <LanguageSwitcher variant="icon" />
 
             {/* Divider */}
             <div className="h-6 w-px bg-border/60 mx-1.5" />
@@ -241,6 +247,16 @@ export function Header({ onToggleSidebar, onNavigate }: HeaderProps) {
                       <Settings className="w-4 h-4 group-hover:rotate-90 transition-transform" />
                       <span>Cài đặt</span>
                     </button>
+                    <button 
+                      onClick={() => {
+                        onNavigate?.({ page: 'i18n-test' });
+                        setShowProfile(false);
+                      }}
+                      className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 text-blue-600 dark:text-blue-400 transition-all duration-200 text-sm group"
+                    >
+                      <HelpCircle className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                      <span>🧪 i18n Test Suite</span>
+                    </button>
                   </div>
 
                   <div className="border-t border-border/60 p-2">
@@ -268,7 +284,7 @@ export function Header({ onToggleSidebar, onNavigate }: HeaderProps) {
               <Search className="absolute left-7 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
               <input
                 type="text"
-                placeholder="Tìm kiếm lệnh..."
+                placeholder={t('placeholders.searchCommand')}
                 autoFocus
                 className="w-full pl-12 pr-12 py-3 bg-transparent border-none focus:outline-none text-foreground placeholder:text-muted-foreground"
               />

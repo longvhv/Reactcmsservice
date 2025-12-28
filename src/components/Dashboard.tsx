@@ -22,15 +22,17 @@ import {
   MessageSquare
 } from 'lucide-react';
 import { PageWrapper } from './PageWrapper';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface DashboardProps {
   onNavigate: (page: any) => void;
 }
 
 export function Dashboard({ onNavigate }: DashboardProps) {
+  const { t } = useLanguage();
   const stats = [
     { 
-      label: 'Tổng bài viết', 
+      label: t('dashboard.totalArticles'), 
       value: '2,543', 
       icon: FileText, 
       change: '+12.5%', 
@@ -39,7 +41,7 @@ export function Dashboard({ onNavigate }: DashboardProps) {
       gradient: 'from-blue-500 to-cyan-500'
     },
     { 
-      label: 'Lượt xem', 
+      label: t('dashboard.totalViews'), 
       value: '1.2M', 
       icon: Eye, 
       change: '+23.1%', 
@@ -48,7 +50,7 @@ export function Dashboard({ onNavigate }: DashboardProps) {
       gradient: 'from-green-500 to-emerald-500'
     },
     { 
-      label: 'Bình luận', 
+      label: t('dashboard.totalComments'), 
       value: '8,432', 
       icon: MessageSquare, 
       change: '+8.3%', 
@@ -57,7 +59,7 @@ export function Dashboard({ onNavigate }: DashboardProps) {
       gradient: 'from-purple-500 to-pink-500'
     },
     { 
-      label: 'Yêu thích', 
+      label: t('dashboard.totalLikes'), 
       value: '12.5K', 
       icon: Heart, 
       change: '+15.7%', 
@@ -76,11 +78,11 @@ export function Dashboard({ onNavigate }: DashboardProps) {
   ];
 
   const quickActions = [
-    { id: 1, icon: FileText, label: 'Bài viết mới', color: 'blue', action: () => onNavigate('articles') },
-    { id: 2, icon: Video, label: 'Video mới', color: 'red', action: () => onNavigate('articles') },
-    { id: 3, icon: Image, label: 'Gallery mới', color: 'purple', action: () => onNavigate('articles') },
-    { id: 4, icon: Briefcase, label: 'Tuyển dụng', color: 'green', action: () => onNavigate('articles') },
-    { id: 5, icon: Calendar, label: 'Sự kiện', color: 'orange', action: () => onNavigate('articles') },
+    { id: 1, icon: FileText, label: t('dashboard.createArticle'), color: 'blue', action: () => onNavigate('articles') },
+    { id: 2, icon: Video, label: t('articleTypes.video'), color: 'red', action: () => onNavigate('articles') },
+    { id: 3, icon: Image, label: t('articleTypes.gallery'), color: 'purple', action: () => onNavigate('articles') },
+    { id: 4, icon: Briefcase, label: t('articleTypes.job'), color: 'green', action: () => onNavigate('articles') },
+    { id: 5, icon: Calendar, label: t('articleTypes.event'), color: 'orange', action: () => onNavigate('articles') },
   ];
 
   const notifications = [
@@ -119,10 +121,10 @@ export function Dashboard({ onNavigate }: DashboardProps) {
 
   const getStatusLabel = (status: string) => {
     switch (status) {
-      case 'published': return 'Đã xuất bản';
-      case 'draft': return 'Nháp';
-      case 'review': return 'Chờ duyệt';
-      case 'scheduled': return 'Đã lên lịch';
+      case 'published': return t('status.published');
+      case 'draft': return t('status.draft');
+      case 'review': return t('status.review');
+      case 'scheduled': return t('status.scheduled');
       default: return status;
     }
   };
@@ -134,10 +136,10 @@ export function Dashboard({ onNavigate }: DashboardProps) {
         <div>
           <h1 className="text-foreground mb-2">
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Xin chào, Admin! 👋
+              {t('dashboard.welcome')}, Admin! 👋
             </span>
           </h1>
-          <p className="text-muted-foreground">Đây là tổng quan hệ thống CMS của bạn</p>
+          <p className="text-muted-foreground">{t('dashboard.overview')}</p>
         </div>
 
         {/* Real-time Indicator */}
@@ -147,7 +149,7 @@ export function Dashboard({ onNavigate }: DashboardProps) {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
             </span>
-            <span className="text-sm text-green-700 font-medium">Hệ thống hoạt đng tốt</span>
+            <span className="text-sm text-green-700 font-medium">{t('dashboard.systemHealthy')}</span>
           </div>
 
           <div className="flex items-center gap-2 px-4 py-2 bg-blue-100 border border-blue-200 rounded-xl">

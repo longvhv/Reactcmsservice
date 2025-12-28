@@ -4,6 +4,7 @@ import {
   Users, FileText, AlertCircle, BarChart3, PieChart,
   Calendar, Filter, Download, RefreshCw
 } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface ApprovalStats {
   pending: number;
@@ -28,6 +29,7 @@ interface ReviewerPerformance {
 }
 
 export function ApprovalDashboard() {
+  const { t } = useLanguage();
   const [timeRange, setTimeRange] = useState<'week' | 'month' | 'quarter'>('week');
 
   // Mock data

@@ -3,6 +3,7 @@ import { Search, Plus, Play, Pause, Trash2, Edit2, Globe, Clock, CheckCircle, XC
 import { PageWrapper } from './PageWrapper';
 import { PageHeader } from './PageHeader';
 import { Card } from './Card';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface CrawlerSource {
   id: number;
@@ -17,6 +18,7 @@ interface CrawlerSource {
 }
 
 export function CrawlerManagement() {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState<'sources' | 'history' | 'rules' | 'settings'>('sources');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
@@ -102,8 +104,8 @@ export function CrawlerManagement() {
     <PageWrapper>
       <div className="space-y-6">
         <PageHeader
-          title="Crawler Management"
-          description="Quản lý nguồn thu thập nội dung tự động"
+          title={t('crawler.title')}
+          description={t('crawler.articles')}
         />
 
         {/* Stats Cards */}
@@ -192,7 +194,7 @@ export function CrawlerManagement() {
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                     <input
                       type="text"
-                      placeholder="Tìm kiếm nguồn crawler..."
+                      placeholder={t('placeholders.searchCrawler')}
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       className="w-full pl-12 pr-4 py-3 border border-border/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50 transition-all duration-200"
@@ -296,7 +298,7 @@ export function CrawlerManagement() {
                               </button>
                               <button 
                                 className="p-2 hover:bg-red-100 text-red-600 rounded-lg transition-colors"
-                                title="Xóa"
+                                title={t('tooltips.delete')}
                               >
                                 <Trash2 className="w-4 h-4" />
                               </button>
@@ -318,7 +320,7 @@ export function CrawlerManagement() {
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                     <input
                       type="text"
-                      placeholder="Tìm kiếm lịch sử..."
+                      placeholder={t('placeholders.searchHistory')}
                       className="w-full pl-12 pr-4 py-3 border border-border/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all duration-200"
                     />
                   </div>
@@ -597,7 +599,7 @@ export function CrawlerManagement() {
                       <label className="block text-sm text-muted-foreground mb-2">Webhook URL (optional)</label>
                       <input
                         type="url"
-                        placeholder="https://hooks.slack.com/..."
+                        placeholder={t('placeholders.webhookUrl')}
                         className="w-full px-4 py-3 border border-border/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all duration-200"
                       />
                     </div>
@@ -628,7 +630,7 @@ export function CrawlerManagement() {
                   <label className="block text-sm text-muted-foreground mb-2">Tên nguồn *</label>
                   <input
                     type="text"
-                    placeholder="VD: VnExpress Technology"
+                    placeholder={t('placeholders.crawlerName')}
                     className="w-full px-4 py-3 border border-border/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all duration-200"
                   />
                 </div>
@@ -646,7 +648,7 @@ export function CrawlerManagement() {
                   <label className="block text-sm text-muted-foreground mb-2">URL *</label>
                   <input
                     type="url"
-                    placeholder="https://example.com/rss"
+                    placeholder={t('placeholders.rssUrl')}
                     className="w-full px-4 py-3 border border-border/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all duration-200"
                   />
                 </div>

@@ -1,4 +1,5 @@
 import { Loader2, Sparkles, Zap, TrendingUp } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 // Skeleton Loader Components
 export function SkeletonCard() {

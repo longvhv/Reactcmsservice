@@ -7,6 +7,7 @@ import {
 import { Card } from './Card';
 import { PageWrapper } from './PageWrapper';
 import { PageHeader } from './PageHeader';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface ActivityLog {
   id: string;
@@ -28,6 +29,7 @@ interface ActivityLog {
 }
 
 export function ActivityLog({ onNavigate }: { onNavigate: (page: any) => void }) {
+  const { t } = useLanguage();
   const [selectedAction, setSelectedAction] = useState<string>('all');
   const [selectedType, setSelectedType] = useState<string>('all');
   const [selectedUser, setSelectedUser] = useState<string>('all');
@@ -139,7 +141,7 @@ export function ActivityLog({ onNavigate }: { onNavigate: (page: any) => void })
         id: '104',
         name: 'Bài viết cũ không còn cần thiết',
       },
-      details: 'Xóa bài viết khỏi hệ thống',
+      details: 'Xóa bài viết kh���i hệ thống',
       timestamp: '2024-12-27 08:00:00',
       ipAddress: '192.168.1.100',
       userAgent: 'Chrome 120.0.0',
@@ -320,7 +322,7 @@ export function ActivityLog({ onNavigate }: { onNavigate: (page: any) => void })
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <input
               type="text"
-              placeholder="Tìm kiếm hoạt động..."
+              placeholder={t('placeholders.searchActivity')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-10 pr-4 py-2.5 bg-secondary border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"

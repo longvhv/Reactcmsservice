@@ -8,8 +8,10 @@ import { Card } from './Card';
 import { PageWrapper } from './PageWrapper';
 import { PageHeader } from './PageHeader';
 import { AreaChart, Area, BarChart, Bar, PieChart as RePieChart, Pie, Cell, LineChart as ReLineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export function AnalyticsDashboard({ onNavigate }: { onNavigate: (page: any) => void }) {
+  const { t } = useLanguage();
   const [timeRange, setTimeRange] = useState('7days');
   const [compareMode, setCompareMode] = useState(false);
 

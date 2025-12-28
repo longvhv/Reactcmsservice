@@ -1,4 +1,5 @@
 import { ReactNode, useState } from 'react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface TooltipProps {
   content: string;

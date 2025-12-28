@@ -5,6 +5,7 @@ import {
   CheckSquare, Sparkles, History, Tag, User
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 // Types
 export type ApprovalStatus = 'draft' | 'pending' | 'approved' | 'rejected' | 'published';
@@ -43,6 +44,7 @@ interface ApprovalWorkflowProps {
 }
 
 export function ApprovalWorkflow({ onApprove, onReject, onRequestChanges }: ApprovalWorkflowProps) {
+  const { t } = useLanguage();
   const [selectedTab, setSelectedTab] = useState<'pending' | 'approved' | 'rejected' | 'all'>('pending');
   const [selectedArticles, setSelectedArticles] = useState<string[]>([]);
   const [filterPriority, setFilterPriority] = useState<string>('all');

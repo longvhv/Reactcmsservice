@@ -22,6 +22,7 @@ import {
   RefreshCw
 } from 'lucide-react';
 import { LineChart, Line, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface CampaignDetailProps {
   campaignId: string;
@@ -58,6 +59,7 @@ const showNotification = (message: string, type: 'success' | 'error' | 'info' = 
 };
 
 export function CampaignDetail({ campaignId, onNavigate }: CampaignDetailProps) {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState<'overview' | 'sources' | 'articles'>('overview');
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');

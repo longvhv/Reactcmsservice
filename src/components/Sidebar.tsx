@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { LayoutDashboard, FileText, FolderTree, Image, Bot, BarChart3, Settings, Shield, ChevronDown, ChevronRight, Sparkles, Zap, Activity, Layers, Users, Calendar, Package, ArrowLeft, ArrowRight, CheckCircle, BookOpen, Clock, Wand2 } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface SidebarProps {
   currentPage: any;
@@ -9,48 +10,39 @@ interface SidebarProps {
 }
 
 export function Sidebar({ currentPage, onPageChange, isCollapsed = false, onToggleCollapse }: SidebarProps) {
+  const { t } = useLanguage();
   const [expandedMenus, setExpandedMenus] = useState<string[]>(['crawler']);
 
   const menuItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, badge: null },
-    { id: 'articles', label: 'Bài viết', icon: FileText, badge: '12' },
-    { id: 'categories', label: 'Danh mục', icon: FolderTree, badge: null },
-    { id: 'event-series', label: 'Dòng sự kiện', icon: Activity, badge: '4' },
-    { id: 'permissions', label: 'Nhóm quyền', icon: Shield, badge: null },
-    { id: 'ai-tools', label: 'AI Tools', icon: Wand2, badge: 'HOT' },
-    { id: 'media', label: 'Thư viện Media', icon: Image, badge: null },
-    { 
-      id: 'approval',
-      label: 'Kiểm duyệt',
-      icon: CheckCircle,
-      badge: '23',
-      submenu: [
-        { id: 'content-moderation', label: 'Kiểm duyệt tổng hợp', icon: Shield },
-        { id: 'approval-dashboard', label: 'Dashboard', icon: BarChart3 },
-        { id: 'approval-workflow', label: 'Xem xét & Duyệt', icon: CheckCircle },
-      ]
-    },
+    { id: 'dashboard', label: t('menu.dashboard'), icon: LayoutDashboard, badge: null },
+    { id: 'articles', label: t('menu.articles'), icon: FileText, badge: '12' },
+    { id: 'categories', label: t('menu.categories'), icon: FolderTree, badge: null },
+    { id: 'event-series', label: t('menu.eventSeries'), icon: Activity, badge: '4' },
+    { id: 'permissions', label: t('menu.permissions'), icon: Shield, badge: null },
+    { id: 'ai-tools', label: t('menu.aiTools'), icon: Wand2, badge: 'HOT' },
+    { id: 'media', label: t('menu.media'), icon: Image, badge: null },
+    { id: 'content-moderation', label: t('menu.moderation'), icon: CheckCircle, badge: '23' },
     { 
       id: 'crawler', 
-      label: 'Crawler', 
+      label: t('menu.crawler'), 
       icon: Bot,
       badge: 'NEW',
       submenu: [
-        { id: 'campaigns', label: 'Chiến dịch', icon: Package },
-        { id: 'sources', label: 'Nguồn thu thập', icon: Layers },
-        { id: 'crawled', label: 'Bài viết đã thu thập', icon: FileText },
-        { id: 'approved', label: 'Bài viết đã duyệt', icon: CheckCircle },
+        { id: 'campaigns', label: t('crawler.submenu.campaigns'), icon: Package },
+        { id: 'sources', label: t('crawler.submenu.sources'), icon: Layers },
+        { id: 'crawled', label: t('crawler.submenu.crawled'), icon: FileText },
+        { id: 'approved', label: t('crawler.submenu.approved'), icon: CheckCircle },
       ]
     },
-    { id: 'stats', label: 'Thống kê', icon: BarChart3, badge: null },
-    { id: 'activity', label: 'Nhật ký hoạt động', icon: Clock, badge: null },
+    { id: 'stats', label: t('menu.analytics'), icon: BarChart3, badge: null },
+    { id: 'activity', label: t('menu.activity'), icon: Clock, badge: null },
     { 
       id: 'settings', 
-      label: 'Cài đặt', 
+      label: t('menu.settings'), 
       icon: Settings,
       submenu: [
-        { id: 'config', label: 'Cấu hình CMS', icon: Settings },
-        { id: 'workflow', label: 'Luồng kiểm duyệt', icon: Activity },
+        { id: 'config', label: t('settings.title'), icon: Settings },
+        { id: 'workflow', label: t('workflow.title'), icon: Activity },
       ]
     },
   ];
@@ -189,18 +181,32 @@ export function Sidebar({ currentPage, onPageChange, isCollapsed = false, onTogg
                 <div className="ml-3 mt-1 space-y-0.5 animate-slide-in-top">
                   {item.submenu!.map((subItem) => {
                     const SubIcon = subItem.icon || FileText;
+                    // Special handling for approval submenu - each item is a separate page
+                    const isApprovalMenu = item.id === 'approval';
+                    const itemIsActive = isApprovalMenu 
+                      ? currentPage.page === subItem.id
+                      : isActive(item.id, subItem.id);
+                    
                     return (
                       <button
                         key={subItem.id}
-                        onClick={() => onPageChange({ page: item.id, subPage: subItem.id })}
+                        onClick={() => {
+                          if (isApprovalMenu) {
+                            // For approval menu, navigate to separate pages
+                            onPageChange({ page: subItem.id });
+                          } else {
+                            // For other menus, use subPage
+                            onPageChange({ page: item.id, subPage: subItem.id });
+                          }
+                        }}
                         className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 text-sm group relative overflow-hidden ${
-                          isActive(item.id, subItem.id)
+                          itemIsActive
                             ? 'bg-gradient-to-r from-blue-50 to-purple-50 text-blue-700 border border-blue-200/50'
                             : 'text-muted-foreground hover:bg-muted/40 hover:text-foreground'
                         }`}
                       >
                         {/* Active indicator */}
-                        {isActive(item.id, subItem.id) && (
+                        {itemIsActive && (
                           <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-gradient-to-b from-blue-500 to-purple-500 rounded-r-full" />
                         )}
                         

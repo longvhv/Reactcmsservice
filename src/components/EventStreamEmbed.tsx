@@ -6,6 +6,7 @@ import {
 import { Card } from './Card';
 import { PageWrapper } from './PageWrapper';
 import { PageHeader } from './PageHeader';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export function EventStreamEmbed({ streamId, streamName, streamColor }: { 
   streamId: string; 
@@ -86,7 +87,7 @@ export function EventStreamEmbed({ streamId, streamName, streamColor }: {
     {
       key: 'timeline',
       label: 'Timeline',
-      description: 'Hiển thị timeline đầy đủ với các bài viết',
+      description: 'Hiển thị timeline đầy đủ với các bài vi���t',
       icon: Layout,
     },
     {
@@ -116,6 +117,8 @@ export function EventStreamEmbed({ streamId, streamName, streamColor }: {
       default: return '100%';
     }
   };
+
+  const { t } = useLanguage();
 
   return (
     <PageWrapper>

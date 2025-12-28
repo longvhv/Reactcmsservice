@@ -6,12 +6,14 @@ import { PageHeader } from './PageHeader';
 import { ArticleListView, Article } from './ArticleListView';
 import { ArticleTableView } from './ArticleTableView';
 import { BulkOperations } from './BulkOperations';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface ArticleManagementProps {
   onNavigate: (page: any) => void;
 }
 
 export function ArticleManagement({ onNavigate }: ArticleManagementProps) {
+  const { t } = useLanguage();
   const [showEditor, setShowEditor] = useState(false);
   const [editingArticleId, setEditingArticleId] = useState<number | undefined>(undefined);
   const [selectedArticles, setSelectedArticles] = useState<number[]>([]);
@@ -182,7 +184,7 @@ export function ArticleManagement({ onNavigate }: ArticleManagementProps) {
   };
 
   const handleDelete = (id: number) => {
-    if (confirm('Bạn có chắc chắn muốn xóa bài viết này?')) {
+    if (confirm(t('confirmations.deleteArticle'))) {
       console.log('Delete article:', id);
       // Implement delete logic
     }
@@ -207,36 +209,40 @@ export function ArticleManagement({ onNavigate }: ArticleManagementProps) {
   });
 
   const articleTypes = [
-    { value: 'all', label: 'Tất cả loại' },
-    { value: 'news', label: 'Tin tức' },
-    { value: 'video', label: 'Video' },
-    { value: 'gallery', label: 'Thư viện ảnh' },
-    { value: 'legal', label: 'Văn bản pháp luật' },
-    { value: 'staff', label: 'Nhân sự' },
-    { value: 'job', label: 'Tuyển dụng' },
-    { value: 'podcast', label: 'Podcast' },
-    { value: 'event', label: 'Sự kiện' },
-    { value: 'download', label: 'Tải xuống' },
+    { value: 'all', label: t('common.all') },
+    { value: 'news', label: t('articleTypes.news') },
+    { value: 'video', label: t('articleTypes.video') },
+    { value: 'gallery', label: t('articleTypes.gallery') },
+    { value: 'legal', label: t('articleTypes.legal') },
+    { value: 'staff', label: t('articleTypes.staff') },
+    { value: 'job', label: t('articleTypes.job') },
+    { value: 'podcast', label: t('articleTypes.podcast') },
+    { value: 'event', label: t('articleTypes.event') },
+    { value: 'download', label: t('articleTypes.download') },
   ];
 
   const statusOptions = [
-    { value: 'all', label: 'Tất cả trạng thái' },
-    { value: 'published', label: 'Đã xuất bản' },
-    { value: 'draft', label: 'Nháp' },
-    { value: 'review', label: 'Chờ duyệt' },
-    { value: 'scheduled', label: 'Đã lên lịch' },
-    { value: 'archived', label: 'Đã lưu trữ' },
+    { value: 'all', label: t('common.all') },
+    { value: 'published', label: t('status.published') },
+    { value: 'draft', label: t('status.draft') },
+    { value: 'review', label: t('status.review') },
+    { value: 'scheduled', label: t('status.scheduled') },
+    { value: 'archived', label: t('status.archived') },
   ];
 
   if (showEditor) {
     return (
       <ArticleEditor
         articleId={editingArticleId}
-        onBack={() => {
+        onClose={() => {
           setShowEditor(false);
           setEditingArticleId(undefined);
         }}
-        onNavigate={onNavigate}
+        onSave={(data) => {
+          console.log('Article saved:', data);
+          setShowEditor(false);
+          setEditingArticleId(undefined);
+        }}
       />
     );
   }
@@ -244,8 +250,8 @@ export function ArticleManagement({ onNavigate }: ArticleManagementProps) {
   return (
     <PageWrapper>
       <PageHeader
-        title="Quản lý bài viết"
-        description="Quản lý tất cả các bài viết trên hệ thống"
+        title={t('articles.title')}
+        description={t('articles.searchPlaceholder')}
         action={
           <div className="flex items-center gap-3">
             {/* View Mode Toggle */}
@@ -257,7 +263,7 @@ export function ArticleManagement({ onNavigate }: ArticleManagementProps) {
                     ? 'bg-white shadow-sm text-blue-600'
                     : 'text-muted-foreground hover:text-foreground'
                 }`}
-                title="Dạng bảng"
+                title={t('articles.viewTable')}
               >
                 <Table className="w-4 h-4" />
               </button>
@@ -268,7 +274,7 @@ export function ArticleManagement({ onNavigate }: ArticleManagementProps) {
                     ? 'bg-white shadow-sm text-blue-600'
                     : 'text-muted-foreground hover:text-foreground'
                 }`}
-                title="Dạng danh sách"
+                title={t('articles.viewList')}
               >
                 <List className="w-4 h-4" />
               </button>
@@ -279,7 +285,7 @@ export function ArticleManagement({ onNavigate }: ArticleManagementProps) {
                     ? 'bg-white shadow-sm text-blue-600'
                     : 'text-muted-foreground hover:text-foreground'
                 }`}
-                title="Dạng lưới"
+                title={t('articles.viewGrid')}
               >
                 <LayoutGrid className="w-4 h-4" />
               </button>
@@ -290,14 +296,14 @@ export function ArticleManagement({ onNavigate }: ArticleManagementProps) {
               className="px-4 py-2.5 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl hover:shadow-lg hover:shadow-purple-500/20 transition-all flex items-center gap-2"
             >
               <Wand2 className="w-4 h-4" />
-              AI Tools
+              {t('aiTools.title')}
             </button>
             <button
               onClick={() => setShowEditor(true)}
               className="px-4 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:shadow-lg hover:shadow-blue-500/20 transition-all flex items-center gap-2"
             >
               <Plus className="w-4 h-4" />
-              Tạo bài viết mới
+              {t('articles.createNew')}
             </button>
           </div>
         }
@@ -320,10 +326,8 @@ export function ArticleManagement({ onNavigate }: ArticleManagementProps) {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <input
             type="text"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Tìm kiếm bài viết..."
-            className="w-full pl-10 pr-4 py-2.5 bg-card border border-border/60 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+            placeholder={t('placeholders.searchArticles')}
+            className="w-full pl-12 pr-4 py-3 bg-muted/50 border-0 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:bg-card transition-all"
           />
         </div>
 

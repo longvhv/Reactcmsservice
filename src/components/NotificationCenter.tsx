@@ -5,6 +5,7 @@ import {
   Star, TrendingUp, Calendar, Tag, Users
 } from 'lucide-react';
 import { Card } from './Card';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface Notification {
   id: string;
@@ -26,6 +27,7 @@ interface Notification {
 }
 
 export function NotificationCenter({ onNavigate }: { onNavigate?: (page: any) => void }) {
+  const { t } = useLanguage();
   const [showPanel, setShowPanel] = useState(false);
   const [filter, setFilter] = useState<'all' | 'unread' | 'read'>('all');
   const [notifications, setNotifications] = useState<Notification[]>([

@@ -11,6 +11,7 @@ import { PageWrapper } from './PageWrapper';
 import { PageHeader } from './PageHeader';
 import { Card } from './Card';
 import { ArticleListView, Article } from './ArticleListView';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface StreamArticle {
   id: string;
@@ -124,7 +125,7 @@ export function EventStreamDetailEnhanced({ streamId, onNavigate }: { streamId: 
       order: 2,
       title: 'AI Revolution: Xu hướng AI năm 2024',
       slug: 'ai-revolution-trends-2024',
-      excerpt: 'Phân tích sâu về các xu hướng AI đột phá sẽ định hình tương lai c��ng nghệ trong năm 2024.',
+      excerpt: 'Phân tích sâu về c��c xu hướng AI đột phá sẽ định hình tương lai cng nghệ trong năm 2024.',
       type: 'analysis',
       status: 'published',
       publishedAt: '2024-01-17',
@@ -222,7 +223,7 @@ export function EventStreamDetailEnhanced({ streamId, onNavigate }: { streamId: 
     {
       id: 'e2',
       type: 'article_added',
-      message: 'đã th��m bài viết mới "Interview CEO OpenAI"',
+      message: 'đã thm bài viết mới "Interview CEO OpenAI"',
       timestamp: '2024-01-20T11:20:00',
       user: { name: 'Trần Thị B', avatar: 'https://i.pravatar.cc/150?img=2' },
     },
@@ -309,6 +310,8 @@ export function EventStreamDetailEnhanced({ streamId, onNavigate }: { streamId: 
     };
     return colors[role as keyof typeof colors] || colors.viewer;
   };
+
+  const { t } = useLanguage();
 
   return (
     <PageWrapper>
@@ -675,7 +678,7 @@ export function EventStreamDetailEnhanced({ streamId, onNavigate }: { streamId: 
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                     <input
                       type="text"
-                      placeholder="Tìm kiếm bài viết..."
+                      placeholder={t('placeholders.searchArticles')}
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                       className="w-full pl-10 pr-4 py-2 bg-secondary border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"

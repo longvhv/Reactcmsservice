@@ -6,6 +6,7 @@ import {
   Check, X, ArrowUpDown, Filter, ArrowUp, ArrowDown, Columns, MoreHorizontal,
   Search, Table, List, LayoutGrid
 } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export interface Article {
   id: number;
@@ -232,6 +233,8 @@ export function ArticleTableView({
 
   const visibleColumns = columns.filter(c => c.visible);
 
+  const { t } = useLanguage();
+
   return (
     <div className="space-y-4">
       {/* Toolbar */}
@@ -239,7 +242,7 @@ export function ArticleTableView({
         <div className="flex items-center gap-2">
           {enableSelection && selectedArticles.length > 0 && (
             <div className="px-3 py-1.5 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-700">
-              Đã chọn {selectedArticles.length} bài viết
+              Đ�� chọn {selectedArticles.length} bài viết
             </div>
           )}
         </div>
@@ -356,7 +359,7 @@ export function ArticleTableView({
                   </th>
                 ))}
 
-                <th className="px-4 py-3 text-right w-24">
+                <th className="px-4 py-3 text-right w-24 sticky right-0 bg-muted/20 backdrop-blur-sm border-l border-border/60">
                   <span className="font-medium text-sm text-foreground">Thao tác</span>
                 </th>
               </tr>
@@ -509,7 +512,7 @@ export function ArticleTableView({
                       </td>
                     )}
 
-                    <td className="px-4 py-3">
+                    <td className="px-4 py-3 sticky right-0 bg-card backdrop-blur-sm border-l border-border/60 group-hover:bg-muted/20">
                       <div className="flex items-center justify-end gap-1">
                         <button
                           onClick={() => onEdit?.(article.id)}
@@ -521,7 +524,7 @@ export function ArticleTableView({
                         <button
                           onClick={() => onDelete?.(article.id)}
                           className="p-1.5 rounded-lg hover:bg-red-50 text-muted-foreground hover:text-red-600 transition-all duration-200"
-                          title="Xóa"
+                          title={t('tooltips.delete')}
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -529,7 +532,7 @@ export function ArticleTableView({
                           <button
                             onClick={() => setShowActionsMenu(showActionsMenu === article.id ? null : article.id)}
                             className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground transition-all duration-200"
-                            title="Thêm"
+                            title={t('tooltips.more')}
                           >
                             <MoreHorizontal className="w-4 h-4" />
                           </button>

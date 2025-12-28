@@ -21,6 +21,7 @@ import {
   Eye
 } from 'lucide-react';
 import { LineChart, Line, AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface SourceDetailProps {
   sourceId: string;
@@ -45,6 +46,7 @@ const showNotification = (message: string, type: 'success' | 'error' | 'info' = 
 };
 
 export function SourceDetail({ sourceId, campaignId, onNavigate }: SourceDetailProps) {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState<'overview' | 'articles'>('overview');
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');

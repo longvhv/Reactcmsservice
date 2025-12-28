@@ -5,6 +5,7 @@ import {
   Bell, BellOff, Check
 } from 'lucide-react';
 import { Card } from './Card';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface StreamArticle {
   id: string;
@@ -27,6 +28,7 @@ interface StreamArticle {
 }
 
 export function EventStreamPublicView({ streamSlug }: { streamSlug: string }) {
+  const { t } = useLanguage();
   const [selectedFilter, setSelectedFilter] = useState<'all' | 'recent' | 'popular'>('all');
   const [isFollowing, setIsFollowing] = useState(false);
   const [likedArticles, setLikedArticles] = useState<Set<string>>(new Set());
@@ -213,7 +215,7 @@ export function EventStreamPublicView({ streamSlug }: { streamSlug: string }) {
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
             <input
               type="text"
-              placeholder="Tìm kiếm trong dòng sự kiện..."
+              placeholder={t('placeholders.searchEventStream')}
               className="w-full pl-12 pr-4 py-3 bg-card border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
             />
           </div>

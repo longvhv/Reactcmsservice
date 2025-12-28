@@ -1,4 +1,5 @@
 import { ChevronRight, Home } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface BreadcrumbItem {
   label: string;
@@ -10,6 +11,8 @@ interface BreadcrumbProps {
 }
 
 export function Breadcrumb({ items }: BreadcrumbProps) {
+  const { t } = useLanguage();
+  
   return (
     <nav className="flex items-center gap-2 px-6 py-3 border-b border-border/40 bg-card/30 backdrop-blur-sm">
       <button 

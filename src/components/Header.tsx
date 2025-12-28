@@ -5,9 +5,10 @@ import { NotificationCenter } from './NotificationCenter';
 
 interface HeaderProps {
   onToggleSidebar?: () => void;
+  onNavigate?: (page: any) => void;
 }
 
-export function Header({ onToggleSidebar }: HeaderProps) {
+export function Header({ onToggleSidebar, onNavigate }: HeaderProps) {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
@@ -60,18 +61,8 @@ export function Header({ onToggleSidebar }: HeaderProps) {
         <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-blue-500/50 to-transparent" />
         
         <div className="flex items-center justify-between px-6 py-3.5">
-          {/* Left: Menu & Search */}
+          {/* Left: Search */}
           <div className="flex items-center gap-4 flex-1 max-w-2xl">
-            {/* Mobile Menu Toggle */}
-            {onToggleSidebar && (
-              <button 
-                onClick={onToggleSidebar}
-                className="p-2 rounded-xl hover:bg-muted/60 active:scale-95 transition-all duration-200 group"
-              >
-                <Menu className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors" />
-              </button>
-            )}
-
             {/* Global Search with Enhanced UI */}
             <div className="flex-1 relative">
               <div className="relative group">
@@ -188,7 +179,7 @@ export function Header({ onToggleSidebar }: HeaderProps) {
             </button>
 
             {/* Notifications with Enhanced Badge */}
-            <NotificationCenter />
+            <NotificationCenter onNavigate={onNavigate} />
 
             {/* Divider */}
             <div className="h-6 w-px bg-border/60 mx-1.5" />

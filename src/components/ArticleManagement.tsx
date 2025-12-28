@@ -1,33 +1,28 @@
 import { useState } from 'react';
-import { Plus, Search, Filter, Eye, Edit, Trash2, Globe, Calendar, User, MoreVertical, X, Wand2, Languages, CheckCircle } from 'lucide-react';
+import { Plus, Wand2, Table, LayoutGrid, List, Search, FileText, Video, Image as ImageIcon, File, Users, Briefcase, Mic, MapPin, Download } from 'lucide-react';
 import { ArticleEditor } from './ArticleEditor';
+import { PageWrapper } from './PageWrapper';
+import { PageHeader } from './PageHeader';
+import { ArticleListView, Article } from './ArticleListView';
+import { ArticleTableView } from './ArticleTableView';
+import { BulkOperations } from './BulkOperations';
 
 interface ArticleManagementProps {
   onNavigate: (page: any) => void;
 }
 
 export function ArticleManagement({ onNavigate }: ArticleManagementProps) {
-  const [showCreateModal, setShowCreateModal] = useState(false);
-  const [selectedType, setSelectedType] = useState('all');
-  const [selectedArticles, setSelectedArticles] = useState<number[]>([]);
-  const [showAIPanel, setShowAIPanel] = useState(false);
   const [showEditor, setShowEditor] = useState(false);
   const [editingArticleId, setEditingArticleId] = useState<number | undefined>(undefined);
+  const [selectedArticles, setSelectedArticles] = useState<number[]>([]);
+  const [viewMode, setViewMode] = useState<'table' | 'list' | 'grid'>('table');
+  
+  // Filter states
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedType, setSelectedType] = useState('all');
+  const [selectedStatus, setSelectedStatus] = useState('all');
 
-  const articleTypes = [
-    { value: 'all', label: 'Tất cả' },
-    { value: 'news', label: 'Tin tức' },
-    { value: 'video', label: 'Video' },
-    { value: 'gallery', label: 'Thư viện ảnh' },
-    { value: 'legal', label: 'Văn bản pháp luật' },
-    { value: 'staff', label: 'Nhân sự' },
-    { value: 'job', label: 'Tuyển dụng' },
-    { value: 'podcast', label: 'Podcast' },
-    { value: 'event', label: 'Sự kiện' },
-    { value: 'download', label: 'Tải xuống' },
-  ];
-
-  const articles = [
+  const articles: Article[] = [
     {
       id: 1,
       title: 'Hướng dẫn sử dụng CMS Platform mới',
@@ -39,6 +34,8 @@ export function ArticleManagement({ onNavigate }: ArticleManagementProps) {
       comments: 45,
       publishDate: '2024-12-26 10:30',
       updatedDate: '2024-12-26 14:20',
+      thumbnail: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop',
+      excerpt: 'Hướng dẫn chi tiết về cách sử dụng CMS Platform cho người mới bắt đầu',
       featured: true,
     },
     {
@@ -52,6 +49,8 @@ export function ArticleManagement({ onNavigate }: ArticleManagementProps) {
       comments: 67,
       publishDate: '2024-12-25 16:45',
       updatedDate: '2024-12-25 16:45',
+      thumbnail: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=250&fit=crop',
+      excerpt: 'Video hướng dẫn sử dụng tính năng AI Translation tự động',
       duration: '15:30',
       videoUrl: 'https://www.youtube.com/watch?v=example',
     },
@@ -66,6 +65,8 @@ export function ArticleManagement({ onNavigate }: ArticleManagementProps) {
       comments: 12,
       publishDate: '2024-12-25 09:00',
       updatedDate: '2024-12-25 15:30',
+      thumbnail: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=250&fit=crop',
+      excerpt: 'Bộ sưu tập hình ảnh từ sự kiện công nghệ lớn nhất năm',
       imageCount: 45,
     },
     {
@@ -73,12 +74,14 @@ export function ArticleManagement({ onNavigate }: ArticleManagementProps) {
       title: 'Quyết định 123/2024/QĐ-TTg về chuyển đổi số',
       type: 'legal',
       status: 'published',
-      category: 'Văn bản pháp luật',
+      category: 'Văn bn pháp luật',
       author: 'Phạm Thị D',
       views: 876,
       comments: 23,
       publishDate: '2024-12-24 08:00',
       updatedDate: '2024-12-24 14:15',
+      thumbnail: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400&h=250&fit=crop',
+      excerpt: 'Quyết định về chuyển đổi số trong cơ quan nhà nước',
       documentNumber: '123/2024/QĐ-TTg',
       issueDate: '2024-12-20',
       effectiveDate: '2025-01-01',
@@ -94,6 +97,8 @@ export function ArticleManagement({ onNavigate }: ArticleManagementProps) {
       comments: 89,
       publishDate: '2024-12-23 08:00',
       updatedDate: '2024-12-23 14:00',
+      thumbnail: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&h=250&fit=crop',
+      excerpt: 'Tuyển dụng vị trí Senior Full-stack Developer, mức lương hấp dẫn',
       position: 'Senior Full-stack Developer',
       salary: '25-35 triệu',
       location: 'Hà Nội',
@@ -110,6 +115,8 @@ export function ArticleManagement({ onNavigate }: ArticleManagementProps) {
       comments: 34,
       publishDate: '2024-12-22 10:00',
       updatedDate: '2024-12-22 10:00',
+      thumbnail: 'https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=400&h=250&fit=crop',
+      excerpt: 'Tập podcast về xu hướng công nghệ năm 2025',
       duration: '45:20',
       audioUrl: 'https://example.com/podcast.mp3',
       episode: 12,
@@ -125,6 +132,8 @@ export function ArticleManagement({ onNavigate }: ArticleManagementProps) {
       comments: 56,
       publishDate: '2024-12-21 09:00',
       updatedDate: '2024-12-21 15:30',
+      thumbnail: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=250&fit=crop',
+      excerpt: 'Workshop về ứng dụng AI trong phát triển phần mềm',
       eventDate: '2025-01-20',
       eventTime: '14:00 - 17:00',
       location: 'Tòa nhà VHV, Hà Nội',
@@ -142,6 +151,8 @@ export function ArticleManagement({ onNavigate }: ArticleManagementProps) {
       comments: 0,
       publishDate: '2024-12-20 08:00',
       updatedDate: '2024-12-20 08:00',
+      thumbnail: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=250&fit=crop',
+      excerpt: 'Hồ sơ thông tin nhân sự Nguyễn Thị H',
       position: 'Product Manager',
       department: 'Product Development',
       joinDate: '2023-06-15',
@@ -157,445 +168,226 @@ export function ArticleManagement({ onNavigate }: ArticleManagementProps) {
       comments: 23,
       publishDate: '2024-12-19 08:00',
       updatedDate: '2024-12-19 08:00',
+      thumbnail: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=400&h=250&fit=crop',
+      excerpt: 'Tài liệu PDF hướng dẫn chi tiết về CMS Platform',
       fileSize: '5.2 MB',
       fileType: 'PDF',
       downloadCount: 342,
     },
   ];
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'published': return 'bg-green-100 text-green-800';
-      case 'draft': return 'bg-gray-100 text-gray-800';
-      case 'review': return 'bg-yellow-100 text-yellow-800';
-      case 'scheduled': return 'bg-blue-100 text-blue-800';
-      case 'archived': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+  const handleEdit = (id: number) => {
+    setEditingArticleId(id);
+    setShowEditor(true);
+  };
+
+  const handleDelete = (id: number) => {
+    if (confirm('Bạn có chắc chắn muốn xóa bài viết này?')) {
+      console.log('Delete article:', id);
+      // Implement delete logic
     }
   };
 
-  const getStatusLabel = (status: string) => {
-    switch (status) {
-      case 'published': return 'Đã xuất bản';
-      case 'draft': return 'Nháp';
-      case 'review': return 'Chờ duyệt';
-      case 'scheduled': return 'Đã lên lịch';
-      case 'archived': return 'Đã lưu trữ';
-      default: return status;
-    }
+  const handleSelectionChange = (ids: number[]) => {
+    setSelectedArticles(ids);
   };
 
-  const getTypeLabel = (type: string) => {
-    const typeObj = articleTypes.find(t => t.value === type);
-    return typeObj?.label || type;
+  const handleBulkComplete = () => {
+    setSelectedArticles([]);
+    // Refresh data if needed
   };
 
-  const toggleSelectArticle = (id: number) => {
-    setSelectedArticles(prev =>
-      prev.includes(id) ? prev.filter(aid => aid !== id) : [...prev, id]
+  // Filter articles based on search term, type, and status
+  const filteredArticles = articles.filter(article => {
+    const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         article.author.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesType = selectedType === 'all' || article.type === selectedType;
+    const matchesStatus = selectedStatus === 'all' || article.status === selectedStatus;
+    return matchesSearch && matchesType && matchesStatus;
+  });
+
+  const articleTypes = [
+    { value: 'all', label: 'Tất cả loại' },
+    { value: 'news', label: 'Tin tức' },
+    { value: 'video', label: 'Video' },
+    { value: 'gallery', label: 'Thư viện ảnh' },
+    { value: 'legal', label: 'Văn bản pháp luật' },
+    { value: 'staff', label: 'Nhân sự' },
+    { value: 'job', label: 'Tuyển dụng' },
+    { value: 'podcast', label: 'Podcast' },
+    { value: 'event', label: 'Sự kiện' },
+    { value: 'download', label: 'Tải xuống' },
+  ];
+
+  const statusOptions = [
+    { value: 'all', label: 'Tất cả trạng thái' },
+    { value: 'published', label: 'Đã xuất bản' },
+    { value: 'draft', label: 'Nháp' },
+    { value: 'review', label: 'Chờ duyệt' },
+    { value: 'scheduled', label: 'Đã lên lịch' },
+    { value: 'archived', label: 'Đã lưu trữ' },
+  ];
+
+  if (showEditor) {
+    return (
+      <ArticleEditor
+        articleId={editingArticleId}
+        onBack={() => {
+          setShowEditor(false);
+          setEditingArticleId(undefined);
+        }}
+        onNavigate={onNavigate}
+      />
     );
-  };
-
-  const toggleSelectAll = () => {
-    if (selectedArticles.length === articles.length) {
-      setSelectedArticles([]);
-    } else {
-      setSelectedArticles(articles.map(a => a.id));
-    }
-  };
+  }
 
   return (
-    <div className="space-y-6 animate-in">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-foreground mb-1">Quản lý bài viết</h2>
-          <p className="text-muted-foreground">Quản lý và tổ chức nội dung</p>
-        </div>
-        <button
-          onClick={() => {
-            setEditingArticleId(undefined);
-            setShowEditor(true);
-          }}
-          className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-200"
-        >
-          <Plus className="w-5 h-5" />
-          <span>Tạo bài viết</span>
-        </button>
-      </div>
-
-      {/* Filters */}
-      <div className="bg-white rounded-lg border border-gray-200 p-4">
-        <div className="flex flex-wrap gap-4">
-          <div className="flex-1 min-w-64">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <input
-                type="text"
-                placeholder="Tìm kiếm bài viết..."
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+    <PageWrapper>
+      <PageHeader
+        title="Quản lý bài viết"
+        description="Quản lý tất cả các bài viết trên hệ thống"
+        action={
+          <div className="flex items-center gap-3">
+            {/* View Mode Toggle */}
+            <div className="flex items-center gap-1 p-1 bg-muted/40 rounded-xl border border-border/60">
+              <button
+                onClick={() => setViewMode('table')}
+                className={`p-2 rounded-lg transition-all duration-200 ${
+                  viewMode === 'table'
+                    ? 'bg-white shadow-sm text-blue-600'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+                title="Dạng bảng"
+              >
+                <Table className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => setViewMode('list')}
+                className={`p-2 rounded-lg transition-all duration-200 ${
+                  viewMode === 'list'
+                    ? 'bg-white shadow-sm text-blue-600'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+                title="Dạng danh sách"
+              >
+                <List className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => setViewMode('grid')}
+                className={`p-2 rounded-lg transition-all duration-200 ${
+                  viewMode === 'grid'
+                    ? 'bg-white shadow-sm text-blue-600'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+                title="Dạng lưới"
+              >
+                <LayoutGrid className="w-4 h-4" />
+              </button>
             </div>
+
+            <button
+              onClick={() => onNavigate({ page: 'ai-tools' })}
+              className="px-4 py-2.5 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl hover:shadow-lg hover:shadow-purple-500/20 transition-all flex items-center gap-2"
+            >
+              <Wand2 className="w-4 h-4" />
+              AI Tools
+            </button>
+            <button
+              onClick={() => setShowEditor(true)}
+              className="px-4 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:shadow-lg hover:shadow-blue-500/20 transition-all flex items-center gap-2"
+            >
+              <Plus className="w-4 h-4" />
+              Tạo bài viết mới
+            </button>
           </div>
-          
-          <select
-            value={selectedType}
-            onChange={(e) => setSelectedType(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            {articleTypes.map((type) => (
-              <option key={type.value} value={type.value}>
-                {type.label}
-              </option>
-            ))}
-          </select>
+        }
+      />
 
-          <select className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <option value="all">Tất cả trạng thái</option>
-            <option value="published">Đã xuất bản</option>
-            <option value="draft">Nháp</option>
-            <option value="review">Chờ duyệt</option>
-          </select>
-
-          <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
-            <Filter className="w-5 h-5" />
-            <span>Lọc nâng cao</span>
-          </button>
-        </div>
-      </div>
-
-      {/* Bulk Actions */}
+      {/* Bulk Operations */}
       {selectedArticles.length > 0 && (
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <div className="flex items-center justify-between">
-            <div className="text-blue-900">
-              Đã chọn {selectedArticles.length} bài viết
-            </div>
-            <div className="flex items-center gap-2">
-              <button className="px-3 py-1 bg-white border border-blue-300 text-blue-700 rounded-lg hover:bg-blue-50 transition-colors text-sm">
-                Xuất bản
-              </button>
-              <button className="px-3 py-1 bg-white border border-blue-300 text-blue-700 rounded-lg hover:bg-blue-50 transition-colors text-sm">
-                Lưu trữ
-              </button>
-              <button className="px-3 py-1 bg-white border border-red-300 text-red-700 rounded-lg hover:bg-red-50 transition-colors text-sm">
-                Xóa
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Articles Table */}
-      <div className="bg-white rounded-lg border border-gray-200">
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-gray-50 border-b border-gray-200">
-              <tr>
-                <th className="px-6 py-3 text-left">
-                  <input
-                    type="checkbox"
-                    checked={selectedArticles.length === articles.length}
-                    onChange={toggleSelectAll}
-                    className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                  />
-                </th>
-                <th className="px-6 py-3 text-left text-gray-700">Tiêu đề</th>
-                <th className="px-6 py-3 text-left text-gray-700">Loại</th>
-                <th className="px-6 py-3 text-left text-gray-700">Danh mục</th>
-                <th className="px-6 py-3 text-left text-gray-700">Tác giả</th>
-                <th className="px-6 py-3 text-left text-gray-700">Trạng thái</th>
-                <th className="px-6 py-3 text-left text-gray-700">Lượt xem</th>
-                <th className="px-6 py-3 text-left text-gray-700">Ngày xuất bản</th>
-                <th className="px-6 py-3 text-right text-gray-700">Thao tác</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {articles.map((article) => (
-                <tr key={article.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4">
-                    <input
-                      type="checkbox"
-                      checked={selectedArticles.includes(article.id)}
-                      onChange={() => toggleSelectArticle(article.id)}
-                      className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                    />
-                  </td>
-                  <td className="px-6 py-4">
-                    <button
-                      onClick={() => onNavigate({ page: 'article-detail', id: article.id })}
-                      className="text-gray-900 hover:text-blue-600 text-left"
-                    >
-                      {article.title}
-                    </button>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs">
-                      {getTypeLabel(article.type)}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 text-gray-700">{article.category}</td>
-                  <td className="px-6 py-4 text-gray-700">{article.author}</td>
-                  <td className="px-6 py-4">
-                    <span className={`px-2 py-1 rounded text-xs ${getStatusColor(article.status)}`}>
-                      {getStatusLabel(article.status)}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 text-gray-700">
-                    <div className="flex items-center gap-3">
-                      <div className="flex items-center gap-1">
-                        <Eye className="w-4 h-4 text-gray-400" />
-                        <span>{article.views}</span>
-                      </div>
-                      {article.comments > 0 && (
-                        <div className="flex items-center gap-1 text-gray-500">
-                          ({article.comments})
-                        </div>
-                      )}
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 text-gray-700 text-sm">
-                    {article.publishDate || '-'}
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center justify-end gap-2">
-                      <button
-                        onClick={() => onNavigate({ page: 'article-detail', id: article.id })}
-                        className="p-1 hover:bg-gray-200 rounded"
-                        title="Xem"
-                      >
-                        <Eye className="w-4 h-4 text-gray-600" />
-                      </button>
-                      <button className="p-1 hover:bg-blue-100 rounded" title="Sửa">
-                        <Edit className="w-4 h-4 text-blue-600" />
-                      </button>
-                      <button className="p-1 hover:bg-green-100 rounded" title="Xem trên web">
-                        <Globe className="w-4 h-4 text-green-600" />
-                      </button>
-                      <button className="p-1 hover:bg-gray-200 rounded" title="Thêm">
-                        <MoreVertical className="w-4 h-4 text-gray-600" />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        {/* Pagination */}
-        <div className="px-6 py-4 border-t border-gray-200 flex items-center justify-between">
-          <div className="text-sm text-gray-600">
-            Hiển thị 1-{articles.length} trong tổng số 234 bài viết
-          </div>
-          <div className="flex items-center gap-2">
-            <button className="px-3 py-1 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm">
-              Trước
-            </button>
-            <button className="px-3 py-1 bg-blue-600 text-white rounded-lg text-sm">1</button>
-            <button className="px-3 py-1 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm">2</button>
-            <button className="px-3 py-1 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm">3</button>
-            <button className="px-3 py-1 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm">
-              Sau
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Create/Edit Modal */}
-      {showCreateModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col">
-            <div className="p-6 border-b border-gray-200 flex items-center justify-between">
-              <h3 className="text-gray-900">Tạo bài viết mới</h3>
-              <button
-                onClick={() => setShowCreateModal(false)}
-                className="p-2 hover:bg-gray-100 rounded-lg"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-            
-            <div className="flex-1 overflow-y-auto p-6 space-y-6">
-              {/* Basic Info */}
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-gray-700 mb-2">Loại bài viết *</label>
-                  <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    {articleTypes.filter(t => t.value !== 'all').map((type) => (
-                      <option key={type.value} value={type.value}>
-                        {type.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                
-                <div>
-                  <label className="block text-gray-700 mb-2">Danh mục *</label>
-                  <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option>Công nghệ</option>
-                    <option>Kinh tế</option>
-                    <option>Xã hội</option>
-                  </select>
-                </div>
-              </div>
-              
-              <div>
-                <label className="block text-gray-700 mb-2">Tiêu đề *</label>
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    placeholder="Nhập tiêu đề bài viết..."
-                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                  <button
-                    onClick={() => setShowAIPanel(!showAIPanel)}
-                    className="flex items-center gap-2 px-4 py-2 border border-purple-300 text-purple-700 rounded-lg hover:bg-purple-50 transition-colors"
-                  >
-                    <Wand2 className="w-4 h-4" />
-                    <span>AI</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* AI Panel */}
-              {showAIPanel && (
-                <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
-                  <h4 className="text-gray-900 mb-3">Tính năng AI</h4>
-                  <div className="grid grid-cols-3 gap-3">
-                    <button className="flex items-center gap-2 px-3 py-2 bg-white border border-purple-200 rounded-lg hover:bg-purple-100 transition-colors text-sm">
-                      <CheckCircle className="w-4 h-4 text-purple-600" />
-                      <span>Kiểm tra chính tả</span>
-                    </button>
-                    <button className="flex items-center gap-2 px-3 py-2 bg-white border border-purple-200 rounded-lg hover:bg-purple-100 transition-colors text-sm">
-                      <Languages className="w-4 h-4 text-purple-600" />
-                      <span>Dịch bài viết</span>
-                    </button>
-                    <button className="flex items-center gap-2 px-3 py-2 bg-white border border-purple-200 rounded-lg hover:bg-purple-100 transition-colors text-sm">
-                      <Wand2 className="w-4 h-4 text-purple-600" />
-                      <span>Cải thiện nội dung</span>
-                    </button>
-                    <button className="flex items-center gap-2 px-3 py-2 bg-white border border-purple-200 rounded-lg hover:bg-purple-100 transition-colors text-sm">
-                      <CheckCircle className="w-4 h-4 text-purple-600" />
-                      <span>Phát hiện vi phạm</span>
-                    </button>
-                    <button className="flex items-center gap-2 px-3 py-2 bg-white border border-purple-200 rounded-lg hover:bg-purple-100 transition-colors text-sm">
-                      <Wand2 className="w-4 h-4 text-purple-600" />
-                      <span>Tạo tóm tắt</span>
-                    </button>
-                    <button className="flex items-center gap-2 px-3 py-2 bg-white border border-purple-200 rounded-lg hover:bg-purple-100 transition-colors text-sm">
-                      <Wand2 className="w-4 h-4 text-purple-600" />
-                      <span>Gợi ý tags</span>
-                    </button>
-                  </div>
-                </div>
-              )}
-              
-              <div>
-                <label className="block text-gray-700 mb-2">Mô tả ngắn</label>
-                <textarea
-                  placeholder="Nhập mô tả ngắn..."
-                  rows={3}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-gray-700 mb-2">Nội dung *</label>
-                <div className="border border-gray-300 rounded-lg">
-                  <div className="border-b border-gray-300 p-2 flex items-center gap-2 bg-gray-50">
-                    <button className="px-2 py-1 hover:bg-gray-200 rounded text-sm">B</button>
-                    <button className="px-2 py-1 hover:bg-gray-200 rounded text-sm italic">I</button>
-                    <button className="px-2 py-1 hover:bg-gray-200 rounded text-sm underline">U</button>
-                    <div className="w-px h-4 bg-gray-300" />
-                    <button className="px-2 py-1 hover:bg-gray-200 rounded text-sm">Link</button>
-                    <button className="px-2 py-1 hover:bg-gray-200 rounded text-sm">Image</button>
-                  </div>
-                  <textarea
-                    placeholder="Nhập nội dung bài viết..."
-                    rows={10}
-                    className="w-full px-4 py-2 focus:outline-none"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-gray-700 mb-2">Tags</label>
-                  <input
-                    type="text"
-                    placeholder="Nhập tags, ngăn cách bởi dấu phẩy"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-gray-700 mb-2">Lên lịch xuất bản</label>
-                  <input
-                    type="datetime-local"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-              </div>
-
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    id="featured"
-                    className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                  />
-                  <label htmlFor="featured" className="text-gray-700">
-                    Bài viết nổi bật
-                  </label>
-                </div>
-                
-                <div className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    id="comments"
-                    defaultChecked
-                    className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                  />
-                  <label htmlFor="comments" className="text-gray-700">
-                    Cho phép bình luận
-                  </label>
-                </div>
-              </div>
-            </div>
-            
-            <div className="p-6 border-t border-gray-200 flex items-center gap-3">
-              <button
-                onClick={() => setShowCreateModal(false)}
-                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
-              >
-                Hủy
-              </button>
-              <button className="flex-1 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors">
-                Lưu nháp
-              </button>
-              <button className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                Gửi duyệt
-              </button>
-              <button className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
-                Xuất bản
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Article Editor - Fullscreen */}
-      {showEditor && (
-        <ArticleEditor
-          articleId={editingArticleId}
-          onClose={() => setShowEditor(false)}
-          onSave={(data) => {
-            console.log('Saved:', data);
-            setShowEditor(false);
-          }}
+        <BulkOperations
+          selectedCount={selectedArticles.length}
+          selectedIds={selectedArticles}
+          onClear={() => setSelectedArticles([])}
+          onComplete={handleBulkComplete}
         />
       )}
-    </div>
+
+      {/* Shared Filter Bar for all view modes */}
+      <div className="flex items-center gap-3">
+        {/* Search */}
+        <div className="flex-1 relative">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Tìm kiếm bài viết..."
+            className="w-full pl-10 pr-4 py-2.5 bg-card border border-border/60 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+          />
+        </div>
+
+        {/* Type Filter */}
+        <select
+          value={selectedType}
+          onChange={(e) => setSelectedType(e.target.value)}
+          className="px-4 py-2.5 bg-card border border-border/60 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 min-w-[180px]"
+        >
+          {articleTypes.map(type => (
+            <option key={type.value} value={type.value}>{type.label}</option>
+          ))}
+        </select>
+
+        {/* Status Filter */}
+        <select
+          value={selectedStatus}
+          onChange={(e) => setSelectedStatus(e.target.value)}
+          className="px-4 py-2.5 bg-card border border-border/60 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 min-w-[160px]"
+        >
+          {statusOptions.map(status => (
+            <option key={status.value} value={status.value}>{status.label}</option>
+          ))}
+        </select>
+      </div>
+
+      {/* Article List */}
+      {viewMode === 'table' && (
+        <ArticleTableView
+          articles={filteredArticles}
+          onNavigate={onNavigate}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+          onSelectionChange={handleSelectionChange}
+          selectedIds={selectedArticles}
+          enableSelection={true}
+        />
+      )}
+      {viewMode === 'list' && (
+        <ArticleListView
+          articles={filteredArticles}
+          onNavigate={onNavigate}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+          onSelectionChange={handleSelectionChange}
+          selectedIds={selectedArticles}
+          showCategory={true}
+          enableSelection={true}
+          viewMode="list"
+        />
+      )}
+      {viewMode === 'grid' && (
+        <ArticleListView
+          articles={filteredArticles}
+          onNavigate={onNavigate}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+          onSelectionChange={handleSelectionChange}
+          selectedIds={selectedArticles}
+          showCategory={true}
+          enableSelection={true}
+          viewMode="grid"
+        />
+      )}
+    </PageWrapper>
   );
 }

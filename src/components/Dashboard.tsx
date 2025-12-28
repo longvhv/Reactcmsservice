@@ -1,4 +1,27 @@
-import { FileText, Eye, MessageCircle, Heart, TrendingUp, Clock, ArrowUpRight, Sparkles, Zap, Target, Users, Plus, Edit, Video, Image, Briefcase, Calendar, Bell, Activity, ArrowUp, ArrowDown } from 'lucide-react';
+import { 
+  TrendingUp, 
+  Users, 
+  FileText, 
+  Eye, 
+  Calendar, 
+  Clock, 
+  Activity, 
+  ArrowUp, 
+  ArrowDown, 
+  MoreVertical, 
+  Bell, 
+  Search, 
+  Plus, 
+  Heart, 
+  Video, 
+  Image, 
+  Briefcase, 
+  Zap, 
+  ArrowUpRight, 
+  Sparkles,
+  MessageSquare
+} from 'lucide-react';
+import { PageWrapper } from './PageWrapper';
 
 interface DashboardProps {
   onNavigate: (page: any) => void;
@@ -27,7 +50,7 @@ export function Dashboard({ onNavigate }: DashboardProps) {
     { 
       label: 'Bình luận', 
       value: '8,432', 
-      icon: MessageCircle, 
+      icon: MessageSquare, 
       change: '+8.3%', 
       trend: 'up',
       color: 'purple',
@@ -105,7 +128,7 @@ export function Dashboard({ onNavigate }: DashboardProps) {
   };
 
   return (
-    <div className="p-8 space-y-6">
+    <PageWrapper>
       {/* Welcome Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -124,7 +147,7 @@ export function Dashboard({ onNavigate }: DashboardProps) {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
             </span>
-            <span className="text-sm text-green-700 font-medium">Hệ thống hoạt động tốt</span>
+            <span className="text-sm text-green-700 font-medium">Hệ thống hoạt đng tốt</span>
           </div>
 
           <div className="flex items-center gap-2 px-4 py-2 bg-blue-100 border border-blue-200 rounded-xl">
@@ -377,6 +400,6 @@ export function Dashboard({ onNavigate }: DashboardProps) {
           </div>
         </div>
       </div>
-    </div>
+    </PageWrapper>
   );
 }

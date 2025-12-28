@@ -1,5 +1,5 @@
-import { LayoutDashboard, FileText, FolderTree, Image, Bot, BarChart3, Settings, Shield, ChevronDown, ChevronRight, Sparkles, Zap, Activity, Layers, Users, Calendar, Package, ArrowLeft, ArrowRight, CheckCircle } from 'lucide-react';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { LayoutDashboard, FileText, FolderTree, Image, Bot, BarChart3, Settings, Shield, ChevronDown, ChevronRight, Sparkles, Zap, Activity, Layers, Users, Calendar, Package, ArrowLeft, ArrowRight, CheckCircle, BookOpen, Clock, Wand2 } from 'lucide-react';
 
 interface SidebarProps {
   currentPage: any;
@@ -15,8 +15,9 @@ export function Sidebar({ currentPage, onPageChange, isCollapsed = false, onTogg
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, badge: null },
     { id: 'articles', label: 'Bài viết', icon: FileText, badge: '12' },
     { id: 'categories', label: 'Danh mục', icon: FolderTree, badge: null },
-    { id: 'event-series', label: 'Dòng sự kiện', icon: Sparkles, badge: '3' },
+    { id: 'event-series', label: 'Dòng sự kiện', icon: Activity, badge: '4' },
     { id: 'permissions', label: 'Nhóm quyền', icon: Shield, badge: null },
+    { id: 'ai-tools', label: 'AI Tools', icon: Wand2, badge: 'HOT' },
     { id: 'media', label: 'Thư viện Media', icon: Image, badge: null },
     { 
       id: 'approval',
@@ -24,6 +25,7 @@ export function Sidebar({ currentPage, onPageChange, isCollapsed = false, onTogg
       icon: CheckCircle,
       badge: '23',
       submenu: [
+        { id: 'content-moderation', label: 'Kiểm duyệt tổng hợp', icon: Shield },
         { id: 'approval-dashboard', label: 'Dashboard', icon: BarChart3 },
         { id: 'approval-workflow', label: 'Xem xét & Duyệt', icon: CheckCircle },
       ]
@@ -41,7 +43,7 @@ export function Sidebar({ currentPage, onPageChange, isCollapsed = false, onTogg
       ]
     },
     { id: 'stats', label: 'Thống kê', icon: BarChart3, badge: null },
-    { id: 'activity', label: 'Nhật ký hoạt động', icon: Activity, badge: null },
+    { id: 'activity', label: 'Nhật ký hoạt động', icon: Clock, badge: null },
     { 
       id: 'settings', 
       label: 'Cài đặt', 
@@ -64,6 +66,16 @@ export function Sidebar({ currentPage, onPageChange, isCollapsed = false, onTogg
       return currentPage.page === itemId && currentPage.subPage === subItemId;
     }
     return currentPage.page === itemId;
+  };
+
+  const getBadgeClasses = (badge: string) => {
+    if (badge === 'NEW') {
+      return 'bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-sm';
+    } else if (badge === 'HOT') {
+      return 'bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-sm animate-pulse';
+    } else {
+      return 'bg-blue-100 text-blue-700';
+    }
   };
 
   return (
@@ -157,11 +169,7 @@ export function Sidebar({ currentPage, onPageChange, isCollapsed = false, onTogg
                     
                     {/* Badge */}
                     {item.badge && (
-                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold relative z-10 ${
-                        item.badge === 'NEW' 
-                          ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-sm' 
-                          : 'bg-blue-100 text-blue-700'
-                      }`}>
+                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold relative z-10 ${getBadgeClasses(item.badge)}`}>
                         {item.badge}
                       </span>
                     )}
@@ -210,57 +218,6 @@ export function Sidebar({ currentPage, onPageChange, isCollapsed = false, onTogg
           );
         })}
       </nav>
-      
-      {/* User Profile Section with enhanced design */}
-      <div className="p-3 border-t border-border/40 relative">
-        {/* Gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-t from-blue-500/5 to-transparent" />
-        
-        <div className={`flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-muted/40 transition-all duration-200 cursor-pointer group relative overflow-hidden ${
-          isCollapsed ? 'justify-center' : ''
-        }`}>
-          {/* Hover gradient effect */}
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-          
-          <div className="relative">
-            {/* Avatar with gradient border */}
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full blur-sm opacity-50 group-hover:opacity-75 transition-opacity" />
-              <div className="relative w-9 h-9 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center shadow-lg">
-                <span className="text-white text-sm font-semibold">AD</span>
-              </div>
-            </div>
-            
-            {/* Online status indicator */}
-            <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-white shadow-sm">
-              <div className="w-full h-full bg-green-400 rounded-full animate-ping opacity-75" />
-            </div>
-          </div>
-          
-          {!isCollapsed && (
-            <>
-              <div className="flex-1 min-w-0 relative z-10">
-                <div className="text-foreground text-sm font-medium truncate">Admin User</div>
-                <div className="text-muted-foreground text-xs truncate flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
-                  Online
-                </div>
-              </div>
-              <ChevronRight className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all relative z-10" />
-            </>
-          )}
-        </div>
-        
-        {/* Quick stats when expanded */}
-        {!isCollapsed && (
-          <div className="mt-2 px-3 py-2 rounded-lg bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-100/50">
-            <div className="flex items-center justify-between text-xs">
-              <span className="text-muted-foreground">Hoạt động hôm nay</span>
-              <span className="font-semibold text-blue-700">24 tác vụ</span>
-            </div>
-          </div>
-        )}
-      </div>
 
       {/* Ambient gradient effects */}
       <div className="absolute -z-10 top-0 left-0 w-full h-48 bg-gradient-to-b from-blue-500/10 via-purple-500/5 to-transparent blur-2xl" />

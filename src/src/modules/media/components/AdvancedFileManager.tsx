@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useFetch, useMutate } from '@longvhv/query';
 import { useNotifications } from '@longvhv/notifications';
+import { useMarqueeSelection } from '../../../hooks/useMarqueeSelection';
 import { 
   FolderOpen,
   File,
@@ -22,7 +23,7 @@ import {
   List,
   Search,
   Filter,
-  SortAsc,
+  ArrowUp,
   MoreVertical,
   Plus,
   FolderPlus,
@@ -74,6 +75,33 @@ export const AdvancedFileManager: React.FC = () => {
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showCreateFolderModal, setShowCreateFolderModal] = useState(false);
   const [newFolderName, setNewFolderName] = useState('');
+
+  // Refs for marquee selection
+  const gridContainerRef = useRef<HTMLDivElement>(null);
+  const listContainerRef = useRef<HTMLDivElement>(null);
+
+  // Marquee selection for grid view
+  const gridMarquee = useMarqueeSelection({
+    containerRef: gridContainerRef,
+    itemSelector: '[data-item-id]',
+    onSelectionChange: (newSelection) => {
+      setSelectedItems(newSelection);
+    },
+    isEnabled: viewMode === 'grid',
+  });
+
+  // Marquee selection for list view
+  const listMarquee = useMarqueeSelection({
+    containerRef: listContainerRef,
+    itemSelector: '[data-item-id]',
+    onSelectionChange: (newSelection) => {
+      setSelectedItems(newSelection);
+    },
+    isEnabled: viewMode === 'list',
+  });
+
+  // Get current marquee based on view mode
+  const currentMarquee = viewMode === 'grid' ? gridMarquee : listMarquee;
 
   // Fetch files
   const { data: files, isLoading: filesLoading, refetch: refetchFiles } = useFetch<FileItem[]>(
@@ -246,13 +274,17 @@ export const AdvancedFileManager: React.FC = () => {
       newSelected.add(id);
     }
     setSelectedItems(newSelected);
+    currentMarquee.updateSelection(newSelected);
   };
 
   const selectAll = () => {
     if (selectedItems.size === files?.length) {
       setSelectedItems(new Set());
+      currentMarquee.updateSelection(new Set());
     } else {
-      setSelectedItems(new Set(files?.map(f => f.id) || []));
+      const allIds = new Set(files?.map(f => f.id) || []);
+      setSelectedItems(allIds);
+      currentMarquee.updateSelection(allIds);
     }
   };
 
@@ -448,15 +480,17 @@ export const AdvancedFileManager: React.FC = () => {
 
       {/* Files Grid/List */}
       {viewMode === 'grid' ? (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        <div 
+          ref={gridContainerRef}
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 relative select-none"
+          onMouseDown={gridMarquee.handleMouseDown}
+        >
+          {gridMarquee.renderSelectionBox()}
           {filteredFiles?.map((item) => (
             <div
               key={item.id}
-              className={`group relative bg-white dark:bg-gray-800 rounded-xl border-2 transition-all cursor-pointer ${
-                selectedItems.has(item.id)
-                  ? 'border-blue-500 shadow-lg'
-                  : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-md'
-              }`}
+              data-item-id={item.id}
+              className={`group relative bg-white dark:bg-gray-800 rounded-xl border-2 transition-all cursor-pointer ${\n                selectedItems.has(item.id)\n                  ? 'border-blue-500 shadow-lg'\n                  : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-md'\n              }`}
               onClick={() => {
                 if (item.type === 'folder') {
                   setCurrentFolderId(item.id);
@@ -521,7 +555,12 @@ export const AdvancedFileManager: React.FC = () => {
           ))}
         </div>
       ) : (
-        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+        <div 
+          ref={listContainerRef}
+          className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden relative select-none"
+          onMouseDown={listMarquee.handleMouseDown}
+        >
+          {listMarquee.renderSelectionBox()}
           <table className="w-full">
             <thead className="bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
               <tr>
@@ -544,9 +583,8 @@ export const AdvancedFileManager: React.FC = () => {
               {filteredFiles?.map((item) => (
                 <tr
                   key={item.id}
-                  className={`hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors ${
-                    selectedItems.has(item.id) ? 'bg-blue-50 dark:bg-blue-900/20' : ''
-                  }`}
+                  data-item-id={item.id}
+                  className={`hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors ${\n                    selectedItems.has(item.id) ? 'bg-blue-50 dark:bg-blue-900/20' : ''\n                  }`}
                 >
                   <td className="px-4 py-3">
                     <input

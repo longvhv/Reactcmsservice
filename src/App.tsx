@@ -1,30 +1,36 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Dashboard } from './components/Dashboard';
 import { ArticleManagement } from './components/ArticleManagement';
 import { ArticleDetail } from './components/ArticleDetail';
-import { CategoryManagement } from './components/CategoryManagementWrapper';
+import { CategoryManagement } from './components/CategoryManagement';
 import { CategoryDetail } from './components/CategoryDetail';
 import { PermissionGroups } from './components/PermissionGroups';
+import { PermissionGroupDetail } from './components/PermissionGroupDetail';
 import { MediaManagement } from './components/MediaManagement';
 import { CrawlerManagement } from './components/CrawlerManagementNew';
-import { CampaignDetail } from './components/CampaignDetail';
-import { SourceDetail } from './components/SourceDetail';
 import { CrawlerSources } from './components/CrawlerSources';
 import { CrawlerArticles } from './components/CrawlerArticles';
 import { ApprovedArticles } from './components/ApprovedArticles';
-import { StatsAnalytics } from './components/StatsAnalytics';
+import { CampaignDetail } from './components/CampaignDetail';
+import { SourceDetail } from './components/SourceDetail';
 import { Settings } from './components/Settings';
-import { EventSeries } from './components/EventSeries';
-import { UserManagement } from './components/UserManagement';
-import { ActivityTimeline } from './components/ActivityTimeline';
 import { Sidebar } from './components/Sidebar';
 import { Header } from './components/Header';
-import { ErrorBoundary } from './components/ErrorBoundary';
+import { EventStreamList } from './components/EventStreamList';
+import { EventStreamForm } from './components/EventStreamForm';
+import { EventStreamDetailEnhanced } from './components/EventStreamDetailEnhanced';
+import { StatsAnalytics } from './components/StatsAnalytics';
+import { UserManagement } from './components/UserManagement';
 import { ApprovalWorkflow } from './components/ApprovalWorkflow';
 import { ApprovalDashboard } from './components/ApprovalDashboard';
-import { WorkflowBuilder } from './components/WorkflowBuilder';
-import { VersionControl } from './components/VersionControl';
-import { PublishingScheduler } from './components/PublishingScheduler';
+import { ContentModeration } from './components/ContentModeration';
+import { AdvancedSearch } from './components/AdvancedSearch';
+import { WorkflowManager } from './components/WorkflowManager';
+import { ActivityLog } from './components/ActivityLog';
+import { ActivityTimeline } from './components/ActivityTimeline';
+import { AnalyticsDashboard } from './components/AnalyticsDashboard';
+import { AITools } from './components/AITools';
+import { ErrorBoundary } from './components/ErrorBoundary';
 
 type PageState = 
   | { page: 'dashboard' }
@@ -33,7 +39,10 @@ type PageState =
   | { page: 'categories' }
   | { page: 'category-detail'; id: number }
   | { page: 'permissions' }
+  | { page: 'permission-group-detail'; id: number }
   | { page: 'event-series' }
+  | { page: 'event-stream-form'; id?: string }
+  | { page: 'event-stream-detail'; id: string }
   | { page: 'media' }
   | { page: 'crawler'; subPage?: string }
   | { page: 'campaign-detail'; campaignId: string }
@@ -43,7 +52,13 @@ type PageState =
   | { page: 'activity' }
   | { page: 'settings'; subPage?: string }
   | { page: 'approval-workflow' }
-  | { page: 'approval-dashboard' };
+  | { page: 'approval-dashboard' }
+  | { page: 'content-moderation' }
+  | { page: 'advanced-search' }
+  | { page: 'workflow-manager' }
+  | { page: 'activity-log' }
+  | { page: 'analytics' }
+  | { page: 'ai-tools' };
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<PageState>({ page: 'dashboard' });
@@ -60,13 +75,19 @@ export default function App() {
       case 'categories':
         return <CategoryManagement onNavigate={setCurrentPage} />;
       case 'category-detail':
-        return <CategoryDetail categoryId={currentPage.id} onNavigate={setCurrentPage} />;
+        return <CategoryDetail categoryId={currentPage.id} onBack={() => setCurrentPage({ page: 'categories' })} onNavigate={setCurrentPage} />;
       case 'permissions':
-        return <PermissionGroups />;
+        return <PermissionGroups onNavigate={setCurrentPage} />;
+      case 'permission-group-detail':
+        return <PermissionGroupDetail groupId={currentPage.id} onBack={() => setCurrentPage({ page: 'permissions' })} onNavigate={setCurrentPage} />;
       case 'event-series':
-        return <EventSeries />;
+        return <EventStreamList onNavigate={setCurrentPage} />;
+      case 'event-stream-form':
+        return <EventStreamForm onNavigate={setCurrentPage} streamId={currentPage.id} />;
+      case 'event-stream-detail':
+        return <EventStreamDetailEnhanced streamId={currentPage.id} onNavigate={setCurrentPage} />;
       case 'media':
-        return <MediaManagement />;
+        return <MediaManagement onNavigate={setCurrentPage} />;
       case 'crawler':
         // Handle crawler submenu routing
         if (currentPage.subPage === 'campaigns') {
@@ -96,10 +117,31 @@ export default function App() {
         return <ApprovalWorkflow />;
       case 'approval-dashboard':
         return <ApprovalDashboard />;
+      case 'content-moderation':
+        return <ContentModeration />;
+      case 'advanced-search':
+        return <AdvancedSearch onNavigate={setCurrentPage} />;
+      case 'workflow-manager':
+        return <WorkflowManager onNavigate={setCurrentPage} />;
+      case 'activity-log':
+        return <ActivityLog onNavigate={setCurrentPage} />;
+      case 'analytics':
+        return <AnalyticsDashboard onNavigate={setCurrentPage} />;
+      case 'ai-tools':
+        return <AITools onNavigate={setCurrentPage} />;
       default:
         return <Dashboard onNavigate={setCurrentPage} />;
     }
   };
+
+  // Fullscreen pages without sidebar/header
+  if (currentPage.page === 'media') {
+    return (
+      <ErrorBoundary>
+        <MediaManagement onNavigate={setCurrentPage} />
+      </ErrorBoundary>
+    );
+  }
 
   return (
     <div className="flex h-screen bg-background gradient-mesh">
@@ -110,7 +152,10 @@ export default function App() {
         onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
       />
       <div className={`flex-1 flex flex-col overflow-hidden transition-all duration-300 ${sidebarCollapsed ? 'ml-20' : 'ml-72'}`}>
-        <Header onToggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)} />
+        <Header 
+          onToggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)} 
+          onNavigate={setCurrentPage}
+        />
         <main className="flex-1 overflow-y-auto">
           <ErrorBoundary>
             {renderPage()}

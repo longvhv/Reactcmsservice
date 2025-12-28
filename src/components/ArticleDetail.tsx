@@ -772,11 +772,21 @@ export function ArticleDetail({ articleId, onNavigate }: ArticleDetailProps) {
 
           <div className="flex items-center gap-2">
             <button 
-              onClick={() => window.open('#', '_blank')}
+              onClick={() => onNavigate({ page: 'articles' })}
               className="flex items-center gap-2 px-4 py-2 border border-border/60 rounded-xl hover:bg-muted/50 transition-all duration-200"
             >
-              <Globe className="w-4 h-4" />
-              <span>Xem công khai</span>
+              <X className="w-4 h-4" />
+              <span>Hủy</span>
+            </button>
+            <button 
+              onClick={() => {
+                alert('Đã lưu bài viết dưới dạng nháp');
+                // TODO: Call API to save as draft
+              }}
+              className="flex items-center gap-2 px-4 py-2 border border-border/60 rounded-xl hover:bg-muted/50 transition-all duration-200"
+            >
+              <FileText className="w-4 h-4" />
+              <span>Lưu nháp</span>
             </button>
             <button 
               onClick={() => onNavigate({ page: 'articles' })}

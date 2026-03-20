@@ -221,7 +221,7 @@ export function WorkflowBuilder() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl mb-2">Workflow Builder</h1>
+          <h1 className="text-3xl mb-2">Trình tạo quy trình</h1>
           <p className="text-muted-foreground">
             Tạo và quản lý luồng kiểm duyệt tùy chỉnh
           </p>
@@ -513,7 +513,7 @@ export function WorkflowBuilder() {
               <div className="flex items-center justify-center h-full">
                 <div className="text-center">
                   <AlertCircle className="w-12 h-12 mx-auto mb-3 text-muted-foreground/50" />
-                  <p className="text-muted-foreground">Select a workflow to edit</p>
+                  <p className="text-muted-foreground">Chọn một quy trình để chỉnh sửa</p>
                 </div>
               </div>
             )}

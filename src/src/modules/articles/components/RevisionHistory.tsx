@@ -139,7 +139,7 @@ export const RevisionHistory: React.FC<RevisionHistoryProps> = ({
     },
     {
       onSuccess: (_, revisionId) => {
-        notifications.success('Revision restored successfully');
+        notifications.success('Đã khôi phục phiên bản thành công');
         setSelectedRevision(null);
         onRestore?.(revisionId);
         refetch();
@@ -185,7 +185,7 @@ export const RevisionHistory: React.FC<RevisionHistoryProps> = ({
         <div>
           <h2 className="text-xl font-bold flex items-center gap-2">
             <History className="w-6 h-6" />
-            Revision History
+            Lịch sử chỉnh sửa
           </h2>
           <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
             {revisions?.length || 0} revisions • Current: v{currentVersion}

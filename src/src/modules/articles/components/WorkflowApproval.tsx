@@ -105,7 +105,7 @@ export const WorkflowApproval: React.FC<WorkflowApprovalProps> = ({
     },
     {
       onSuccess: () => {
-        notifications.success('Article approved successfully!');
+        notifications.success('Đã phê duyệt bài viết thành công!');
         setShowCommentModal(false);
         setComment('');
         onApprove?.();
@@ -123,7 +123,7 @@ export const WorkflowApproval: React.FC<WorkflowApprovalProps> = ({
     },
     {
       onSuccess: () => {
-        notifications.success('Article rejected with feedback');
+        notifications.success('Đã từ chối bài viết kèm phản hồi');
         setShowCommentModal(false);
         setComment('');
         onReject?.();
@@ -194,7 +194,7 @@ export const WorkflowApproval: React.FC<WorkflowApprovalProps> = ({
     <div className="space-y-6">
       {/* Workflow Progress */}
       <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
-        <h3 className="text-lg font-semibold mb-4">Approval Workflow</h3>
+        <h3 className="text-lg font-semibold mb-4">Quy trình phê duyệt</h3>
 
         {/* Progress Bar */}
         <div className="mb-6">
@@ -323,7 +323,7 @@ export const WorkflowApproval: React.FC<WorkflowApprovalProps> = ({
 
       {/* Workflow History */}
       <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
-        <h3 className="text-lg font-semibold mb-4">Workflow History</h3>
+        <h3 className="text-lg font-semibold mb-4">Lịch sử quy trình</h3>
         <div className="space-y-3">
           {workflow
             ?.filter(step => step.status !== 'pending')

@@ -349,7 +349,7 @@ export function WorkflowManager({ onNavigate }: { onNavigate: (page: any) => voi
             onChange={(e) => setSelectedStatus(e.target.value)}
             className="px-4 py-2.5 bg-secondary border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
           >
-            <option value="all">Tất cả trạng thái</option>
+            <option value="all">-- Trạng thái --</option>
             {Object.entries(statusConfig).map(([key, config]) => (
               <option key={key} value={key}>{config.label}</option>
             ))}
@@ -360,7 +360,7 @@ export function WorkflowManager({ onNavigate }: { onNavigate: (page: any) => voi
             onChange={(e) => setSelectedPriority(e.target.value)}
             className="px-4 py-2.5 bg-secondary border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
           >
-            <option value="all">Tất cả độ ưu tiên</option>
+            <option value="all">-- Độ ưu tiên --</option>
             {Object.entries(priorityConfig).map(([key, config]) => (
               <option key={key} value={key}>{config.label}</option>
             ))}

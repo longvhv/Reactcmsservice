@@ -368,12 +368,12 @@ export const SEOTools: React.FC<SEOToolsProps> = ({ article }) => {
           {activeTab === 'preview' && (
             <div className="space-y-6">
               <div>
-                <h3 className="text-lg font-semibold mb-3">Google Search Preview</h3>
+                <h3 className="text-lg font-semibold mb-3">Xem trước Google Search</h3>
                 <GooglePreview />
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold mb-3">Social Media Preview</h3>
+                <h3 className="text-lg font-semibold mb-3">Xem trước Mạng xã hội</h3>
                 <div className="border-2 border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden">
                   <div className="aspect-video bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center">
                     <ImageIcon className="w-16 h-16 text-white opacity-50" />

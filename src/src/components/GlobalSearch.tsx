@@ -348,7 +348,7 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({ isOpen: controlledIs
             </div>
             <div className="flex items-center gap-1">
               <kbd className="px-2 py-1 bg-white dark:bg-gray-800 rounded font-mono">↵</kbd>
-              <span>Select</span>
+              <span>Chọn</span>
             </div>
           </div>
           <div className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">

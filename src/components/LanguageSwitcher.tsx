@@ -91,7 +91,7 @@ export function LanguageSwitcher({ variant = 'dropdown' }: LanguageSwitcherProps
               <div className="h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent" />
               
               <div className="p-2 border-b border-border/60 bg-gradient-to-r from-blue-50/50 to-purple-50/50">
-                <h4 className="text-xs font-semibold text-foreground px-2">Select Language</h4>
+                <h4 className="text-xs font-semibold text-foreground px-2">Chọn ngôn ngữ</h4>
               </div>
               <div className="p-1">
                 {languages.map((lang) => (
@@ -138,7 +138,7 @@ export function LanguageSwitcher({ variant = 'dropdown' }: LanguageSwitcherProps
           />
           <div className="absolute right-0 top-full mt-2 w-48 bg-card border border-border/60 rounded-xl shadow-2xl shadow-black/10 z-20 overflow-hidden animate-slide-in-top">
             <div className="p-2 border-b border-border/60 bg-gradient-to-r from-blue-50 to-purple-50">
-              <h4 className="text-xs font-semibold text-foreground px-2">Select Language</h4>
+              <h4 className="text-xs font-semibold text-foreground px-2">Chọn ngôn ngữ</h4>
             </div>
             <div className="p-1">
               {languages.map((lang) => (

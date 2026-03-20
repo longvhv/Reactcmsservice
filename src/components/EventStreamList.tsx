@@ -8,6 +8,7 @@ import { PageWrapper } from './PageWrapper';
 import { PageHeader } from './PageHeader';
 import { Card } from './Card';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useRouter } from '../contexts/RouterContext';
 
 interface EventStream {
   id: string;
@@ -44,8 +45,23 @@ interface EventStream {
   featured: boolean;
 }
 
-export function EventStreamList({ onNavigate }: { onNavigate: (page: any) => void }) {
+export function EventStreamList({ onNavigate }: { onNavigate?: (page: any) => void }) {
   const { t } = useLanguage();
+  const router = useRouter();
+  
+  // Use onNavigate if provided, otherwise use router
+  const handleNavigate = (page: any) => {
+    if (onNavigate) {
+      onNavigate(page);
+    } else if (page.page === 'event-stream-detail' && page.id) {
+      router.push(`/page/cms/event-series/${page.id}`);
+    } else if (page.page === 'event-stream-form') {
+      router.push('/page/cms/event-series/new');
+    } else if (typeof page === 'string') {
+      router.push(`/page/cms/${page}`);
+    }
+  };
+  
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [selectedType, setSelectedType] = useState<string>('all');
@@ -242,7 +258,7 @@ export function EventStreamList({ onNavigate }: { onNavigate: (page: any) => voi
         description="Quản lý các dòng sự kiện và bài viết liên quan"
         action={
           <button 
-            onClick={() => onNavigate({ page: 'event-stream-form' })}
+            onClick={() => handleNavigate({ page: 'event-stream-form' })}
             className="px-4 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:shadow-lg hover:shadow-blue-500/20 transition-all flex items-center gap-2"
           >
             <Plus className="w-4 h-4" />
@@ -345,7 +361,7 @@ export function EventStreamList({ onNavigate }: { onNavigate: (page: any) => voi
             onChange={(e) => setSelectedType(e.target.value)}
             className="px-4 py-2.5 bg-secondary border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
           >
-            <option value="all">Tất cả loại</option>
+            <option value="all">-- Loại luồng --</option>
             <option value="news">Tin tức</option>
             <option value="campaign">Chiến dịch</option>
             <option value="product">Sản phẩm</option>
@@ -360,7 +376,7 @@ export function EventStreamList({ onNavigate }: { onNavigate: (page: any) => voi
             onChange={(e) => setSelectedStatus(e.target.value)}
             className="px-4 py-2.5 bg-secondary border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
           >
-            <option value="all">Tất cả trạng thái</option>
+            <option value="all">-- Trạng thái --</option>
             <option value="active">Đang chạy</option>
             <option value="paused">Tạm dừng</option>
             <option value="completed">Hoàn thành</option>
@@ -428,7 +444,7 @@ export function EventStreamList({ onNavigate }: { onNavigate: (page: any) => voi
                       {getTypeLabel(stream.type)}
                     </span>
                     <h3 
-                      onClick={() => onNavigate({ page: 'event-stream-detail', id: stream.id })}
+                      onClick={() => handleNavigate({ page: 'event-stream-detail', id: stream.id })}
                       className="text-white font-semibold text-lg line-clamp-2 cursor-pointer hover:underline"
                     >
                       {stream.name}
@@ -484,7 +500,7 @@ export function EventStreamList({ onNavigate }: { onNavigate: (page: any) => voi
                       <Edit className="w-4 h-4" />
                     </button>
                     <button 
-                      onClick={() => onNavigate({ page: 'event-stream-detail', id: stream.id })}
+                      onClick={() => handleNavigate({ page: 'event-stream-detail', id: stream.id })}
                       className="p-2 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
                     >
                       <ChevronRight className="w-4 h-4 text-blue-500" />
@@ -582,7 +598,7 @@ export function EventStreamList({ onNavigate }: { onNavigate: (page: any) => voi
                           <Edit className="w-4 h-4" />
                         </button>
                         <button 
-                          onClick={() => onNavigate({ page: 'event-stream-detail', id: stream.id })}
+                          onClick={() => handleNavigate({ page: 'event-stream-detail', id: stream.id })}
                           className="p-2 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
                         >
                           <ChevronRight className="w-4 h-4 text-blue-500" />

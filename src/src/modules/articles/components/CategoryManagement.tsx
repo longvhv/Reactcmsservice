@@ -235,7 +235,7 @@ export const CategoryManagement: React.FC = () => {
         if (saveAndContinue && isCreatingNew) {
           // Clear form but keep modal open
           setEditingCategory({});
-          notifications.info('Ready to add another category');
+          notifications.info('Sẵn sàng thêm danh mục mới');
         } else {
           // Close modal normally
           setShowEditModal(false);
@@ -256,7 +256,7 @@ export const CategoryManagement: React.FC = () => {
     },
     {
       onSuccess: () => {
-        notifications.success('Category deleted');
+        notifications.success('Đã xóa danh mục');
         refetch();
       },
     }
@@ -283,7 +283,7 @@ export const CategoryManagement: React.FC = () => {
     },
     {
       onSuccess: () => {
-        notifications.success('Category duplicated');
+        notifications.success('Đã nhân bản danh mục');
         refetch();
       },
     }
@@ -470,10 +470,10 @@ export const CategoryManagement: React.FC = () => {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Category Management
+            Quản lý danh mục
           </h1>
           <p className="text-gray-600 dark:text-gray-400 mt-1">
-            Organize content with hierarchical categories
+            Tổ chức nội dung theo danh mục phân cấp
           </p>
         </div>
 
@@ -494,10 +494,10 @@ export const CategoryManagement: React.FC = () => {
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Categories', value: totalCategories, icon: '📁', color: 'blue' },
-          { label: 'Active', value: activeCategories, icon: '✅', color: 'green' },
-          { label: 'Total Articles', value: totalArticles, icon: '📄', color: 'purple' },
-          { label: 'Article Types', value: ARTICLE_TYPES.length, icon: '🎯', color: 'orange' },
+          { label: 'Tổng danh mục', value: totalCategories, icon: '📁', color: 'blue' },
+          { label: 'Hoạt động', value: activeCategories, icon: '✅', color: 'green' },
+          { label: 'Tổng bài viết', value: totalArticles, icon: '📄', color: 'purple' },
+          { label: 'Loại bài viết', value: ARTICLE_TYPES.length, icon: '🎯', color: 'orange' },
         ].map((stat) => (
           <div key={stat.label} className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
             <div className="flex items-center justify-between">
@@ -522,7 +522,7 @@ export const CategoryManagement: React.FC = () => {
                 type="search"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Search categories..."
+                placeholder="Tìm kiếm danh mục..."
                 className="w-full pl-10 pr-4 py-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
               />
             </div>
@@ -536,7 +536,7 @@ export const CategoryManagement: React.FC = () => {
               onChange={(e) => setFilterType(e.target.value)}
               className="px-4 py-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20"
             >
-              <option value="all">All Types</option>
+              <option value="all">-- Loại bài viết --</option>
               {ARTICLE_TYPES.map(type => (
                 <option key={type.value} value={type.value}>
                   {type.icon} {type.label}
@@ -553,7 +553,7 @@ export const CategoryManagement: React.FC = () => {
               onChange={(e) => setShowInactive(e.target.checked)}
               className="w-4 h-4 text-blue-600 rounded"
             />
-            <span className="text-sm">Show Inactive</span>
+            <span className="text-sm">Hiện không hoạt động</span>
           </label>
 
           {/* Expand/Collapse All */}
@@ -572,13 +572,13 @@ export const CategoryManagement: React.FC = () => {
               }}
               className="px-3 py-2 text-sm bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg transition-colors"
             >
-              Expand All
+              Mở rộng tất cả
             </button>
             <button
               onClick={() => setExpandedIds(new Set())}
               className="px-3 py-2 text-sm bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg transition-colors"
             >
-              Collapse All
+              Thu gọn tất cả
             </button>
           </div>
         </div>
@@ -592,7 +592,7 @@ export const CategoryManagement: React.FC = () => {
           ) : (
             <div className="text-center py-12">
               <FolderOpen className="w-16 h-16 mx-auto text-gray-300 dark:text-gray-600 mb-4" />
-              <p className="text-gray-600 dark:text-gray-400 mb-4">No categories found</p>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">Chưa có danh mục nào</p>
               <button
                 onClick={() => {
                   setEditingCategory({});
@@ -600,7 +600,7 @@ export const CategoryManagement: React.FC = () => {
                 }}
                 className="text-blue-600 dark:text-blue-400 hover:underline"
               >
-                Create your first category
+                Tạo danh mục đầu tiên
               </button>
             </div>
           )}
@@ -612,7 +612,7 @@ export const CategoryManagement: React.FC = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm overflow-y-auto">
           <div className="w-full max-w-2xl bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 my-8">
             <h3 className="text-xl font-bold mb-4">
-              {editingCategory.id ? 'Edit Category' : 'Create Category'}
+              {editingCategory.id ? 'Sửa danh mục' : 'Tạo danh mục'}
             </h3>
 
             <div className="space-y-4">
@@ -981,7 +981,7 @@ export const CategoryManagement: React.FC = () => {
                 }}
                 className="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
               >
-                Cancel
+                Hủy
               </button>
               
               <div className="flex-1 flex gap-3">
@@ -998,12 +998,12 @@ export const CategoryManagement: React.FC = () => {
                     {isSaving && saveAndContinue ? (
                       <>
                         <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        Saving...
+                        Đang lưu...
                       </>
                     ) : (
                       <>
                         <Plus className="w-4 h-4" />
-                        Save & Add Another
+                        Lưu & thêm tiếp
                       </>
                     )}
                   </button>
@@ -1020,12 +1020,12 @@ export const CategoryManagement: React.FC = () => {
                   {isSaving && !saveAndContinue ? (
                     <>
                       <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                      {editingCategory.id ? 'Updating...' : 'Creating...'}
+                      {editingCategory.id ? 'Đang cập nhật...' : 'Đang tạo...'}
                     </>
                   ) : (
                     <>
                       <Check className="w-4 h-4" />
-                      {editingCategory.id ? 'Update' : 'Save'}
+                      {editingCategory.id ? 'Cập nhật' : 'Lưu'}
                     </>
                   )}
                 </button>
@@ -1042,7 +1042,7 @@ export const CategoryManagement: React.FC = () => {
             <div className="flex items-start justify-between mb-4">
               <div>
                 <h3 className="text-xl font-bold">{selectedCategory.name}</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Category Statistics</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Thống kê danh mục</p>
               </div>
               <button
                 onClick={() => setShowStatsModal(false)}
@@ -1086,7 +1086,7 @@ export const CategoryManagement: React.FC = () => {
               onClick={() => setShowStatsModal(false)}
               className="w-full mt-6 px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
             >
-              Close
+              Đóng
             </button>
           </div>
         </div>

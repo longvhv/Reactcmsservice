@@ -1,20 +1,16 @@
-import { useState } from 'react';
-import { DndProvider, useDrag, useDrop } from 'react-dnd';
+'use client';
+
+import { useState, useEffect } from 'react';
+import { Plus, Search, MoreVertical, Edit2, Trash2, ChevronRight, ChevronDown, Eye, Folder, FolderOpen, Settings, FileText, Video, Image as ImageIcon, Briefcase, Mic, MapPin, Download, Zap, X, Save } from 'lucide-react';
+import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { 
-  Plus, Edit2, Trash2, ChevronRight, ChevronDown, Folder, Eye, EyeOff, 
-  Search, GripVertical, FolderOpen, Info
-} from 'lucide-react';
 import { PageWrapper } from './PageWrapper';
 import { PageHeader } from './PageHeader';
-import { Card } from './Card';
 import { CategoryFormModal } from './CategoryFormModal';
 import { CategoryDetail } from './CategoryDetail';
+import { Card } from './Card';
 import { useLanguage } from '../contexts/LanguageContext';
-
-interface CategoryManagementProps {
-  onNavigate: (page: any) => void;
-}
+import { useRouter } from '../contexts/RouterContext';
 
 interface Category {
   id: number;
@@ -28,17 +24,14 @@ interface Category {
   children?: Category[];
 }
 
-const ItemType = 'CATEGORY';
-
-interface DraggableCategory {
-  id: number;
-  type: string;
+interface CategoryManagementProps {
+  onNavigate?: (page: any) => void;
 }
 
-// Draggable Category Item Component
-function CategoryItem({ 
-  category, 
-  level, 
+// Inline CategoryItem component
+function CategoryItem({
+  category,
+  level,
   expandedCategories,
   onToggleExpand,
   onEdit,
@@ -57,64 +50,31 @@ function CategoryItem({
   onViewDetail: (id: number) => void;
   onMove: (dragId: number, hoverId: number) => void;
 }) {
-  // Get translation function from context
-  const { t } = useLanguage();
-  const hasChildren = category.children && category.children.length > 0;
   const isExpanded = expandedCategories.includes(category.id);
+  const hasChildren = category.children && category.children.length > 0;
 
-  const [{ isDragging }, drag, preview] = useDrag({
-    type: ItemType,
-    item: { id: category.id, type: ItemType },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  });
-
-  const [{ isOver }, drop] = useDrop({
-    accept: ItemType,
-    drop: (item: DraggableCategory) => {
-      if (item.id !== category.id) {
-        onMove(item.id, category.id);
-      }
-    },
-    collect: (monitor) => ({
-      isOver: monitor.isOver(),
-    }),
-  });
-
-  const articleTypeLabels: Record<string, string> = {
-    news: 'Tin tức',
-    video: 'Video',
-    gallery: 'Thư viện ảnh',
-    legal: 'Văn bản PL',
-    job: 'Tuyển dụng',
-    podcast: 'Podcast',
-    event: 'Sự kiện',
-    staff: 'Nhân sự',
-    download: 'Tải xuống',
+  const getTypeIcon = (types: string[]) => {
+    if (types.includes('news')) return <FileText className="w-4 h-4" />;
+    if (types.includes('video')) return <Video className="w-4 h-4" />;
+    if (types.includes('gallery')) return <ImageIcon className="w-4 h-4" />;
+    if (types.includes('job')) return <Briefcase className="w-4 h-4" />;
+    if (types.includes('podcast')) return <Mic className="w-4 h-4" />;
+    if (types.includes('event')) return <MapPin className="w-4 h-4" />;
+    if (types.includes('download')) return <Download className="w-4 h-4" />;
+    if (types.includes('infographic')) return <Zap className="w-4 h-4" />;
+    return <FileText className="w-4 h-4" />;
   };
 
   return (
-    <div ref={preview}>
+    <div>
       <div
-        ref={(node) => drag(drop(node))}
-        className={`group flex items-center gap-3 py-3 px-4 rounded-lg transition-all ${
-          isDragging ? 'opacity-30' : ''
-        } ${
-          isOver ? 'bg-blue-50 border-l-4 border-blue-500' : 'hover:bg-muted/40'
-        }`}
-        style={{ paddingLeft: `${level * 32 + 16}px` }}
+        className="flex items-center gap-2 p-3 rounded-lg hover:bg-secondary/50 transition-all group"
+        style={{ paddingLeft: `${level * 1.5 + 0.75}rem` }}
       >
-        {/* Drag Handle */}
-        <div ref={drag} className="cursor-move opacity-0 group-hover:opacity-100 transition-opacity">
-          <GripVertical className="w-4 h-4 text-muted-foreground" />
-        </div>
-
-        {/* Expand/Collapse */}
         {hasChildren ? (
           <button
             onClick={() => onToggleExpand(category.id)}
-            className="p-1 hover:bg-muted rounded transition-colors"
+            className="p-1 hover:bg-secondary rounded"
           >
             {isExpanded ? (
               <ChevronDown className="w-4 h-4 text-muted-foreground" />
@@ -126,93 +86,69 @@ function CategoryItem({
           <div className="w-6" />
         )}
 
-        {/* Folder Icon */}
-        {isExpanded ? (
-          <FolderOpen className="w-5 h-5 text-blue-600" />
-        ) : (
-          <Folder className="w-5 h-5 text-blue-600" />
-        )}
-
-        {/* Category Info */}
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-3 mb-1">
-            <button
-              onClick={() => onViewDetail(category.id)}
-              className="font-medium hover:text-blue-600 transition-colors"
-            >
-              {category.name}
-            </button>
-            <span className="text-muted-foreground text-sm font-mono">/{category.slug}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            {category.articleTypes.map((type, idx) => (
-              <span
-                key={idx}
-                className="px-2 py-0.5 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded text-xs"
-              >
-                {articleTypeLabels[type]}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* Article Count */}
-        <div className="text-muted-foreground text-sm whitespace-nowrap">
-          {category.articleCount} bài
-        </div>
-
-        {/* Status Toggle */}
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            onToggleActive(category.id);
-          }}
-          className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-sm transition-all ${
-            category.active
-              ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 hover:bg-green-200'
-              : 'bg-gray-100 dark:bg-gray-900/30 text-gray-600 dark:text-gray-400 hover:bg-gray-200'
-          }`}
-        >
-          {category.active ? (
-            <>
-              <Eye className="w-3 h-3" />
-              <span>Hiển thị</span>
-            </>
+        <div className="flex items-center gap-2 flex-1 min-w-0">
+          {hasChildren ? (
+            isExpanded ? (
+              <FolderOpen className="w-4 h-4 text-blue-500 flex-shrink-0" />
+            ) : (
+              <Folder className="w-4 h-4 text-blue-500 flex-shrink-0" />
+            )
           ) : (
-            <>
-              <EyeOff className="w-3 h-3" />
-              <span>Ẩn</span>
-            </>
+            <div className="text-muted-foreground flex-shrink-0">
+              {getTypeIcon(category.articleTypes)}
+            </div>
           )}
-        </button>
 
-        {/* Actions */}
-        <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
           <button
             onClick={() => onViewDetail(category.id)}
-            className="p-2 hover:bg-blue-100 dark:hover:bg-blue-900/30 text-blue-600 rounded-lg transition-colors"
-            title="Xem chi tiết"
+            className="font-medium hover:text-blue-600 transition-colors truncate text-left"
           >
-            <Info className="w-4 h-4" />
+            {category.name}
           </button>
+
+          <span className="text-xs text-muted-foreground flex-shrink-0">
+            ({category.articleCount})
+          </span>
+
+          {!category.active && (
+            <span className="text-xs px-2 py-0.5 bg-gray-500/10 text-gray-500 rounded flex-shrink-0">
+              Inactive
+            </span>
+          )}
+        </div>
+
+        <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
           <button
             onClick={() => onEdit(category.id)}
-            className="p-2 hover:bg-purple-100 dark:hover:bg-purple-900/30 text-purple-600 rounded-lg transition-colors"
-            title="Chỉnh sửa"
+            className="p-1.5 hover:bg-blue-500/10 text-blue-600 rounded transition-colors"
+            title="Edit"
           >
-            <Edit2 className="w-4 h-4" />
+            <Edit2 className="w-3.5 h-3.5" />
+          </button>
+          <button
+            onClick={() => onViewDetail(category.id)}
+            className="p-1.5 hover:bg-green-500/10 text-green-600 rounded transition-colors"
+            title="View Details"
+          >
+            <Eye className="w-3.5 h-3.5" />
+          </button>
+          <button
+            onClick={() => onToggleActive(category.id)}
+            className="p-1.5 hover:bg-yellow-500/10 text-yellow-600 rounded transition-colors"
+            title={category.active ? 'Deactivate' : 'Activate'}
+          >
+            <Settings className="w-3.5 h-3.5" />
           </button>
           <button
             onClick={() => onDelete(category.id)}
-            className="p-2 hover:bg-red-100 dark:hover:bg-red-900/30 text-red-600 rounded-lg transition-colors"
-            title={t('tooltips.delete')}
+            className="p-1.5 hover:bg-red-500/10 text-red-600 rounded transition-colors"
+            title="Delete"
           >
-            <Trash2 className="w-4 h-4" />
+            <Trash2 className="w-3.5 h-3.5" />
           </button>
         </div>
       </div>
 
-      {/* Render children */}
       {isExpanded && hasChildren && (
         <div>
           {category.children!.map((child) => (
@@ -235,8 +171,10 @@ function CategoryItem({
   );
 }
 
-export function CategoryManagement({ onNavigate }: CategoryManagementProps) {
+export function CategoryManagement({ onNavigate }: CategoryManagementProps = {}) {
   const { t } = useLanguage();
+  const router = useRouter();
+
   const [expandedCategories, setExpandedCategories] = useState<number[]>([1, 2]);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
@@ -244,25 +182,26 @@ export function CategoryManagement({ onNavigate }: CategoryManagementProps) {
   const [viewingDetailId, setViewingDetailId] = useState<number | null>(null);
 
   const [categories, setCategories] = useState<Category[]>([
+    // Tin tức
     {
       id: 1,
       name: 'Tin tức',
       slug: 'tin-tuc',
       parent: null,
-      articleTypes: ['news', 'video'],
+      articleTypes: ['news'],
       active: true,
       order: 1,
-      articleCount: 234,
+      articleCount: 156,
       children: [
         {
           id: 11,
           name: 'Công nghệ',
           slug: 'cong-nghe',
           parent: 1,
-          articleTypes: ['news', 'video', 'podcast'],
+          articleTypes: ['news'],
           active: true,
           order: 1,
-          articleCount: 156,
+          articleCount: 45,
         },
         {
           id: 12,
@@ -272,61 +211,651 @@ export function CategoryManagement({ onNavigate }: CategoryManagementProps) {
           articleTypes: ['news'],
           active: true,
           order: 2,
-          articleCount: 78,
+          articleCount: 38,
+        },
+        {
+          id: 13,
+          name: 'Xã hội',
+          slug: 'xa-hoi',
+          parent: 1,
+          articleTypes: ['news'],
+          active: true,
+          order: 3,
+          articleCount: 42,
+        },
+        {
+          id: 14,
+          name: 'Thế giới',
+          slug: 'the-gioi',
+          parent: 1,
+          articleTypes: ['news'],
+          active: true,
+          order: 4,
+          articleCount: 31,
         },
       ],
     },
+    // Video
     {
       id: 2,
-      name: 'Sự kiện',
-      slug: 'su-kien',
+      name: 'Video',
+      slug: 'video',
       parent: null,
-      articleTypes: ['event', 'gallery'],
+      articleTypes: ['video'],
       active: true,
       order: 2,
       articleCount: 89,
       children: [
         {
           id: 21,
-          name: 'Hội thảo',
-          slug: 'hoi-thao',
+          name: 'Phỏng vấn',
+          slug: 'phong-van',
           parent: 2,
-          articleTypes: ['event'],
+          articleTypes: ['video'],
           active: true,
           order: 1,
-          articleCount: 45,
+          articleCount: 34,
         },
         {
           id: 22,
-          name: 'Workshop',
-          slug: 'workshop',
+          name: 'Tutorial',
+          slug: 'tutorial',
           parent: 2,
-          articleTypes: ['event'],
+          articleTypes: ['video'],
           active: true,
           order: 2,
-          articleCount: 44,
+          articleCount: 28,
+        },
+        {
+          id: 23,
+          name: 'Livestream',
+          slug: 'livestream',
+          parent: 2,
+          articleTypes: ['video'],
+          active: true,
+          order: 3,
+          articleCount: 27,
         },
       ],
     },
+    // Gallery
     {
       id: 3,
-      name: 'Tuyển dụng',
-      slug: 'tuyen-dung',
+      name: 'Thư viện ảnh',
+      slug: 'thu-vien-anh',
       parent: null,
-      articleTypes: ['job'],
+      articleTypes: ['gallery'],
       active: true,
       order: 3,
       articleCount: 67,
+      children: [
+        {
+          id: 31,
+          name: 'Sự kiện công ty',
+          slug: 'su-kien-cong-ty',
+          parent: 3,
+          articleTypes: ['gallery'],
+          active: true,
+          order: 1,
+          articleCount: 24,
+        },
+        {
+          id: 32,
+          name: 'Hoạt động đội nhóm',
+          slug: 'hoat-dong-doi-nhom',
+          parent: 3,
+          articleTypes: ['gallery'],
+          active: true,
+          order: 2,
+          articleCount: 19,
+        },
+        {
+          id: 33,
+          name: 'Văn phòng',
+          slug: 'van-phong',
+          parent: 3,
+          articleTypes: ['gallery'],
+          active: true,
+          order: 3,
+          articleCount: 24,
+        },
+      ],
     },
+    // Văn bản pháp luật
     {
       id: 4,
       name: 'Văn bản pháp luật',
       slug: 'van-ban-phap-luat',
       parent: null,
       articleTypes: ['legal'],
-      active: false,
+      active: true,
       order: 4,
-      articleCount: 123,
+      articleCount: 142,
+      children: [
+        {
+          id: 41,
+          name: 'Nghị định',
+          slug: 'nghi-dinh',
+          parent: 4,
+          articleTypes: ['legal'],
+          active: true,
+          order: 1,
+          articleCount: 48,
+        },
+        {
+          id: 42,
+          name: 'Thông tư',
+          slug: 'thong-tu',
+          parent: 4,
+          articleTypes: ['legal'],
+          active: true,
+          order: 2,
+          articleCount: 52,
+        },
+        {
+          id: 43,
+          name: 'Quyết định',
+          slug: 'quyet-dinh',
+          parent: 4,
+          articleTypes: ['legal'],
+          active: true,
+          order: 3,
+          articleCount: 42,
+        },
+      ],
+    },
+    // Tuyển dụng
+    {
+      id: 5,
+      name: 'Tuyển dụng',
+      slug: 'tuyen-dung',
+      parent: null,
+      articleTypes: ['job'],
+      active: true,
+      order: 5,
+      articleCount: 78,
+      children: [
+        {
+          id: 51,
+          name: 'Công nghệ thông tin',
+          slug: 'cong-nghe-thong-tin',
+          parent: 5,
+          articleTypes: ['job'],
+          active: true,
+          order: 1,
+          articleCount: 32,
+        },
+        {
+          id: 52,
+          name: 'Marketing',
+          slug: 'marketing',
+          parent: 5,
+          articleTypes: ['job'],
+          active: true,
+          order: 2,
+          articleCount: 18,
+        },
+        {
+          id: 53,
+          name: 'Nhân sự',
+          slug: 'nhan-su',
+          parent: 5,
+          articleTypes: ['job'],
+          active: true,
+          order: 3,
+          articleCount: 14,
+        },
+        {
+          id: 54,
+          name: 'Kế toán',
+          slug: 'ke-toan',
+          parent: 5,
+          articleTypes: ['job'],
+          active: true,
+          order: 4,
+          articleCount: 14,
+        },
+      ],
+    },
+    // Podcast
+    {
+      id: 6,
+      name: 'Podcast',
+      slug: 'podcast',
+      parent: null,
+      articleTypes: ['podcast'],
+      active: true,
+      order: 6,
+      articleCount: 54,
+      children: [
+        {
+          id: 61,
+          name: 'Tech Talk',
+          slug: 'tech-talk',
+          parent: 6,
+          articleTypes: ['podcast'],
+          active: true,
+          order: 1,
+          articleCount: 22,
+        },
+        {
+          id: 62,
+          name: 'Business Insights',
+          slug: 'business-insights',
+          parent: 6,
+          articleTypes: ['podcast'],
+          active: true,
+          order: 2,
+          articleCount: 18,
+        },
+        {
+          id: 63,
+          name: 'Câu chuyện thành công',
+          slug: 'cau-chuyen-thanh-cong',
+          parent: 6,
+          articleTypes: ['podcast'],
+          active: true,
+          order: 3,
+          articleCount: 14,
+        },
+      ],
+    },
+    // Sự kiện
+    {
+      id: 7,
+      name: 'Sự kiện',
+      slug: 'su-kien',
+      parent: null,
+      articleTypes: ['event'],
+      active: true,
+      order: 7,
+      articleCount: 96,
+      children: [
+        {
+          id: 71,
+          name: 'Hội thảo',
+          slug: 'hoi-thao',
+          parent: 7,
+          articleTypes: ['event'],
+          active: true,
+          order: 1,
+          articleCount: 38,
+        },
+        {
+          id: 72,
+          name: 'Workshop',
+          slug: 'workshop',
+          parent: 7,
+          articleTypes: ['event'],
+          active: true,
+          order: 2,
+          articleCount: 28,
+        },
+        {
+          id: 73,
+          name: 'Webinar',
+          slug: 'webinar',
+          parent: 7,
+          articleTypes: ['event'],
+          active: true,
+          order: 3,
+          articleCount: 30,
+        },
+      ],
+    },
+    // Nhân sự
+    {
+      id: 8,
+      name: 'Đội ngũ',
+      slug: 'doi-ngu',
+      parent: null,
+      articleTypes: ['staff'],
+      active: true,
+      order: 8,
+      articleCount: 45,
+      children: [
+        {
+          id: 81,
+          name: 'Ban lãnh đạo',
+          slug: 'ban-lanh-dao',
+          parent: 8,
+          articleTypes: ['staff'],
+          active: true,
+          order: 1,
+          articleCount: 8,
+        },
+        {
+          id: 82,
+          name: 'Phòng kỹ thuật',
+          slug: 'phong-ky-thuat',
+          parent: 8,
+          articleTypes: ['staff'],
+          active: true,
+          order: 2,
+          articleCount: 18,
+        },
+        {
+          id: 83,
+          name: 'Phòng kinh doanh',
+          slug: 'phong-kinh-doanh',
+          parent: 8,
+          articleTypes: ['staff'],
+          active: true,
+          order: 3,
+          articleCount: 12,
+        },
+        {
+          id: 84,
+          name: 'Phòng hành chính',
+          slug: 'phong-hanh-chinh',
+          parent: 8,
+          articleTypes: ['staff'],
+          active: true,
+          order: 4,
+          articleCount: 7,
+        },
+      ],
+    },
+    // Tải xuống
+    {
+      id: 9,
+      name: 'Tài liệu',
+      slug: 'tai-lieu',
+      parent: null,
+      articleTypes: ['download'],
+      active: true,
+      order: 9,
+      articleCount: 112,
+      children: [
+        {
+          id: 91,
+          name: 'Biểu mẫu',
+          slug: 'bieu-mau',
+          parent: 9,
+          articleTypes: ['download'],
+          active: true,
+          order: 1,
+          articleCount: 38,
+        },
+        {
+          id: 92,
+          name: 'Hướng dẫn',
+          slug: 'huong-dan',
+          parent: 9,
+          articleTypes: ['download'],
+          active: true,
+          order: 2,
+          articleCount: 44,
+        },
+        {
+          id: 93,
+          name: 'Báo cáo',
+          slug: 'bao-cao',
+          parent: 9,
+          articleTypes: ['download'],
+          active: true,
+          order: 3,
+          articleCount: 30,
+        },
+      ],
+    },
+    // Infographic
+    {
+      id: 10,
+      name: 'Infographic',
+      slug: 'infographic',
+      parent: null,
+      articleTypes: ['infographic'],
+      active: true,
+      order: 10,
+      articleCount: 34,
+      children: [
+        {
+          id: 101,
+          name: 'Thống kê',
+          slug: 'thong-ke',
+          parent: 10,
+          articleTypes: ['infographic'],
+          active: true,
+          order: 1,
+          articleCount: 15,
+        },
+        {
+          id: 102,
+          name: 'Dữ liệu thị trường',
+          slug: 'du-lieu-thi-truong',
+          parent: 10,
+          articleTypes: ['infographic'],
+          active: true,
+          order: 2,
+          articleCount: 19,
+        },
+      ],
+    },
+    // Blog
+    {
+      id: 11,
+      name: 'Blog',
+      slug: 'blog',
+      parent: null,
+      articleTypes: ['blog'],
+      active: true,
+      order: 11,
+      articleCount: 87,
+      children: [
+        {
+          id: 111,
+          name: 'Công nghệ',
+          slug: 'blog-cong-nghe',
+          parent: 11,
+          articleTypes: ['blog'],
+          active: true,
+          order: 1,
+          articleCount: 32,
+        },
+        {
+          id: 112,
+          name: 'Lifestyle',
+          slug: 'lifestyle',
+          parent: 11,
+          articleTypes: ['blog'],
+          active: true,
+          order: 2,
+          articleCount: 28,
+        },
+        {
+          id: 113,
+          name: 'Kinh nghiệm',
+          slug: 'kinh-nghiem',
+          parent: 11,
+          articleTypes: ['blog'],
+          active: true,
+          order: 3,
+          articleCount: 27,
+        },
+      ],
+    },
+    // Trang
+    {
+      id: 12,
+      name: 'Giới thiệu',
+      slug: 'gioi-thieu',
+      parent: null,
+      articleTypes: ['page'],
+      active: true,
+      order: 12,
+      articleCount: 12,
+      children: [
+        {
+          id: 121,
+          name: 'Về chúng tôi',
+          slug: 've-chung-toi',
+          parent: 12,
+          articleTypes: ['page'],
+          active: true,
+          order: 1,
+          articleCount: 3,
+        },
+        {
+          id: 122,
+          name: 'Sứ mệnh & Tầm nhìn',
+          slug: 'su-menh-tam-nhin',
+          parent: 12,
+          articleTypes: ['page'],
+          active: true,
+          order: 2,
+          articleCount: 2,
+        },
+        {
+          id: 123,
+          name: 'Giá trị cốt lõi',
+          slug: 'gia-tri-cot-loi',
+          parent: 12,
+          articleTypes: ['page'],
+          active: true,
+          order: 3,
+          articleCount: 4,
+        },
+        {
+          id: 124,
+          name: 'Lịch sử phát triển',
+          slug: 'lich-su-phat-trien',
+          parent: 12,
+          articleTypes: ['page'],
+          active: true,
+          order: 4,
+          articleCount: 3,
+        },
+      ],
+    },
+    // FAQ
+    {
+      id: 13,
+      name: 'Hỏi đáp',
+      slug: 'hoi-dap',
+      parent: null,
+      articleTypes: ['faq'],
+      active: true,
+      order: 13,
+      articleCount: 68,
+      children: [
+        {
+          id: 131,
+          name: 'Sản phẩm & Dịch vụ',
+          slug: 'san-pham-dich-vu',
+          parent: 13,
+          articleTypes: ['faq'],
+          active: true,
+          order: 1,
+          articleCount: 24,
+        },
+        {
+          id: 132,
+          name: 'Thanh toán',
+          slug: 'thanh-toan',
+          parent: 13,
+          articleTypes: ['faq'],
+          active: true,
+          order: 2,
+          articleCount: 18,
+        },
+        {
+          id: 133,
+          name: 'Hỗ trợ kỹ thuật',
+          slug: 'ho-tro-ky-thuat',
+          parent: 13,
+          articleTypes: ['faq'],
+          active: true,
+          order: 3,
+          articleCount: 26,
+        },
+      ],
+    },
+    // Testimonial
+    {
+      id: 14,
+      name: 'Đánh giá',
+      slug: 'danh-gia',
+      parent: null,
+      articleTypes: ['testimonial'],
+      active: true,
+      order: 14,
+      articleCount: 52,
+      children: [
+        {
+          id: 141,
+          name: 'Khách hàng doanh nghiệp',
+          slug: 'khach-hang-doanh-nghiep',
+          parent: 14,
+          articleTypes: ['testimonial'],
+          active: true,
+          order: 1,
+          articleCount: 22,
+        },
+        {
+          id: 142,
+          name: 'Khách hàng cá nhân',
+          slug: 'khach-hang-ca-nhan',
+          parent: 14,
+          articleTypes: ['testimonial'],
+          active: true,
+          order: 2,
+          articleCount: 18,
+        },
+        {
+          id: 143,
+          name: 'Đối tác',
+          slug: 'doi-tac',
+          parent: 14,
+          articleTypes: ['testimonial'],
+          active: true,
+          order: 3,
+          articleCount: 12,
+        },
+      ],
+    },
+    // Portfolio
+    {
+      id: 15,
+      name: 'Dự án',
+      slug: 'du-an',
+      parent: null,
+      articleTypes: ['portfolio'],
+      active: true,
+      order: 15,
+      articleCount: 43,
+      children: [
+        {
+          id: 151,
+          name: 'Web Development',
+          slug: 'web-development',
+          parent: 15,
+          articleTypes: ['portfolio'],
+          active: true,
+          order: 1,
+          articleCount: 16,
+        },
+        {
+          id: 152,
+          name: 'Mobile App',
+          slug: 'mobile-app',
+          parent: 15,
+          articleTypes: ['portfolio'],
+          active: true,
+          order: 2,
+          articleCount: 14,
+        },
+        {
+          id: 153,
+          name: 'UI/UX Design',
+          slug: 'ui-ux-design',
+          parent: 15,
+          articleTypes: ['portfolio'],
+          active: true,
+          order: 3,
+          articleCount: 13,
+        },
+      ],
     },
   ]);
 

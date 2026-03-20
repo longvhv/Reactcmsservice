@@ -57,22 +57,22 @@ export function AdvancedAnalytics() {
       bounceRate: { value: 42.5, change: -5.1 },
     },
     topArticles: [
-      { id: '1', title: 'Complete Guide to React Hooks', views: 5420, change: 15.2 },
-      { id: '2', title: 'TypeScript Best Practices 2024', views: 4250, change: 8.7 },
-      { id: '3', title: 'Modern CSS Techniques', views: 3890, change: -2.3 },
-      { id: '4', title: 'Node.js Performance Tips', views: 3560, change: 22.1 },
+      { id: '1', title: 'Hướng dẫn đầy đủ về React Hooks', views: 5420, change: 15.2 },
+      { id: '2', title: 'Thực hành tốt nhất TypeScript 2024', views: 4250, change: 8.7 },
+      { id: '3', title: 'Kỹ thuật CSS hiện đại', views: 3890, change: -2.3 },
+      { id: '4', title: 'Mẹo tối ưu hiệu suất Node.js', views: 3560, change: 22.1 },
       { id: '5', title: 'GraphQL vs REST API', views: 3120, change: 5.4 },
     ],
     trafficSources: [
-      { source: 'Organic Search', visits: 18750, percentage: 42 },
-      { source: 'Direct', visits: 13140, percentage: 29 },
-      { source: 'Social Media', visits: 8950, percentage: 20 },
-      { source: 'Referral', visits: 4440, percentage: 9 },
+      { source: 'Tìm kiếm tự nhiên', visits: 18750, percentage: 42 },
+      { source: 'Trực tiếp', visits: 13140, percentage: 29 },
+      { source: 'Mạng xã hội', visits: 8950, percentage: 20 },
+      { source: 'Giới thiệu', visits: 4440, percentage: 9 },
     ],
     deviceBreakdown: [
-      { device: 'Desktop', percentage: 52, count: 23546 },
-      { device: 'Mobile', percentage: 38, count: 17206 },
-      { device: 'Tablet', percentage: 10, count: 4528 },
+      { device: 'Máy tính', percentage: 52, count: 23546 },
+      { device: 'Di động', percentage: 38, count: 17206 },
+      { device: 'Máy tính bảng', percentage: 10, count: 4528 },
     ],
     engagement: {
       likes: 8450,
@@ -128,7 +128,7 @@ export function AdvancedAnalytics() {
             <BarChart3 className="w-6 h-6 text-blue-600" />
           </div>
           <div>
-            <h1 className="text-3xl mb-1">Advanced Analytics</h1>
+            <h1 className="text-3xl mb-1">Phân tích nâng cao</h1>
             <p className="text-sm text-muted-foreground">
               Phân tích chi tiết hiệu suất nội dung
             </p>
@@ -142,9 +142,9 @@ export function AdvancedAnalytics() {
             onChange={(e) => setTimeRange(e.target.value as any)}
             className="px-4 py-2 rounded-xl bg-background/50 border border-border/40 focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20 transition-all outline-none"
           >
-            <option value="7d">Last 7 days</option>
-            <option value="30d">Last 30 days</option>
-            <option value="90d">Last 90 days</option>
+            <option value="7d">7 ngày qua</option>
+            <option value="30d">30 ngày qua</option>
+            <option value="90d">90 ngày qua</option>
           </select>
 
           <button
@@ -153,12 +153,12 @@ export function AdvancedAnalytics() {
             className="flex items-center gap-2 px-4 py-2 rounded-xl bg-muted/60 hover:bg-muted transition-all border border-border/40"
           >
             <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
-            Refresh
+            Làm mới
           </button>
 
           <button className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg shadow-blue-500/30">
             <Download className="w-4 h-4" />
-            Export Report
+            Xuất báo cáo
           </button>
         </div>
       </div>
@@ -167,28 +167,28 @@ export function AdvancedAnalytics() {
       <div className="grid grid-cols-4 gap-6">
         {[
           {
-            label: 'Page Views',
+            label: 'Lượt xem trang',
             value: analytics.overview.pageViews.value,
             change: analytics.overview.pageViews.change,
             icon: Eye,
             color: 'blue',
           },
           {
-            label: 'Unique Visitors',
+            label: 'Khách truy cập',
             value: analytics.overview.uniqueVisitors.value,
             change: analytics.overview.uniqueVisitors.change,
             icon: Users,
             color: 'purple',
           },
           {
-            label: 'Avg. Time on Page',
+            label: 'Thời gian TB trên trang',
             value: formatDuration(analytics.overview.avgTimeOnPage.value),
             change: analytics.overview.avgTimeOnPage.change,
             icon: Clock,
             color: 'green',
           },
           {
-            label: 'Bounce Rate',
+            label: 'Tỷ lệ thoát',
             value: `${analytics.overview.bounceRate.value}%`,
             change: analytics.overview.bounceRate.change,
             icon: MousePointer,
@@ -242,15 +242,15 @@ export function AdvancedAnalytics() {
         {/* Chart */}
         <div className="col-span-8 glass-card p-6">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg">Traffic Overview</h3>
+            <h3 className="text-lg">Tổng quan lưu lượng</h3>
             <div className="flex items-center gap-4 text-sm">
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 rounded bg-blue-500" />
-                <span className="text-muted-foreground">Page Views</span>
+                <span className="text-muted-foreground">Lượt xem</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 rounded bg-purple-500" />
-                <span className="text-muted-foreground">Unique Visitors</span>
+                <span className="text-muted-foreground">Khách truy cập</span>
               </div>
             </div>
           </div>
@@ -261,13 +261,13 @@ export function AdvancedAnalytics() {
               <div key={idx} className="space-y-1">
                 <div className="flex items-center justify-between text-xs text-muted-foreground">
                   <span>{data.date}</span>
-                  <span>{formatNumber(data.views)} views • {formatNumber(data.visitors)} visitors</span>
+                  <span>{formatNumber(data.views)} lượt xem • {formatNumber(data.visitors)} khách</span>
                 </div>
                 <div className="flex gap-1 h-8">
                   <div
                     className="bg-gradient-to-r from-blue-600 to-blue-500 rounded transition-all hover:opacity-80"
                     style={{ width: `${(data.views / maxViews) * 100}%` }}
-                    title={`${data.views} views`}
+                    title={`${data.views} lượt xem`}
                   />
                 </div>
               </div>
@@ -279,7 +279,7 @@ export function AdvancedAnalytics() {
         <div className="col-span-4 glass-card p-6">
           <h3 className="text-lg mb-6 flex items-center gap-2">
             <Globe className="w-5 h-5" />
-            Traffic Sources
+            Nguồn lưu lượng
           </h3>
 
           <div className="space-y-4">
@@ -304,7 +304,7 @@ export function AdvancedAnalytics() {
                   />
                 </div>
                 <div className="text-xs text-muted-foreground mt-1">
-                  {formatNumber(source.visits)} visits
+                  {formatNumber(source.visits)} lượt truy cập
                 </div>
               </div>
             ))}
@@ -317,7 +317,7 @@ export function AdvancedAnalytics() {
         <div className="col-span-7 glass-card p-6">
           <h3 className="text-lg mb-6 flex items-center gap-2">
             <Award className="w-5 h-5" />
-            Top Performing Articles
+            Bài viết nổi bật
           </h3>
 
           <div className="space-y-3">
@@ -342,7 +342,7 @@ export function AdvancedAnalytics() {
                 <div className="flex-1 min-w-0">
                   <h4 className="font-medium line-clamp-1">{article.title}</h4>
                   <div className="flex items-center gap-3 text-sm text-muted-foreground mt-1">
-                    <span>{formatNumber(article.views)} views</span>
+                    <span>{formatNumber(article.views)} lượt xem</span>
                     <div className={`flex items-center gap-1 ${getTrendColor(article.change)}`}>
                       {getTrendIcon(article.change)}
                       <span>{Math.abs(article.change)}%</span>
@@ -360,7 +360,7 @@ export function AdvancedAnalytics() {
           <div className="glass-card p-6">
             <h3 className="text-lg mb-6 flex items-center gap-2">
               <PieChart className="w-5 h-5" />
-              Device Breakdown
+              Phân bổ thiết bị
             </h3>
 
             <div className="space-y-3">
@@ -392,15 +392,15 @@ export function AdvancedAnalytics() {
           <div className="glass-card p-6">
             <h3 className="text-lg mb-6 flex items-center gap-2">
               <Activity className="w-5 h-5" />
-              Engagement Metrics
+              Chỉ số tương tác
             </h3>
 
             <div className="grid grid-cols-2 gap-3">
               {[
-                { label: 'Likes', value: analytics.engagement.likes, icon: Heart, color: 'red' },
-                { label: 'Shares', value: analytics.engagement.shares, icon: Share2, color: 'blue' },
-                { label: 'Comments', value: analytics.engagement.comments, icon: Users, color: 'purple' },
-                { label: 'Bookmarks', value: analytics.engagement.bookmarks, icon: Target, color: 'green' },
+                { label: 'Lượt thích', value: analytics.engagement.likes, icon: Heart, color: 'red' },
+                { label: 'Chia sẻ', value: analytics.engagement.shares, icon: Share2, color: 'blue' },
+                { label: 'Bình luận', value: analytics.engagement.comments, icon: Users, color: 'purple' },
+                { label: 'Lưu lại', value: analytics.engagement.bookmarks, icon: Target, color: 'green' },
               ].map((metric) => {
                 const Icon = metric.icon;
                 return (

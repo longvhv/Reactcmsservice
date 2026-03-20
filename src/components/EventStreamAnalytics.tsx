@@ -462,7 +462,7 @@ export function EventStreamAnalytics({ streamId, streamColor }: { streamId: stri
             <div className="space-y-3">
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm">Engagement rate</span>
+                  <span className="text-sm">Tỷ lệ tương tác</span>
                   <span className="text-sm font-semibold text-green-600">+2.3%</span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -477,7 +477,7 @@ export function EventStreamAnalytics({ streamId, streamColor }: { streamId: stri
               </div>
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm">Read completion</span>
+                  <span className="text-sm">Tỷ lệ đọc xong</span>
                   <span className="text-sm font-semibold text-yellow-600">-1.2%</span>
                 </div>
                 <div className="flex items-center gap-2">

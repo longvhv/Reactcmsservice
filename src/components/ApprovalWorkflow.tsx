@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { 
   CheckCircle2, XCircle, Clock, AlertCircle, MessageSquare, 
   Eye, Edit3, Send, ArrowRight, Users, Calendar, Filter,
-  CheckSquare, Sparkles, History, Tag, User
+  CheckSquare, Sparkles, History, Tag, User, DollarSign, Coins
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useSystemSettings } from '../contexts/SystemSettingsContext';
+import { formatCurrency, calculateEstimatedRoyalty } from '../utils/royaltyHelpers';
 
 // Types
 export type ApprovalStatus = 'draft' | 'pending' | 'approved' | 'rejected' | 'published';
@@ -25,6 +27,7 @@ export interface Article {
   id: string;
   title: string;
   author: string;
+  authorId?: string;
   authorAvatar?: string;
   category: string;
   status: ApprovalStatus;
@@ -35,6 +38,11 @@ export interface Article {
   comments: number;
   priority: 'low' | 'medium' | 'high' | 'urgent';
   tags: string[];
+  // Royalty integration fields
+  wordCount?: number;
+  views?: number;
+  estimatedRoyalty?: number;
+  royaltyConfig?: string;
 }
 
 interface ApprovalWorkflowProps {
@@ -45,6 +53,7 @@ interface ApprovalWorkflowProps {
 
 export function ApprovalWorkflow({ onApprove, onReject, onRequestChanges }: ApprovalWorkflowProps) {
   const { t } = useLanguage();
+  const { isRoyaltyEnabled } = useSystemSettings();
   const [selectedTab, setSelectedTab] = useState<'pending' | 'approved' | 'rejected' | 'all'>('pending');
   const [selectedArticles, setSelectedArticles] = useState<string[]>([]);
   const [filterPriority, setFilterPriority] = useState<string>('all');
@@ -56,6 +65,7 @@ export function ApprovalWorkflow({ onApprove, onReject, onRequestChanges }: Appr
       id: '1',
       title: 'Hướng dẫn sử dụng React Hooks trong dự án thực tế',
       author: 'Nguyễn Văn A',
+      authorId: '1',
       authorAvatar: undefined,
       category: 'Lập trình',
       status: 'pending',
@@ -74,6 +84,10 @@ export function ApprovalWorkflow({ onApprove, onReject, onRequestChanges }: Appr
       comments: 3,
       priority: 'high',
       tags: ['React', 'Tutorial', 'JavaScript'],
+      wordCount: 1500,
+      views: 500,
+      estimatedRoyalty: calculateEstimatedRoyalty(1500, 500),
+      royaltyConfig: '10% từ số từ, 5% từ lượt xem',
     },
     {
       id: '2',
@@ -96,6 +110,10 @@ export function ApprovalWorkflow({ onApprove, onReject, onRequestChanges }: Appr
       comments: 1,
       priority: 'urgent',
       tags: ['AI', 'Marketing'],
+      wordCount: 1200,
+      views: 300,
+      estimatedRoyalty: calculateEstimatedRoyalty(1200, 300),
+      royaltyConfig: '10% từ số từ, 5% từ lượt xem',
     },
     {
       id: '3',
@@ -127,6 +145,10 @@ export function ApprovalWorkflow({ onApprove, onReject, onRequestChanges }: Appr
       comments: 5,
       priority: 'medium',
       tags: ['Design', 'UI/UX'],
+      wordCount: 1800,
+      views: 700,
+      estimatedRoyalty: calculateEstimatedRoyalty(1800, 700),
+      royaltyConfig: '10% từ số từ, 5% từ lượt xem',
     },
   ];
 
@@ -293,7 +315,7 @@ export function ApprovalWorkflow({ onApprove, onReject, onRequestChanges }: Appr
             onChange={(e) => setFilterPriority(e.target.value)}
             className="px-4 py-2 rounded-lg bg-background/50 border border-border/40 focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20 transition-all outline-none"
           >
-            <option value="all">Tất cả mức độ</option>
+            <option value="all">-- Mức độ --</option>
             <option value="urgent">Khẩn cấp</option>
             <option value="high">Cao</option>
             <option value="medium">Trung bình</option>
@@ -429,6 +451,33 @@ export function ApprovalWorkflow({ onApprove, onReject, onRequestChanges }: Appr
                       />
                     </div>
                   </div>
+
+                  {/* Royalty Estimate - Integration with Royalty Management */}
+                  {isRoyaltyEnabled && article.wordCount && article.views !== undefined && (
+                    <div className="mb-4 p-3 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border border-green-100">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <Coins className="w-4 h-4 text-green-600" />
+                          <span className="text-sm font-medium text-green-800">Nhuận bút ước tính</span>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-lg font-bold text-green-600">
+                            {formatCurrency(article.estimatedRoyalty || 0)}
+                          </div>
+                          <div className="text-xs text-green-600">
+                            {article.wordCount.toLocaleString()} từ • {article.views.toLocaleString()} lượt xem
+                          </div>
+                        </div>
+                      </div>
+                      {article.royaltyConfig && (
+                        <div className="mt-2 pt-2 border-t border-green-200/50">
+                          <p className="text-xs text-green-700">
+                            💡 {article.royaltyConfig}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  )}
 
                   {/* Actions */}
                   <div className="flex items-center gap-2">

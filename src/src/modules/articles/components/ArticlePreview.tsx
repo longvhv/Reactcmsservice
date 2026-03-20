@@ -12,6 +12,8 @@ import {
   Minimize2
 } from 'lucide-react';
 import { format } from 'date-fns';
+import { SectionPreviewRenderer } from './sections/renderers/SectionPreviewRenderer';
+import type { ContentSection } from '@/src/types/content-section';
 
 interface ArticlePreviewProps {
   article: {
@@ -27,6 +29,8 @@ interface ArticlePreviewProps {
     };
     publishedAt?: string;
     articleType?: string;
+    contentMode?: 'html' | 'sections';
+    sections?: ContentSection[];
   };
   onClose?: () => void;
 }
@@ -68,7 +72,7 @@ export const ArticlePreview: React.FC<ArticlePreviewProps> = ({
         <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center gap-3">
             <Eye className="w-5 h-5 text-blue-600" />
-            <h3 className="font-semibold">Article Preview</h3>
+            <h3 className="font-semibold">Xem trước bài viết</h3>
             {article.articleType && (
               <span className={`px-2 py-1 rounded text-xs font-medium capitalize ${getArticleTypeColor(article.articleType)}`}>
                 {article.articleType}
@@ -269,10 +273,14 @@ export const ArticlePreview: React.FC<ArticlePreviewProps> = ({
                       </div>
 
                       {/* Content */}
-                      <div 
-                        className="prose dark:prose-invert max-w-none"
-                        dangerouslySetInnerHTML={{ __html: article.content || '<p class="text-gray-400">No content yet...</p>' }}
-                      />
+                      {article.contentMode === 'sections' && article.sections && article.sections.length > 0 ? (
+                        <SectionPreviewRenderer sections={article.sections} />
+                      ) : (
+                        <div 
+                          className="prose dark:prose-invert max-w-none"
+                          dangerouslySetInnerHTML={{ __html: article.content || '<p class="text-gray-400">No content yet...</p>' }}
+                        />
+                      )}
                     </div>
                   </div>
                 </div>
@@ -331,7 +339,7 @@ export const ArticlePreview: React.FC<ArticlePreviewProps> = ({
               onClick={onClose}
               className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
             >
-              Close Preview
+              Đóng xem trước
             </button>
           </div>
         </div>

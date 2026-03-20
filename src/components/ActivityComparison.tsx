@@ -207,7 +207,7 @@ export function ActivityComparison({ users: initialUsers, onClose }: ActivityCom
                     <p className="font-semibold">{user.avgEventsPerDay}</p>
                   </div>
                   <div className="p-2 bg-secondary rounded-lg">
-                    <p className="text-muted-foreground mb-1">Peak hour</p>
+                    <p className="text-muted-foreground mb-1">Giờ cao điểm</p>
                     <p className="font-semibold">{user.peakHour}:00</p>
                   </div>
                 </div>

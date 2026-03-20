@@ -213,11 +213,11 @@ const UsersPage: React.FC = () => {
             className="px-4 py-2.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl 
               focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50 transition-all"
           >
-            <option value="all">All Roles</option>
-            <option value="admin">Admin</option>
-            <option value="editor">Editor</option>
-            <option value="author">Author</option>
-            <option value="subscriber">Subscriber</option>
+            <option value="all">-- Vai trò --</option>
+            <option value="admin">Quản trị viên</option>
+            <option value="editor">Biên tập viên</option>
+            <option value="author">Tác giả</option>
+            <option value="subscriber">Người theo dõi</option>
           </select>
 
           {/* Status Filter */}
@@ -227,10 +227,10 @@ const UsersPage: React.FC = () => {
             className="px-4 py-2.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl 
               focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50 transition-all"
           >
-            <option value="all">All Status</option>
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
-            <option value="pending">Pending</option>
+            <option value="all">-- Trạng thái --</option>
+            <option value="active">Hoạt động</option>
+            <option value="inactive">Không hoạt động</option>
+            <option value="pending">Chờ duyệt</option>
           </select>
         </div>
       </div>

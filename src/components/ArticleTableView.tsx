@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
   Eye, Edit, Trash2, MoreVertical, Calendar, User, MessageSquare,
   Star, Clock, FileText, Video, Image as ImageIcon, File, Briefcase,
@@ -62,9 +62,11 @@ interface ArticleTableViewProps {
   onNavigate?: (page: any) => void;
   onViewModeChange?: (mode: 'table' | 'list' | 'grid') => void;
   currentViewMode?: 'table' | 'list' | 'grid';
+  columns?: ColumnConfig[];
+  onColumnsChange?: (columns: ColumnConfig[]) => void;
 }
 
-const DEFAULT_COLUMNS: ColumnConfig[] = [
+export const DEFAULT_COLUMNS: ColumnConfig[] = [
   { id: 'id', label: 'ID', visible: false, sortable: true, width: '80px' },
   { id: 'thumbnail', label: 'Hình ảnh', visible: true, sortable: false, width: '100px' },
   { id: 'title', label: 'Tiêu đề', visible: true, sortable: true, alwaysVisible: true },
@@ -89,16 +91,44 @@ export function ArticleTableView({
   onNavigate,
   onViewModeChange,
   currentViewMode = 'table',
+  columns: externalColumns,
+  onColumnsChange,
 }: ArticleTableViewProps) {
-  const [columns, setColumns] = useState<ColumnConfig[]>(() => {
+  const [internalColumns, setInternalColumns] = useState<ColumnConfig[]>(() => {
     const saved = localStorage.getItem('articleTableColumns');
     return saved ? JSON.parse(saved) : DEFAULT_COLUMNS;
   });
+  
+  const columns = externalColumns || internalColumns;
+  const setColumns = (newCols: ColumnConfig[]) => {
+    if (onColumnsChange) {
+      onColumnsChange(newCols);
+    } else {
+      setInternalColumns(newCols);
+    }
+  };
+
   const [showColumnSelector, setShowColumnSelector] = useState(false);
   const [sortColumn, setSortColumn] = useState<string>('publishDate');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
   const [selectedArticles, setSelectedArticles] = useState<number[]>(selectedIds);
   const [showActionsMenu, setShowActionsMenu] = useState<number | null>(null);
+  const [menuPosition, setMenuPosition] = useState<{ top: number; left: number } | null>(null);
+  const actionsButtonRef = useRef<HTMLButtonElement | null>(null);
+
+  const handleToggleActionsMenu = useCallback((articleId: number, buttonEl: HTMLButtonElement) => {
+    if (showActionsMenu === articleId) {
+      setShowActionsMenu(null);
+      setMenuPosition(null);
+    } else {
+      const rect = buttonEl.getBoundingClientRect();
+      setMenuPosition({
+        top: rect.bottom + 4,
+        left: rect.right - 192, // 192 = w-48
+      });
+      setShowActionsMenu(articleId);
+    }
+  }, [showActionsMenu]);
 
   // Save column config to localStorage
   useEffect(() => {
@@ -237,78 +267,6 @@ export function ArticleTableView({
 
   return (
     <div className="space-y-4">
-      {/* Toolbar */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          {enableSelection && selectedArticles.length > 0 && (
-            <div className="px-3 py-1.5 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-700">
-              Đ�� chọn {selectedArticles.length} bài viết
-            </div>
-          )}
-        </div>
-
-        {/* Column Selector */}
-        <div className="relative">
-          <button
-            onClick={() => setShowColumnSelector(!showColumnSelector)}
-            className="flex items-center gap-2 px-3 py-2 rounded-lg border border-border/60 hover:bg-muted/40 transition-all duration-200 group"
-          >
-            <Columns className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors" />
-            <span className="text-sm text-muted-foreground group-hover:text-foreground">Cột hiển thị</span>
-            <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform ${showColumnSelector ? 'rotate-180' : ''}`} />
-          </button>
-
-          {showColumnSelector && (
-            <>
-              <div
-                className="fixed inset-0 z-10"
-                onClick={() => setShowColumnSelector(false)}
-              />
-              <div className="absolute right-0 top-full mt-2 w-64 bg-card border border-border/60 rounded-xl shadow-2xl shadow-black/10 z-20 overflow-hidden animate-slide-in-top">
-                <div className="p-3 border-b border-border/60 bg-gradient-to-r from-blue-50 to-purple-50">
-                  <div className="flex items-center justify-between">
-                    <h4 className="font-semibold text-foreground">Cột hiển thị</h4>
-                    <button
-                      onClick={resetColumns}
-                      className="text-xs text-blue-600 hover:text-blue-700 font-medium"
-                    >
-                      Đặt lại
-                    </button>
-                  </div>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    {visibleColumns.length}/{columns.length} cột
-                  </p>
-                </div>
-
-                <div className="p-2 max-h-96 overflow-y-auto">
-                  {columns.map(column => (
-                    <button
-                      key={column.id}
-                      onClick={() => toggleColumn(column.id)}
-                      disabled={column.alwaysVisible}
-                      className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg transition-all duration-200 ${
-                        column.alwaysVisible
-                          ? 'opacity-50 cursor-not-allowed'
-                          : 'hover:bg-muted/60 cursor-pointer'
-                      }`}
-                    >
-                      <span className="text-sm text-foreground">{column.label}</span>
-                      <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-colors ${
-                        column.visible
-                          ? 'bg-blue-500 border-blue-500'
-                          : 'border-border/60'
-                      }`}>
-                        {column.visible && <Check className="w-3.5 h-3.5 text-white" />}
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </>
-          )}
-        </div>
-      </div>
-
       {/* Table */}
       <div className="relative overflow-hidden rounded-xl border border-border/60 bg-card shadow-lg">
         {/* Gradient accent */}
@@ -530,31 +488,12 @@ export function ArticleTableView({
                         </button>
                         <div className="relative">
                           <button
-                            onClick={() => setShowActionsMenu(showActionsMenu === article.id ? null : article.id)}
+                            onClick={(e) => handleToggleActionsMenu(article.id, e.currentTarget)}
                             className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground transition-all duration-200"
                             title={t('tooltips.more')}
                           >
                             <MoreHorizontal className="w-4 h-4" />
                           </button>
-                          
-                          {showActionsMenu === article.id && (
-                            <>
-                              <div
-                                className="fixed inset-0 z-10"
-                                onClick={() => setShowActionsMenu(null)}
-                              />
-                              <div className="absolute right-0 top-full mt-1 w-48 bg-card border border-border/60 rounded-lg shadow-xl z-20 py-1">
-                                <button className="w-full px-3 py-2 text-left text-sm hover:bg-muted/60 transition-colors flex items-center gap-2">
-                                  <Eye className="w-4 h-4" />
-                                  Xem chi tiết
-                                </button>
-                                <button className="w-full px-3 py-2 text-left text-sm hover:bg-muted/60 transition-colors flex items-center gap-2">
-                                  <Star className="w-4 h-4" />
-                                  {article.featured ? 'Bỏ nổi bật' : 'Đánh dấu nổi bật'}
-                                </button>
-                              </div>
-                            </>
-                          )}
                         </div>
                       </div>
                     </td>
@@ -574,6 +513,36 @@ export function ArticleTableView({
       </div>
 
       {/* Pagination could go here */}
+
+      {/* Actions Menu Portal - rendered outside table to avoid overflow clipping */}
+      {showActionsMenu !== null && menuPosition && (
+        <div>
+          <div
+            className="fixed inset-0"
+            style={{ zIndex: 9998 }}
+            onClick={() => { setShowActionsMenu(null); setMenuPosition(null); }}
+          />
+          <div
+            className="fixed w-48 bg-card border border-border/60 rounded-lg shadow-xl py-1"
+            style={{ zIndex: 9999, top: menuPosition.top, left: menuPosition.left }}
+          >
+            <button
+              onClick={() => { setShowActionsMenu(null); setMenuPosition(null); }}
+              className="w-full px-3 py-2 text-left text-sm hover:bg-muted/60 transition-colors flex items-center gap-2"
+            >
+              <Eye className="w-4 h-4" />
+              Xem chi tiết
+            </button>
+            <button
+              onClick={() => { setShowActionsMenu(null); setMenuPosition(null); }}
+              className="w-full px-3 py-2 text-left text-sm hover:bg-muted/60 transition-colors flex items-center gap-2"
+            >
+              <Star className="w-4 h-4" />
+              {sortedArticles.find(a => a.id === showActionsMenu)?.featured ? 'Bỏ nổi bật' : 'Đánh dấu nổi bật'}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

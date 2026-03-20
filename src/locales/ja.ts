@@ -116,15 +116,38 @@ export default {
   // Article Types
   articleTypes: {
     news: 'ニュース',
+    newsDesc: '通常のニュース記事',
     video: 'ビデオ',
+    videoDesc: 'ビデオコンテンツ付き記事',
     gallery: 'ギャラリー',
+    galleryDesc: '画像コレクション',
+    document: 'ドキュメント',
+    documentDesc: 'ドキュメントファイル',
     legal: '法的文書',
+    legalDesc: '法的文書または規制',
     legalShort: '法的',
+    personnel: '人事',
+    personnelDesc: '人事情報',
     staff: 'スタッフ',
+    recruitment: '採用',
+    recruitmentDesc: '求人募集情報',
     job: '求人',
     podcast: 'ポッドキャスト',
+    podcastDesc: 'オーディオポッドキャスト',
     event: 'イベント',
+    eventDesc: 'イベント情報',
     download: 'ダウンロード',
+    downloadDesc: 'ダウンロード可能なファイル',
+    blog: 'ブログ',
+    blogDesc: 'ブログ記事',
+    tutorial: 'チュートリアル',
+    tutorialDesc: 'チュートリアル記事',
+    pressRelease: 'プレスリリース',
+    pressReleaseDesc: 'プレスリリース',
+    interview: 'インタビュー',
+    interviewDesc: 'インタビュー記事',
+    infographic: 'インフォグラフィック',
+    infographicDesc: 'ビジュアル情報チャート',
   },
 
   // Article Status
@@ -214,7 +237,7 @@ export default {
     categories: 'カテゴリー',
     categoriesRequired: 'カテゴリー *',
     selectCategories: 'カテゴリーを選択',
-    searchCategories: 'カテゴリーを検索...',
+    searchCategories: 'カテゴリーを索...',
     tags: 'タグ',
     addTag: 'タグを追加...',
     
@@ -243,7 +266,7 @@ export default {
     noImages: 'ギャラリーにまだ画像がありません',
     imageCaption: '画像のキャプション',
     
-    position: 'ポジション',
+    position: 'ポジシ��ン',
     salary: '給与',
     location: '場所',
     deadline: '応募締切',
@@ -309,7 +332,7 @@ export default {
     draftArticles: '下書き',
     subcategories: 'サブカテゴリー',
     
-    viewArticles: '���事を表示',
+    viewArticles: '記事を表示',
     addSubcategory: 'サブカテゴリーを追加',
     moveCategory: '移動',
     mergeCategories: 'カテゴリーを統合',
@@ -525,7 +548,7 @@ export default {
 
   // Event Stream
   eventStream: {
-    title: 'イベントストリーム',
+    title: 'イベントスリーム',
     createStream: 'ストリーム作成',
     editStream: 'ストリーム編集',
     streamName: 'ストリーム名',
@@ -577,7 +600,7 @@ export default {
     pageviews: 'ページビュー',
     uniqueVisitors: 'ユニーク訪問者',
     bounceRate: '直帰率',
-    avgTimeOnPage: '��均滞在時間',
+    avgTimeOnPage: '平均滞在時間',
     topPages: 'トップページ',
     topReferrers: 'トップ参照元',
     

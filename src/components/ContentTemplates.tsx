@@ -55,18 +55,18 @@ export function ContentTemplates({
   const templates: ContentTemplate[] = [
     {
       id: '1',
-      name: 'Tutorial Article',
-      description: 'Step-by-step tutorial template with code examples',
-      category: 'Tutorial',
+      name: 'Bài hướng dẫn',
+      description: 'Mẫu hướng dẫn từng bước với ví dụ mã nguồn',
+      category: 'Hướng dẫn',
       type: 'article',
-      content: '<h1>{{title}}</h1><p>{{introduction}}</p><h2>Prerequisites</h2><p>{{prerequisites}}</p>',
+      content: '<h1>{{title}}</h1><p>{{introduction}}</p><h2>Điều kiện tiên quyết</h2><p>{{prerequisites}}</p>',
       fields: [
-        { id: 'f1', name: 'title', label: 'Title', type: 'text', required: true, placeholder: 'Enter tutorial title' },
-        { id: 'f2', name: 'introduction', label: 'Introduction', type: 'textarea', required: true, placeholder: 'Brief introduction' },
-        { id: 'f3', name: 'prerequisites', label: 'Prerequisites', type: 'rich-text', required: false },
+        { id: 'f1', name: 'title', label: 'Tiêu đề', type: 'text', required: true, placeholder: 'Nhập tiêu đề hướng dẫn' },
+        { id: 'f2', name: 'introduction', label: 'Giới thiệu', type: 'textarea', required: true, placeholder: 'Mô tả ngắn gọn' },
+        { id: 'f3', name: 'prerequisites', label: 'Điều kiện tiên quyết', type: 'rich-text', required: false },
       ],
-      tags: ['tutorial', 'code', 'guide'],
-      author: 'Admin',
+      tags: ['hướng dẫn', 'mã nguồn', 'tutorial'],
+      author: 'Quản trị viên',
       createdAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000),
       updatedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
       usageCount: 45,
@@ -75,18 +75,18 @@ export function ContentTemplates({
     },
     {
       id: '2',
-      name: 'Product Review',
-      description: 'Comprehensive product review with pros/cons',
-      category: 'Review',
+      name: 'Đánh giá sản phẩm',
+      description: 'Đánh giá sản phẩm toàn diện với ưu/nhược điểm',
+      category: 'Đánh giá',
       type: 'article',
-      content: '<h1>{{product_name}} Review</h1><p>{{summary}}</p>',
+      content: '<h1>Đánh giá {{product_name}}</h1><p>{{summary}}</p>',
       fields: [
-        { id: 'f1', name: 'product_name', label: 'Product Name', type: 'text', required: true },
-        { id: 'f2', name: 'summary', label: 'Summary', type: 'textarea', required: true },
-        { id: 'f3', name: 'rating', label: 'Rating', type: 'select', required: true, options: ['1', '2', '3', '4', '5'] },
+        { id: 'f1', name: 'product_name', label: 'Tên sản phẩm', type: 'text', required: true },
+        { id: 'f2', name: 'summary', label: 'Tóm tắt', type: 'textarea', required: true },
+        { id: 'f3', name: 'rating', label: 'Đánh giá', type: 'select', required: true, options: ['1', '2', '3', '4', '5'] },
       ],
-      tags: ['review', 'product'],
-      author: 'Editor',
+      tags: ['đánh giá', 'sản phẩm'],
+      author: 'Biên tập viên',
       createdAt: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000),
       updatedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
       usageCount: 32,
@@ -95,18 +95,18 @@ export function ContentTemplates({
     },
     {
       id: '3',
-      name: 'News Article',
-      description: 'Breaking news template with 5W1H structure',
-      category: 'News',
+      name: 'Bài tin tức',
+      description: 'Mẫu tin tức nóng hổi theo cấu trúc 5W1H',
+      category: 'Tin tức',
       type: 'article',
       content: '<h1>{{headline}}</h1><p class="lead">{{lead}}</p>',
       fields: [
-        { id: 'f1', name: 'headline', label: 'Headline', type: 'text', required: true },
-        { id: 'f2', name: 'lead', label: 'Lead Paragraph', type: 'textarea', required: true },
-        { id: 'f3', name: 'body', label: 'Body', type: 'rich-text', required: true },
+        { id: 'f1', name: 'headline', label: 'Tiêu đề chính', type: 'text', required: true },
+        { id: 'f2', name: 'lead', label: 'Đoạn dẫn', type: 'textarea', required: true },
+        { id: 'f3', name: 'body', label: 'Nội dung chính', type: 'rich-text', required: true },
       ],
-      tags: ['news', 'breaking'],
-      author: 'News Team',
+      tags: ['tin tức', 'nóng hổi'],
+      author: 'Nhóm tin tức',
       createdAt: new Date(Date.now() - 20 * 24 * 60 * 60 * 1000),
       updatedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
       usageCount: 128,
@@ -115,17 +115,17 @@ export function ContentTemplates({
     },
     {
       id: '4',
-      name: 'Interview',
-      description: 'Q&A interview format',
-      category: 'Interview',
+      name: 'Phỏng vấn',
+      description: 'Định dạng phỏng vấn hỏi đáp',
+      category: 'Phỏng vấn',
       type: 'article',
-      content: '<h1>Interview: {{interviewee}}</h1><p>{{introduction}}</p>',
+      content: '<h1>Phỏng vấn: {{interviewee}}</h1><p>{{introduction}}</p>',
       fields: [
-        { id: 'f1', name: 'interviewee', label: 'Interviewee Name', type: 'text', required: true },
-        { id: 'f2', name: 'introduction', label: 'Introduction', type: 'textarea', required: true },
+        { id: 'f1', name: 'interviewee', label: 'Tên người được phỏng vấn', type: 'text', required: true },
+        { id: 'f2', name: 'introduction', label: 'Giới thiệu', type: 'textarea', required: true },
       ],
-      tags: ['interview', 'q&a'],
-      author: 'Content Team',
+      tags: ['phỏng vấn', 'hỏi đáp'],
+      author: 'Nhóm nội dung',
       createdAt: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000),
       updatedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
       usageCount: 18,
@@ -134,17 +134,17 @@ export function ContentTemplates({
     },
     {
       id: '5',
-      name: 'Case Study',
-      description: 'Business case study with metrics',
-      category: 'Business',
+      name: 'Nghiên cứu điển hình',
+      description: 'Nghiên cứu điển hình doanh nghiệp với số liệu',
+      category: 'Doanh nghiệp',
       type: 'article',
-      content: '<h1>{{company}} Case Study</h1><p>{{challenge}}</p>',
+      content: '<h1>Nghiên cứu điển hình {{company}}</h1><p>{{challenge}}</p>',
       fields: [
-        { id: 'f1', name: 'company', label: 'Company Name', type: 'text', required: true },
-        { id: 'f2', name: 'challenge', label: 'Challenge', type: 'textarea', required: true },
-        { id: 'f3', name: 'solution', label: 'Solution', type: 'rich-text', required: true },
+        { id: 'f1', name: 'company', label: 'Tên công ty', type: 'text', required: true },
+        { id: 'f2', name: 'challenge', label: 'Thách thức', type: 'textarea', required: true },
+        { id: 'f3', name: 'solution', label: 'Giải pháp', type: 'rich-text', required: true },
       ],
-      tags: ['case-study', 'business'],
+      tags: ['nghiên cứu', 'doanh nghiệp'],
       author: 'Marketing',
       createdAt: new Date(Date.now() - 12 * 24 * 60 * 60 * 1000),
       updatedAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000),
@@ -154,17 +154,17 @@ export function ContentTemplates({
     },
     {
       id: '6',
-      name: 'Listicle',
-      description: 'Top 10 list format',
-      category: 'List',
+      name: 'Bài dạng danh sách',
+      description: 'Định dạng Top 10 danh sách',
+      category: 'Danh sách',
       type: 'article',
       content: '<h1>Top {{count}}: {{topic}}</h1>',
       fields: [
-        { id: 'f1', name: 'count', label: 'Number of Items', type: 'text', required: true, defaultValue: '10' },
-        { id: 'f2', name: 'topic', label: 'Topic', type: 'text', required: true },
+        { id: 'f1', name: 'count', label: 'Số mục', type: 'text', required: true, defaultValue: '10' },
+        { id: 'f2', name: 'topic', label: 'Chủ đề', type: 'text', required: true },
       ],
-      tags: ['list', 'top-10'],
-      author: 'Editor',
+      tags: ['danh sách', 'top-10'],
+      author: 'Biên tập viên',
       createdAt: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000),
       updatedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
       usageCount: 67,
@@ -197,9 +197,9 @@ export function ContentTemplates({
             <Layout className="w-6 h-6 text-purple-600" />
           </div>
           <div>
-            <h1 className="text-3xl mb-1">Content Templates</h1>
+            <h1 className="text-3xl mb-1">Mẫu nội dung</h1>
             <p className="text-sm text-muted-foreground">
-              {filteredTemplates.length} templates available
+              {filteredTemplates.length} mẫu khả dụng
             </p>
           </div>
         </div>
@@ -207,11 +207,11 @@ export function ContentTemplates({
         <div className="flex items-center gap-3">
           <button className="flex items-center gap-2 px-4 py-2 rounded-xl bg-muted/60 hover:bg-muted transition-all border border-border/40">
             <Download className="w-4 h-4" />
-            Import
+            Nhập mẫu
           </button>
           <button className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg shadow-purple-500/30">
             <Plus className="w-4 h-4" />
-            Create Template
+            Tạo mẫu
           </button>
         </div>
       </div>
@@ -225,7 +225,7 @@ export function ContentTemplates({
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search templates..."
+            placeholder="Tìm kiếm mẫu..."
             className="w-full pl-11 pr-4 py-2.5 rounded-xl bg-background/50 border border-border/40 focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 transition-all outline-none"
           />
         </div>
@@ -244,7 +244,7 @@ export function ContentTemplates({
                 }
               `}
             >
-              {category}
+              {category === 'all' ? 'Tất cả' : category}
             </button>
           ))}
         </div>
@@ -311,7 +311,7 @@ export function ContentTemplates({
                 </div>
                 <div className="flex items-center gap-1">
                   <Copy className="w-3 h-3" />
-                  <span>{template.usageCount} uses</span>
+                  <span>{template.usageCount} lượt dùng</span>
                 </div>
               </div>
 
@@ -331,7 +331,7 @@ export function ContentTemplates({
                   className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-muted/60 hover:bg-muted transition-all text-sm"
                 >
                   <Eye className="w-3 h-3" />
-                  Preview
+                  Xem trước
                 </button>
                 <button
                   onClick={(e) => {
@@ -341,7 +341,7 @@ export function ContentTemplates({
                   className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-purple-500/10 text-purple-600 hover:bg-purple-500/20 transition-all text-sm border border-purple-500/20"
                 >
                   <Zap className="w-3 h-3" />
-                  Use
+                  Sử dụng
                 </button>
               </div>
             </motion.div>
@@ -352,9 +352,9 @@ export function ContentTemplates({
       {filteredTemplates.length === 0 && (
         <div className="glass-card p-12 text-center">
           <Layout className="w-12 h-12 mx-auto mb-3 text-muted-foreground/50" />
-          <p className="text-muted-foreground">No templates found</p>
+          <p className="text-muted-foreground">Không tìm thấy mẫu nào</p>
           <p className="text-sm text-muted-foreground mt-1">
-            Try adjusting your filters or search query
+            Thử điều chỉnh bộ lọc hoặc từ khóa tìm kiếm
           </p>
         </div>
       )}
@@ -407,26 +407,26 @@ export function ContentTemplates({
                 {/* Template Info */}
                 <div className="grid grid-cols-2 gap-4">
                   <div className="p-4 rounded-xl bg-muted/30">
-                    <div className="text-sm text-muted-foreground mb-1">Category</div>
+                    <div className="text-sm text-muted-foreground mb-1">Danh mục</div>
                     <div className="font-medium">{selectedTemplate.category}</div>
                   </div>
                   <div className="p-4 rounded-xl bg-muted/30">
-                    <div className="text-sm text-muted-foreground mb-1">Type</div>
+                    <div className="text-sm text-muted-foreground mb-1">Loại</div>
                     <div className="font-medium capitalize">{selectedTemplate.type}</div>
                   </div>
                   <div className="p-4 rounded-xl bg-muted/30">
-                    <div className="text-sm text-muted-foreground mb-1">Author</div>
+                    <div className="text-sm text-muted-foreground mb-1">Tác giả</div>
                     <div className="font-medium">{selectedTemplate.author}</div>
                   </div>
                   <div className="p-4 rounded-xl bg-muted/30">
-                    <div className="text-sm text-muted-foreground mb-1">Usage</div>
-                    <div className="font-medium">{selectedTemplate.usageCount} times</div>
+                    <div className="text-sm text-muted-foreground mb-1">Lượt dùng</div>
+                    <div className="font-medium">{selectedTemplate.usageCount} lần</div>
                   </div>
                 </div>
 
                 {/* Fields */}
                 <div>
-                  <h3 className="text-lg mb-4">Template Fields</h3>
+                  <h3 className="text-lg mb-4">Trường mẫu</h3>
                   <div className="space-y-3">
                     {selectedTemplate.fields.map((field) => (
                       <div
@@ -441,14 +441,14 @@ export function ContentTemplates({
                             </span>
                             {field.required && (
                               <span className="px-2 py-0.5 rounded bg-red-500/10 text-red-600 text-xs">
-                                Required
+                                Bắt buộc
                               </span>
                             )}
                           </div>
                         </div>
                         {field.placeholder && (
                           <p className="text-sm text-muted-foreground">
-                            Placeholder: {field.placeholder}
+                            Gợi ý: {field.placeholder}
                           </p>
                         )}
                       </div>
@@ -458,7 +458,7 @@ export function ContentTemplates({
 
                 {/* Content Preview */}
                 <div>
-                  <h3 className="text-lg mb-4">Content Structure</h3>
+                  <h3 className="text-lg mb-4">Cấu trúc nội dung</h3>
                   <div className="p-4 rounded-xl bg-muted/30 border border-border/40">
                     <code className="text-sm text-muted-foreground">
                       {selectedTemplate.content}
@@ -474,11 +474,11 @@ export function ContentTemplates({
                     onClick={() => setShowPreview(false)}
                     className="px-4 py-2 rounded-xl bg-muted/60 hover:bg-muted transition-all"
                   >
-                    Close
+                    Đóng
                   </button>
                   <button className="flex items-center gap-2 px-4 py-2 rounded-xl bg-muted/60 hover:bg-muted transition-all border border-border/40">
                     <Edit3 className="w-4 h-4" />
-                    Edit Template
+                    Chỉnh sửa mẫu
                   </button>
                   <button
                     onClick={() => {
@@ -488,7 +488,7 @@ export function ContentTemplates({
                     className="flex items-center gap-2 px-6 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg shadow-purple-500/30"
                   >
                     <Zap className="w-4 h-4" />
-                    Use This Template
+                    Sử dụng mẫu này
                   </button>
                 </div>
               </div>

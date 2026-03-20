@@ -163,7 +163,7 @@ class ArticleService {
         slug: 'huong-dan-su-dung-react-hooks',
         summary: 'Tìm hiểu cách sử dụng React Hooks hiệu quả trong các dự án React hiện đại',
         content: '<p>Nội dung chi tiết về React Hooks...</p>',
-        type: 'tutorial',
+        type: 'blog',
         status: 'published',
         categories: [{ id: '1', name: 'Programming', slug: 'programming', order: 1 }],
         tags: [

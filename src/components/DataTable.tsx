@@ -28,7 +28,7 @@ export function DataTable<T extends Record<string, any>>({
   onRowClick,
   keyExtractor,
   pageSize = 20,
-  emptyMessage = 'No data available',
+  emptyMessage = 'Không có dữ liệu',
   isLoading = false,
 }: DataTableProps<T>) {
   const { t } = useLanguage();
@@ -169,7 +169,7 @@ export function DataTable<T extends Record<string, any>>({
         <div className="flex items-center justify-between px-6 py-4 border-t border-border/40">
           {/* Info */}
           <div className="text-sm text-muted-foreground">
-            Showing {startIndex + 1} to {Math.min(endIndex, sortedData.length)} of {sortedData.length} results
+            Hiển thị {startIndex + 1} đến {Math.min(endIndex, sortedData.length)} trong {sortedData.length} kết quả
           </div>
 
           {/* Controls */}
@@ -179,7 +179,7 @@ export function DataTable<T extends Record<string, any>>({
               onClick={() => setCurrentPage(1)}
               disabled={currentPage === 1}
               className="p-2 rounded-lg hover:bg-muted disabled:opacity-30 disabled:cursor-not-allowed transition-all"
-              title="First page"
+              title="Trang đầu"
             >
               <ChevronsLeft className="w-4 h-4" />
             </button>
@@ -189,7 +189,7 @@ export function DataTable<T extends Record<string, any>>({
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               disabled={currentPage === 1}
               className="p-2 rounded-lg hover:bg-muted disabled:opacity-30 disabled:cursor-not-allowed transition-all"
-              title="Previous page"
+              title="Trang trước"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
@@ -232,7 +232,7 @@ export function DataTable<T extends Record<string, any>>({
               onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
               disabled={currentPage === totalPages}
               className="p-2 rounded-lg hover:bg-muted disabled:opacity-30 disabled:cursor-not-allowed transition-all"
-              title="Next page"
+              title="Trang sau"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
@@ -242,7 +242,7 @@ export function DataTable<T extends Record<string, any>>({
               onClick={() => setCurrentPage(totalPages)}
               disabled={currentPage === totalPages}
               className="p-2 rounded-lg hover:bg-muted disabled:opacity-30 disabled:cursor-not-allowed transition-all"
-              title="Last page"
+              title="Trang cuối"
             >
               <ChevronsRight className="w-4 h-4" />
             </button>

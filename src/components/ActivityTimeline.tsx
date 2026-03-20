@@ -132,194 +132,268 @@ export function ActivityTimeline() {
   const [showComparisonModal, setShowComparisonModal] = useState(false);
   const [showInsightsModal, setShowInsightsModal] = useState(false);
 
-  // Mock events data
-  const mockEvents: ActivityEvent[] = [
-    {
-      id: '1',
-      type: 'create',
-      entity: 'article',
-      entityId: 'art-001',
-      title: 'Tạo bài viết mới "Hướng dẫn React Hooks"',
-      description: 'Bài viết về React Hooks cho người mới bắt đầu',
-      user: {
-        id: 'u1',
-        name: 'Nguyễn Văn A',
-        email: 'nguyenvana@example.com',
-        avatar: 'https://i.pravatar.cc/150?img=1',
-        role: 'Admin',
-      },
-      metadata: {
-        changes: ['title', 'content', 'category', 'tags'],
-        location: 'Hà Nội, Việt Nam',
-      },
-      timestamp: new Date(Date.now() - 3 * 60 * 1000).toISOString(),
-      severity: 'success',
-    },
-    {
-      id: '2',
-      type: 'update',
-      entity: 'article',
-      entityId: 'art-002',
-      title: 'Cập nhật bài viết "TypeScript Best Practices"',
-      description: 'Chỉnh sửa ni dung và thêm ví dụ mới',
-      user: {
-        id: 'u2',
-        name: 'Trần Thị B',
-        email: 'tranthib@example.com',
-        avatar: 'https://i.pravatar.cc/150?img=2',
-        role: 'Editor',
-      },
-      metadata: {
-        changes: ['content', 'updated_at'],
-        oldValue: { status: 'draft' },
-        newValue: { status: 'published' },
-      },
-      timestamp: new Date(Date.now() - 15 * 60 * 1000).toISOString(),
-      severity: 'info',
-    },
-    {
-      id: '3',
-      type: 'delete',
-      entity: 'comment',
-      entityId: 'cmt-123',
-      title: 'Xóa bình luận spam',
-      description: 'Bình luận vi phạm quy định cộng đồng',
-      user: {
-        id: 'u3',
-        name: 'Lê Văn C',
-        email: 'levanc@example.com',
-        avatar: 'https://i.pravatar.cc/150?img=3',
-        role: 'Moderator',
-      },
-      metadata: {
-        oldValue: { content: 'This is spam...' },
-        ip: '192.168.1.100',
-      },
-      timestamp: new Date(Date.now() - 30 * 60 * 1000).toISOString(),
-      severity: 'warning',
-    },
-    {
-      id: '4',
-      type: 'login',
-      entity: 'user',
-      entityId: 'u1',
-      title: 'Đăng nhập hệ thống',
-      description: 'Đăng nhập thành công từ trình duyệt Chrome',
-      user: {
-        id: 'u1',
-        name: 'Nguyễn Văn A',
-        email: 'nguyenvana@example.com',
-        avatar: 'https://i.pravatar.cc/150?img=1',
-        role: 'Admin',
-      },
-      metadata: {
-        ip: '203.162.4.191',
-        userAgent: 'Chrome/120.0.0.0',
-        location: 'Hồ Chí Minh, Việt Nam',
-      },
-      timestamp: new Date(Date.now() - 1 * 60 * 60 * 1000).toISOString(),
-      severity: 'info',
-    },
-    {
-      id: '5',
-      type: 'publish',
-      entity: 'article',
-      entityId: 'art-003',
-      title: 'Xuất bản bài viết "Advanced CSS Grid"',
-      description: 'Bài viết đã được duyệt và xuất bản',
-      user: {
-        id: 'u4',
-        name: 'Phạm Thị D',
-        email: 'phamthid@example.com',
-        avatar: 'https://i.pravatar.cc/150?img=4',
-        role: 'Editor',
-      },
-      timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
-      severity: 'success',
-    },
-    {
-      id: '6',
-      type: 'upload',
-      entity: 'media',
-      entityId: 'med-456',
-      title: 'Tải lên hình ảnh "hero-banner.jpg"',
-      description: 'Tải lên thành công, kích thước 2.4 MB',
-      user: {
-        id: 'u2',
-        name: 'Trần Thị B',
-        email: 'tranthib@example.com',
-        avatar: 'https://i.pravatar.cc/150?img=2',
-        role: 'Editor',
-      },
-      metadata: {
-        newValue: { size: '2.4 MB', type: 'image/jpeg', dimensions: '1920x1080' },
-      },
-      timestamp: new Date(Date.now() - 3 * 60 * 60 * 1000).toISOString(),
-      severity: 'success',
-    },
-    {
-      id: '7',
-      type: 'approve',
-      entity: 'article',
-      entityId: 'art-004',
-      title: 'Phê duyệt bài viết "Node.js Performance"',
-      description: 'Bài viết đạt tiêu chuẩn và được duyệt',
-      user: {
-        id: 'u1',
-        name: 'Nguyễn Văn A',
-        email: 'nguyenvana@example.com',
-        avatar: 'https://i.pravatar.cc/150?img=1',
-        role: 'Admin',
-      },
-      timestamp: new Date(Date.now() - 4 * 60 * 60 * 1000).toISOString(),
-      severity: 'success',
-    },
-    {
-      id: '8',
-      type: 'create',
-      entity: 'user',
-      entityId: 'u5',
-      title: 'Tạo tài khoản người dùng mới',
-      description: 'Người dùng "hoangvan@example.com" đã được tạo',
-      user: {
-        id: 'u1',
-        name: 'Nguyễn Văn A',
-        email: 'nguyenvana@example.com',
-        avatar: 'https://i.pravatar.cc/150?img=1',
-        role: 'Admin',
-      },
-      metadata: {
-        newValue: { email: 'hoangvan@example.com', role: 'Author' },
-      },
-      timestamp: new Date(Date.now() - 5 * 60 * 60 * 1000).toISOString(),
-      severity: 'success',
-    },
-  ];
+  // Realistic events data - linked to actual 38 articles
+  const generateMockEvents = (): ActivityEvent[] => {
+    const events: ActivityEvent[] = [];
+    
+    // Article titles mapping (from ArticleManagement.tsx)
+    const articleTitles: Record<number, string> = {
+      1: 'Hướng dẫn sử dụng CMS Platform mới',
+      2: 'Video: Tính năng AI Translation trong CMS',
+      3: 'Thư viện ảnh sự kiện Tech Summit 2024',
+      4: 'Quyết định 123/2024/QĐ-TTg về chuyển đổi số',
+      5: 'Tuyển dụng Senior Full-stack Developer',
+      6: 'Podcast: Xu hướng công nghệ 2025',
+      7: 'Sự kiện: Workshop AI trong phát triển phần mềm',
+      8: 'Hồ sơ nhân sự - Nguyễn Thị H',
+      9: 'Tải xuống: Tài liệu hướng dẫn sử dụng CMS',
+      10: 'Công nghệ AI đang thay đổi ngành phát triển phần mềm',
+      11: 'Cập nhật bảo mật quan trọng cho CMS Platform',
+      12: 'Tutorial: Xây dựng Workflow phê duyệt tự động',
+      13: 'Live Stream: Giới thiệu tính năng mới Q4 2024',
+      14: 'Gallery: Văn phòng mới của VHV Platform',
+      15: 'Bộ sưu tập ảnh Team Building 2024',
+      16: 'Thông tư 45/2024/TT-BTTTT về an toàn thông tin',
+      17: 'Nghị định 85/2024/NĐ-CP về bảo vệ dữ liệu cá nhân',
+      18: 'Tuyển dụng Product Manager - EdTech',
+      19: 'Tuyển dụng UX/UI Designer (Mid-Senior)',
+      20: 'Tech Talk #13: AI và Tương lai của Lập trình',
+      21: 'Startup Stories #5: Từ ý tưởng đến sản phẩm',
+      22: 'VHV Tech Meetup #8: Microservices Architecture',
+      23: 'Hội thảo: Chuyển đổi số trong doanh nghiệp',
+      24: 'Giới thiệu: Trần Văn N - CTO',
+      25: 'Chào mừng thành viên mới: Lê Thị O',
+      26: 'API Documentation v2.5',
+      27: 'Template: Mẫu báo cáo dự án',
+      28: 'Blog: 10 mẹo tối ưu hiệu suất React App',
+      29: 'Kinh nghiệm làm việc Remote hiệu quả',
+      30: 'Tutorial: Xây dựng RESTful API với Node.js',
+      31: 'Hướng dẫn: Deploy ứng dụng lên AWS',
+      32: 'VHV Platform công bố vòng Series A 10 triệu USD',
+      33: 'Ra mắt phiên bản CMS Platform 3.0',
+      34: 'Phỏng vấn CEO: Tầm nhìn cho CMS Platform',
+      35: 'Interview: Lead Developer chia sẻ về kinh nghiệm',
+      36: 'Infographic: Thống kê công nghệ 2024',
+      37: 'Infographic: Quy trình phát triển sản phẩm',
+      38: 'Infographic: So sánh các framework JavaScript',
+    };
 
+    // Recent events (last few hours)
+    let eventId = 1;
+    
+    // Event 1-10: Create/Update/Publish for various articles
+    const recentArticles = [38, 21, 10, 1, 36, 17, 14, 13, 23, 25];
+    const recentTypes: Array<'create' | 'update' | 'publish' | 'approve'> = ['create', 'update', 'publish', 'view', 'comment', 'approve', 'upload', 'like', 'update', 'create'];
+    
+    recentArticles.forEach((articleId, idx) => {
+      const type = recentTypes[idx];
+      const timeOffset = (idx + 1) * 15 * 60 * 1000; // 15 minutes intervals
+      
+      events.push({
+        id: `evt-${String(eventId++).padStart(3, '0')}`,
+        type,
+        entity: type === 'upload' ? 'media' : 'article',
+        entityId: String(articleId),
+        title: `${type === 'create' ? 'Tạo' : type === 'update' ? 'Cập nhật' : type === 'publish' ? 'Xuất bản' : type === 'approve' ? 'Phê duyệt' : type === 'view' ? 'Người dùng xem' : type === 'comment' ? 'Bình luận mới trên' : type === 'like' ? 'Người dùng thích' : 'Tải lên hình ảnh cho'} "${articleTitles[articleId]}"`,
+        description: `Hoạt động ${type} cho bài viết #${articleId}${type === 'view' ? ' - 5 lượt xem trong 10 phút' : type === 'comment' ? ' - 3 bình luận mới' : type === 'like' ? ' - 8 người đã like' : ''}`,
+        user: {
+          id: `u${1 + (idx % 10)}`,
+          name: ['Nguyễn Văn A', 'Trần Thị B', 'Lê Văn C', 'Phạm Thị D', 'Hoàng Văn E', 'Đỗ Thị F', 'Vũ Văn G', 'Nguyễn Thị H', 'Lê Thị K', 'Phạm Thị M'][idx % 10],
+          email: `user${1 + (idx % 10)}@vhv.com`,
+          avatar: `https://i.pravatar.cc/150?img=${1 + (idx % 10)}`,
+          role: ['Admin', 'Editor', 'Content Creator', 'Editor', 'HR Manager', 'Podcast Producer', 'Content Creator', 'Admin', 'Podcast Producer', 'Event Manager'][idx % 10],
+        },
+        metadata: {
+          changes: type === 'create' || type === 'update' ? ['title', 'content', 'category'] : undefined,
+          newValue: type === 'view' ? { viewCount: 5 } : type === 'comment' ? { commentCount: 3 } : type === 'like' ? { likeCount: 8 } : undefined,
+          location: 'Hà Nội, Việt Nam',
+        },
+        timestamp: new Date(Date.now() - timeOffset).toISOString(),
+        severity: type === 'create' || type === 'publish' || type === 'approve' ? 'success' : 'info',
+      });
+    });
+
+    // Today's events - spread across different articles with 5-10 article references each
+    const todayArticleSets = [
+      [9, 26, 27], // Downloads
+      [32, 33, 34], // High engagement articles
+      [5, 18, 19], // Job postings
+      [7, 22, 23], // Events
+      [28, 29, 30, 31], // Tutorials and guides
+    ];
+    
+    todayArticleSets.forEach((articleSet, setIdx) => {
+      articleSet.forEach((articleId, artIdx) => {
+        const types: Array<'download' | 'share' | 'update' | 'view' | 'publish'> = ['download', 'share', 'update', 'view', 'publish'];
+        const type = types[setIdx % types.length];
+        const timeOffset = (4 + setIdx * 2 + artIdx * 0.5) * 60 * 60 * 1000;
+        
+        events.push({
+          id: `evt-${String(eventId++).padStart(3, '0')}`,
+          type,
+          entity: 'article',
+          entityId: String(articleId),
+          title: `${type === 'download' ? 'Tải xuống' : type === 'share' ? 'Chia sẻ' : type === 'update' ? 'Cập nhật' : type === 'view' ? 'Lượt xem cao cho' : 'Xuất bản'} "${articleTitles[articleId]}"`,
+          description: `${type === 'download' ? `${45 + artIdx * 10} lượt tải xuống` : type === 'share' ? `${234 + artIdx * 50} lượt chia sẻ` : type === 'view' ? `${156 + artIdx * 30} lượt xem` : 'Cập nhật nội dung'}`,
+          user: {
+            id: `u${10 + setIdx}`,
+            name: type === 'download' || type === 'view' ? 'System Analytics' : `User ${10 + setIdx}`,
+            email: `user${10 + setIdx}@vhv.com`,
+            avatar: type === 'download' || type === 'view' ? undefined : `https://i.pravatar.cc/150?img=${10 + setIdx}`,
+            role: type === 'download' || type === 'view' ? 'System' : 'Editor',
+          },
+          metadata: {
+            newValue: type === 'download' ? { downloadCount: 45 + artIdx * 10 } : type === 'share' ? { shareCount: 234 + artIdx * 50, platforms: ['Facebook', 'LinkedIn', 'Twitter'] } : type === 'view' ? { viewCount: 156 + artIdx * 30 } : undefined,
+          },
+          timestamp: new Date(Date.now() - timeOffset).toISOString(),
+          severity: type === 'publish' || type === 'share' ? 'success' : 'info',
+        });
+      });
+    });
+
+    // Yesterday's events - more article interactions
+    const yesterdayArticles = [15, 20, 3, 30, 11];
+    yesterdayArticles.forEach((articleId, idx) => {
+      const types: Array<'create' | 'publish' | 'approve' | 'comment' | 'update'> = ['create', 'publish', 'approve', 'comment', 'update'];
+      const type = types[idx];
+      const timeOffset = (20 + idx * 2) * 60 * 60 * 1000;
+      
+      events.push({
+        id: `evt-${String(eventId++).padStart(3, '0')}`,
+        type,
+        entity: type === 'comment' ? 'article' : 'article',
+        entityId: String(articleId),
+        title: `${type === 'create' ? 'Tạo' : type === 'publish' ? 'Xuất bản' : type === 'approve' ? 'Phê duyệt' : type === 'comment' ? 'Bình luận tích cực trên' : 'Cập nhật'} "${articleTitles[articleId]}"`,
+        description: type === 'comment' ? `12 bình luận mới từ người đọc` : `Hoạt động ${type} cho bài viết`,
+        user: {
+          id: `u${15 + idx}`,
+          name: ['Vũ Văn G', 'Trần Văn J', 'Nguyễn Văn A', 'Đặng Thị AA', 'Trần Thị B'][idx],
+          email: `user${15 + idx}@vhv.com`,
+          avatar: `https://i.pravatar.cc/150?img=${15 + idx}`,
+          role: ['Content Creator', 'Podcast Host', 'Admin', 'Reader', 'Editor'][idx],
+        },
+        metadata: {
+          changes: type === 'create' || type === 'update' ? ['title', 'content'] : undefined,
+          newValue: type === 'comment' ? { commentCount: 12, avgRating: 4.8 } : undefined,
+        },
+        timestamp: new Date(Date.now() - timeOffset).toISOString(),
+        severity: type === 'create' || type === 'publish' || type === 'approve' ? 'success' : 'info',
+      });
+    });
+
+    // This week - covering all 38 articles
+    for (let day = 3; day <= 7; day++) {
+      const articlesPerDay = [19, 18, 22, 23, 24, 4, 16, 26]; // 8 articles per day
+      articlesPerDay.forEach((articleId, idx) => {
+        const adjustedArticleId = ((articleId + day * 3) % 38) + 1; // Ensure we cover different articles
+        const types: Array<'create' | 'publish' | 'download' | 'view' | 'share' | 'comment' | 'like' | 'update'> = 
+          ['create', 'publish', 'download', 'view', 'share', 'comment', 'like', 'update'];
+        const type = types[idx % types.length];
+        const timeOffset = (day * 24 + idx * 3) * 60 * 60 * 1000;
+        
+        if (articleTitles[adjustedArticleId]) {
+          events.push({
+            id: `evt-${String(eventId++).padStart(3, '0')}`,
+            type,
+            entity: 'article',
+            entityId: String(adjustedArticleId),
+            title: `${type === 'create' ? 'Tạo' : type === 'publish' ? 'Xuất bản' : type === 'download' ? 'Tải xuống' : type === 'view' ? 'Xem' : type === 'share' ? 'Chia sẻ' : type === 'comment' ? 'Bình luận trên' : type === 'like' ? 'Yêu thích' : 'Cập nhật'} "${articleTitles[adjustedArticleId]}"`,
+            description: `Hoạt động ${type} - Bài viết #${adjustedArticleId}`,
+            user: {
+              id: `u${20 + (idx % 15)}`,
+              name: `User ${20 + (idx % 15)}`,
+              email: `user${20 + (idx % 15)}@vhv.com`,
+              avatar: `https://i.pravatar.cc/150?img=${20 + (idx % 15)}`,
+              role: type === 'view' || type === 'download' ? 'Reader' : 'Editor',
+            },
+            metadata: {
+              newValue: type === 'view' ? { viewCount: 50 + idx * 10 } : 
+                        type === 'download' ? { downloadCount: 20 + idx * 5 } :
+                        type === 'comment' ? { commentCount: 3 + idx } :
+                        type === 'like' ? { likeCount: 10 + idx * 3 } :
+                        type === 'share' ? { shareCount: 15 + idx * 2 } : undefined,
+            },
+            timestamp: new Date(Date.now() - timeOffset).toISOString(),
+            severity: type === 'create' || type === 'publish' ? 'success' : 'info',
+          });
+        }
+      });
+    }
+
+    // Add login events
+    [1, 2, 3, 4, 5].forEach((userId, idx) => {
+      events.push({
+        id: `evt-${String(eventId++).padStart(3, '0')}`,
+        type: 'login',
+        entity: 'user',
+        entityId: `u${userId}`,
+        title: `Đăng nhập hệ thống`,
+        description: 'Đăng nhập thành công',
+        user: {
+          id: `u${userId}`,
+          name: ['Nguyễn Văn A', 'Trần Thị B', 'Lê Văn C', 'Phạm Thị D', 'Hoàng Văn E'][idx],
+          email: `user${userId}@vhv.com`,
+          avatar: `https://i.pravatar.cc/150?img=${userId}`,
+          role: ['Admin', 'Editor', 'Moderator', 'Editor', 'HR Manager'][idx],
+        },
+        metadata: {
+          ip: `203.162.${100 + userId}.${50 + idx * 10}`,
+          userAgent: 'Chrome/120.0.0.0',
+          location: idx % 2 === 0 ? 'Hà Nội, Việt Nam' : 'TP. Hồ Chí Minh, Việt Nam',
+        },
+        timestamp: new Date(Date.now() - (19 + idx * 12) * 24 * 60 * 60 * 1000).toISOString(),
+        severity: 'info',
+      });
+    });
+
+    return events;
+  };
+
+  const mockEvents: ActivityEvent[] = generateMockEvents();
+
+  // Calculate stats from actual events
   const stats: ActivityStats = {
-    total: 1247,
-    today: 45,
-    thisWeek: 312,
-    thisMonth: 1247,
+    total: mockEvents.length,
+    today: mockEvents.filter(e => {
+      const eventDate = new Date(e.timestamp);
+      const today = new Date();
+      return eventDate.toDateString() === today.toDateString();
+    }).length,
+    thisWeek: mockEvents.filter(e => {
+      const eventDate = new Date(e.timestamp);
+      const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+      return eventDate > weekAgo;
+    }).length,
+    thisMonth: mockEvents.filter(e => {
+      const eventDate = new Date(e.timestamp);
+      const monthAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+      return eventDate > monthAgo;
+    }).length,
     byType: {
-      create: 234,
-      update: 456,
-      delete: 23,
-      publish: 178,
-      login: 356,
+      create: mockEvents.filter(e => e.type === 'create').length,
+      update: mockEvents.filter(e => e.type === 'update').length,
+      delete: mockEvents.filter(e => e.type === 'delete').length,
+      publish: mockEvents.filter(e => e.type === 'publish').length,
+      view: mockEvents.filter(e => e.type === 'view').length,
+      comment: mockEvents.filter(e => e.type === 'comment').length,
+      like: mockEvents.filter(e => e.type === 'like').length,
+      share: mockEvents.filter(e => e.type === 'share').length,
+      download: mockEvents.filter(e => e.type === 'download').length,
+      approve: mockEvents.filter(e => e.type === 'approve').length,
+      login: mockEvents.filter(e => e.type === 'login').length,
     },
     byEntity: {
-      article: 445,
-      user: 234,
-      media: 178,
-      comment: 234,
-      category: 89,
+      article: mockEvents.filter(e => e.entity === 'article').length,
+      user: mockEvents.filter(e => e.entity === 'user').length,
+      media: mockEvents.filter(e => e.entity === 'media').length,
+      category: mockEvents.filter(e => e.entity === 'category').length,
+      comment: mockEvents.filter(e => e.entity === 'comment').length,
     },
     bySeverity: {
-      info: 678,
-      success: 456,
-      warning: 89,
-      error: 24,
+      info: mockEvents.filter(e => e.severity === 'info').length,
+      success: mockEvents.filter(e => e.severity === 'success').length,
+      warning: mockEvents.filter(e => e.severity === 'warning').length,
+      error: mockEvents.filter(e => e.severity === 'error').length,
     },
   };
 
@@ -781,7 +855,7 @@ export function ActivityTimeline() {
                   onChange={(e) => setSelectedType(e.target.value)}
                   className="w-full px-3 py-2 bg-secondary border border-border/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                 >
-                  <option value="all">Tất cả</option>
+                  <option value="all">-- Loại sự kiện --</option>
                   {Object.entries(EVENT_TYPES).map(([key, config]) => (
                     <option key={key} value={key}>{config.label}</option>
                   ))}
@@ -796,7 +870,7 @@ export function ActivityTimeline() {
                   onChange={(e) => setSelectedEntity(e.target.value)}
                   className="w-full px-3 py-2 bg-secondary border border-border/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                 >
-                  <option value="all">Tất cả</option>
+                  <option value="all">-- Loại đối tượng --</option>
                   {Object.keys(ENTITY_TYPES).map((key) => (
                     <option key={key} value={key}>{key}</option>
                   ))}
@@ -811,11 +885,11 @@ export function ActivityTimeline() {
                   onChange={(e) => setSelectedSeverity(e.target.value)}
                   className="w-full px-3 py-2 bg-secondary border border-border/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                 >
-                  <option value="all">Tất cả</option>
-                  <option value="info">Info</option>
-                  <option value="success">Success</option>
-                  <option value="warning">Warning</option>
-                  <option value="error">Error</option>
+                  <option value="all">-- Mức độ --</option>
+                  <option value="info">Thông tin</option>
+                  <option value="success">Thành công</option>
+                  <option value="warning">Cảnh báo</option>
+                  <option value="error">Lỗi</option>
                 </select>
               </div>
 
@@ -860,7 +934,7 @@ export function ActivityTimeline() {
               <div className="p-6 space-y-6">
                 {/* Full event data */}
                 <div>
-                  <p className="text-sm font-semibold mb-3">Event Data (JSON)</p>
+                  <p className="text-sm font-semibold mb-3">Dữ liệu sự kiện (JSON)</p>
                   <pre className="p-4 bg-secondary rounded-xl overflow-x-auto text-sm font-mono">
                     {JSON.stringify(selectedEvent, null, 2)}
                   </pre>

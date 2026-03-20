@@ -23,15 +23,15 @@ const SettingsPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'general' | 'appearance' | 'notifications' | 'security' | 'api'>('general');
 
   const handleSave = () => {
-    notifications.success('Settings saved successfully!');
+    notifications.success('Đã lưu cài đặt thành công!');
   };
 
   const tabs = [
-    { id: 'general', label: 'General', icon: Globe },
-    { id: 'appearance', label: 'Appearance', icon: Palette },
-    { id: 'notifications', label: 'Notifications', icon: Bell },
-    { id: 'security', label: 'Security', icon: Shield },
-    { id: 'api', label: 'API & Integration', icon: Code },
+    { id: 'general', label: 'Tổng quan', icon: Globe },
+    { id: 'appearance', label: 'Giao diện', icon: Palette },
+    { id: 'notifications', label: 'Thông báo', icon: Bell },
+    { id: 'security', label: 'Bảo mật', icon: Shield },
+    { id: 'api', label: 'API & Tích hợp', icon: Code },
   ];
 
   return (
@@ -39,10 +39,10 @@ const SettingsPage: React.FC = () => {
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-          Settings
+          Cài đặt
         </h1>
         <p className="text-gray-600 dark:text-gray-400 mt-1">
-          Configure your application
+          Cấu hình ứng dụng của bạn
         </p>
       </div>
 
@@ -77,11 +77,11 @@ const SettingsPage: React.FC = () => {
             {activeTab === 'general' && (
               <>
                 <div>
-                  <h2 className="text-xl font-bold mb-4">General Settings</h2>
+                  <h2 className="text-xl font-bold mb-4">Cài đặt chung</h2>
                   
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium mb-2">Site Name</label>
+                      <label className="block text-sm font-medium mb-2">Tên trang web</label>
                       <input
                         type="text"
                         defaultValue="VHV CMS"
@@ -90,7 +90,7 @@ const SettingsPage: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium mb-2">Site Description</label>
+                      <label className="block text-sm font-medium mb-2">Mô tả trang web</label>
                       <textarea
                         rows={3}
                         defaultValue="Enterprise Content Management System"
@@ -99,7 +99,7 @@ const SettingsPage: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium mb-2">Default Language</label>
+                      <label className="block text-sm font-medium mb-2">Ngôn ngữ mặc định</label>
                       <select
                         value={language}
                         onChange={(e) => setLanguage(e.target.value as any)}
@@ -111,7 +111,7 @@ const SettingsPage: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium mb-2">Timezone</label>
+                      <label className="block text-sm font-medium mb-2">Múi giờ</label>
                       <select
                         defaultValue="Asia/Ho_Chi_Minh"
                         className="w-full px-4 py-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
@@ -131,11 +131,11 @@ const SettingsPage: React.FC = () => {
             {activeTab === 'appearance' && (
               <>
                 <div>
-                  <h2 className="text-xl font-bold mb-4">Appearance Settings</h2>
+                  <h2 className="text-xl font-bold mb-4">Cài đặt giao diện</h2>
                   
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium mb-2">Theme Mode</label>
+                      <label className="block text-sm font-medium mb-2">Chế độ giao diện</label>
                       <div className="grid grid-cols-3 gap-3">
                         <button
                           onClick={() => setMode('light')}
@@ -145,7 +145,7 @@ const SettingsPage: React.FC = () => {
                               : 'border-gray-200 dark:border-gray-700 hover:border-blue-300'
                           }`}
                         >
-                          ☀️ Light
+                          ☀️ Sáng
                         </button>
                         <button
                           onClick={() => setMode('dark')}
@@ -155,7 +155,7 @@ const SettingsPage: React.FC = () => {
                               : 'border-gray-200 dark:border-gray-700 hover:border-blue-300'
                           }`}
                         >
-                          🌙 Dark
+                          🌙 Tối
                         </button>
                         <button
                           onClick={() => setMode('system')}
@@ -165,13 +165,13 @@ const SettingsPage: React.FC = () => {
                               : 'border-gray-200 dark:border-gray-700 hover:border-blue-300'
                           }`}
                         >
-                          💻 System
+                          💻 Hệ thống
                         </button>
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium mb-2">Primary Color</label>
+                      <label className="block text-sm font-medium mb-2">Màu chủ đạo</label>
                       <div className="flex gap-2">
                         {['#3b82f6', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981'].map(color => (
                           <button
@@ -184,7 +184,7 @@ const SettingsPage: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium mb-2">Font Family</label>
+                      <label className="block text-sm font-medium mb-2">Font chữ</label>
                       <select
                         defaultValue="inter"
                         className="w-full px-4 py-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
@@ -204,15 +204,15 @@ const SettingsPage: React.FC = () => {
             {activeTab === 'notifications' && (
               <>
                 <div>
-                  <h2 className="text-xl font-bold mb-4">Notification Settings</h2>
+                  <h2 className="text-xl font-bold mb-4">Cài đặt thông báo</h2>
                   
                   <div className="space-y-4">
                     {[
-                      { label: 'Email Notifications', description: 'Receive email updates' },
-                      { label: 'Push Notifications', description: 'Browser push notifications' },
-                      { label: 'Article Comments', description: 'Notify on new comments' },
-                      { label: 'Workflow Updates', description: 'Article status changes' },
-                      { label: 'Weekly Reports', description: 'Weekly analytics summary' },
+                      { label: 'Thông báo Email', description: 'Nhận cập nhật qua email' },
+                      { label: 'Thông báo đẩy', description: 'Thông báo đẩy trên trình duyệt' },
+                      { label: 'Bình luận bài viết', description: 'Thông báo khi có bình luận mới' },
+                      { label: 'Cập nhật quy trình', description: 'Thay đổi trạng thái bài viết' },
+                      { label: 'Báo cáo tuần', description: 'Tóm tắt phân tích hàng tuần' },
                     ].map((item) => (
                       <div key={item.label} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-900 rounded-xl">
                         <div>
@@ -234,24 +234,24 @@ const SettingsPage: React.FC = () => {
             {activeTab === 'security' && (
               <>
                 <div>
-                  <h2 className="text-xl font-bold mb-4">Security Settings</h2>
+                  <h2 className="text-xl font-bold mb-4">Cài đặt bảo mật</h2>
                   
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium mb-2">Change Password</label>
+                      <label className="block text-sm font-medium mb-2">Đổi mật khẩu</label>
                       <input
                         type="password"
-                        placeholder="Current password"
+                        placeholder="Mật khẩu hiện tại"
                         className="w-full px-4 py-2 mb-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                       />
                       <input
                         type="password"
-                        placeholder="New password"
+                        placeholder="Mật khẩu mới"
                         className="w-full px-4 py-2 mb-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                       />
                       <input
                         type="password"
-                        placeholder="Confirm password"
+                        placeholder="Xác nhận mật khẩu"
                         className="w-full px-4 py-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                       />
                     </div>
@@ -259,21 +259,21 @@ const SettingsPage: React.FC = () => {
                     <div className="p-4 bg-gray-50 dark:bg-gray-900 rounded-xl">
                       <div className="flex items-center justify-between">
                         <div>
-                          <div className="font-medium">Two-Factor Authentication</div>
-                          <div className="text-sm text-gray-600 dark:text-gray-400">Add extra security layer</div>
+                          <div className="font-medium">Xác thực hai yếu tố</div>
+                          <div className="text-sm text-gray-600 dark:text-gray-400">Thêm lớp bảo mật bổ sung</div>
                         </div>
                         <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                          Enable
+                          Kích hoạt
                         </button>
                       </div>
                     </div>
 
                     <div className="p-4 bg-gray-50 dark:bg-gray-900 rounded-xl">
-                      <div className="font-medium mb-2">Active Sessions</div>
+                      <div className="font-medium mb-2">Phiên hoạt động</div>
                       <div className="space-y-2">
                         <div className="flex items-center justify-between text-sm">
-                          <span>💻 Chrome on Windows • Current session</span>
-                          <span className="text-green-600">Active now</span>
+                          <span>💻 Chrome trên Windows • Phiên hiện tại</span>
+                          <span className="text-green-600">Đang hoạt động</span>
                         </div>
                       </div>
                     </div>
@@ -286,7 +286,7 @@ const SettingsPage: React.FC = () => {
             {activeTab === 'api' && (
               <>
                 <div>
-                  <h2 className="text-xl font-bold mb-4">API & Integration Settings</h2>
+                  <h2 className="text-xl font-bold mb-4">Cài đặt API & Tích hợp</h2>
                   
                   <div className="space-y-4">
                     <div>
@@ -300,9 +300,9 @@ const SettingsPage: React.FC = () => {
 
                     <div className="p-4 bg-gray-50 dark:bg-gray-900 rounded-xl">
                       <div className="flex items-center justify-between mb-3">
-                        <div className="font-medium">API Keys</div>
+                        <div className="font-medium">Khóa API</div>
                         <button className="px-3 py-1 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors">
-                          + Generate New
+                          + Tạo mới
                         </button>
                       </div>
                       <div className="space-y-2">
@@ -338,7 +338,7 @@ const SettingsPage: React.FC = () => {
                 className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg"
               >
                 <Save className="w-5 h-5" />
-                Save Changes
+                Lưu thay đổi
               </button>
             </div>
           </div>

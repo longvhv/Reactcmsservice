@@ -1,0 +1,31 @@
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
+export function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  // Redirect root to CMS dashboard
+  if (pathname === '/') {
+    return NextResponse.redirect(new URL('/page/cms/dashboard', request.url));
+  }
+
+  // Redirect /page/cms to dashboard
+  if (pathname === '/page/cms') {
+    return NextResponse.redirect(new URL('/page/cms/dashboard', request.url));
+  }
+
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     */
+    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+  ],
+};

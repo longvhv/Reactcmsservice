@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { Card } from './Card';
 import { useLanguage } from '../contexts/LanguageContext';
+import { bulkDeleteArticles, bulkUpdateStatus } from '../services/api';
 
 interface BulkOperation {
   id: string;
@@ -41,7 +42,8 @@ export function BulkOperations({ selectedCount, selectedIds, onClear, onComplete
       description: t('publish_description'),
       color: '#10B981',
       requiresConfirmation: true,
-      action: (ids) => {
+      action: async (ids) => {
+        await bulkUpdateStatus(ids, 'published');
         console.log('Publishing:', ids);
         onComplete?.();
       },
@@ -53,7 +55,8 @@ export function BulkOperations({ selectedCount, selectedIds, onClear, onComplete
       description: t('unpublish_description'),
       color: '#F59E0B',
       requiresConfirmation: true,
-      action: (ids) => {
+      action: async (ids) => {
+        await bulkUpdateStatus(ids, 'draft');
         console.log('Unpublishing:', ids);
         onComplete?.();
       },
@@ -74,7 +77,8 @@ export function BulkOperations({ selectedCount, selectedIds, onClear, onComplete
       description: t('archive_description'),
       color: '#8B5CF6',
       requiresConfirmation: true,
-      action: (ids) => {
+      action: async (ids) => {
+        await bulkUpdateStatus(ids, 'archived');
         console.log('Archiving:', ids);
         onComplete?.();
       },
@@ -86,7 +90,8 @@ export function BulkOperations({ selectedCount, selectedIds, onClear, onComplete
       description: t('delete_description'),
       color: '#EF4444',
       requiresConfirmation: true,
-      action: (ids) => {
+      action: async (ids) => {
+        await bulkDeleteArticles(ids);
         console.log('Deleting:', ids);
         onComplete?.();
       },

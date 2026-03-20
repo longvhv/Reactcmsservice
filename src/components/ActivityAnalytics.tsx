@@ -239,7 +239,7 @@ export function ActivityAnalytics({ data }: ActivityAnalyticsProps) {
               <Users className="w-5 h-5 text-orange-600 dark:text-orange-400" />
             </div>
             <div>
-              <h3 className="font-semibold text-lg">Top Users</h3>
+              <h3 className="font-semibold text-lg">Người dùng nổi bật</h3>
               <p className="text-sm text-muted-foreground">Người dùng hoạt động nhiều nhất</p>
             </div>
           </div>

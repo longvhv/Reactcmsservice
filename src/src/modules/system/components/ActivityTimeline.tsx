@@ -70,32 +70,32 @@ interface ActivityFilter {
 }
 
 const ACTION_CONFIG = {
-  create: { icon: Plus, color: '#10B981', label: 'Created' },
-  update: { icon: Edit, color: '#3B82F6', label: 'Updated' },
-  delete: { icon: Trash2, color: '#EF4444', label: 'Deleted' },
-  publish: { icon: CheckCircle, color: '#10B981', label: 'Published' },
-  unpublish: { icon: XCircle, color: '#F59E0B', label: 'Unpublished' },
-  login: { icon: LogIn, color: '#8B5CF6', label: 'Logged In' },
-  logout: { icon: LogOut, color: '#6B7280', label: 'Logged Out' },
-  view: { icon: Eye, color: '#06B6D4', label: 'Viewed' },
-  download: { icon: Download, color: '#EC4899', label: 'Downloaded' },
-  upload: { icon: Upload, color: '#14B8A6', label: 'Uploaded' },
-  share: { icon: Share2, color: '#A855F7', label: 'Shared' },
-  comment: { icon: MessageSquare, color: '#F59E0B', label: 'Commented' },
-  like: { icon: Star, color: '#FBBF24', label: 'Liked' },
-  archive: { icon: Lock, color: '#6B7280', label: 'Archived' },
-  restore: { icon: Unlock, color: '#10B981', label: 'Restored' },
+  create: { icon: Plus, color: '#10B981', label: 'Tạo mới' },
+  update: { icon: Edit, color: '#3B82F6', label: 'Cập nhật' },
+  delete: { icon: Trash2, color: '#EF4444', label: 'Xóa' },
+  publish: { icon: CheckCircle, color: '#10B981', label: 'Xuất bản' },
+  unpublish: { icon: XCircle, color: '#F59E0B', label: 'Hủy xuất bản' },
+  login: { icon: LogIn, color: '#8B5CF6', label: 'Đăng nhập' },
+  logout: { icon: LogOut, color: '#6B7280', label: 'Đăng xuất' },
+  view: { icon: Eye, color: '#06B6D4', label: 'Xem' },
+  download: { icon: Download, color: '#EC4899', label: 'Tải xuống' },
+  upload: { icon: Upload, color: '#14B8A6', label: 'Tải lên' },
+  share: { icon: Share2, color: '#A855F7', label: 'Chia sẻ' },
+  comment: { icon: MessageSquare, color: '#F59E0B', label: 'Bình luận' },
+  like: { icon: Star, color: '#FBBF24', label: 'Thích' },
+  archive: { icon: Lock, color: '#6B7280', label: 'Lưu trữ' },
+  restore: { icon: Unlock, color: '#10B981', label: 'Khôi phục' },
 };
 
 const ENTITY_CONFIG = {
-  article: { icon: FileText, color: '#3B82F6', label: 'Article' },
-  category: { icon: FileText, color: '#8B5CF6', label: 'Category' },
-  user: { icon: User, color: '#10B981', label: 'User' },
-  media: { icon: Upload, color: '#EC4899', label: 'Media' },
-  comment: { icon: MessageSquare, color: '#F59E0B', label: 'Comment' },
-  setting: { icon: Settings, color: '#6B7280', label: 'Setting' },
-  role: { icon: Lock, color: '#8B5CF6', label: 'Role' },
-  permission: { icon: Lock, color: '#EF4444', label: 'Permission' },
+  article: { icon: FileText, color: '#3B82F6', label: 'Bài viết' },
+  category: { icon: FileText, color: '#8B5CF6', label: 'Danh mục' },
+  user: { icon: User, color: '#10B981', label: 'Người dùng' },
+  media: { icon: Upload, color: '#EC4899', label: 'Phương tiện' },
+  comment: { icon: MessageSquare, color: '#F59E0B', label: 'Bình luận' },
+  setting: { icon: Settings, color: '#6B7280', label: 'Cài đặt' },
+  role: { icon: Lock, color: '#8B5CF6', label: 'Vai trò' },
+  permission: { icon: Lock, color: '#EF4444', label: 'Quyền hạn' },
 };
 
 export const ActivityTimeline: React.FC = () => {
@@ -330,7 +330,7 @@ export const ActivityTimeline: React.FC = () => {
     },
     {
       onSuccess: () => {
-        notifications.success('Activity log exported successfully');
+        notifications.success('Đã xuất nhật ký hoạt động thành công');
       },
     }
   );
@@ -377,10 +377,10 @@ export const ActivityTimeline: React.FC = () => {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Activity Timeline
+            Dòng thời gian hoạt động
           </h1>
           <p className="text-gray-600 dark:text-gray-400 mt-1">
-            Complete history of all system activities
+            Lịch sử đầy đủ tất cả hoạt động hệ thống
           </p>
         </div>
 
@@ -390,7 +390,7 @@ export const ActivityTimeline: React.FC = () => {
             className="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-xl transition-colors"
           >
             <RefreshCw className="w-5 h-5" />
-            Refresh
+            <span className="font-medium">Làm mới</span>
           </button>
           <button
             onClick={() => exportActivities()}
@@ -400,12 +400,12 @@ export const ActivityTimeline: React.FC = () => {
             {isExporting ? (
               <>
                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                Exporting...
+                Đang xuất...
               </>
             ) : (
               <>
                 <Download className="w-5 h-5" />
-                Export Log
+                <span className="font-medium">Xuất nhật ký</span>
               </>
             )}
           </button>
@@ -415,10 +415,10 @@ export const ActivityTimeline: React.FC = () => {
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {[
-          { label: 'Today', value: activities?.stats.today || 0, icon: '📅', trend: '+12%' },
-          { label: 'This Week', value: activities?.stats.thisWeek || 0, icon: '📊', trend: '+8%' },
-          { label: 'This Month', value: activities?.stats.thisMonth || 0, icon: '📈', trend: '+15%' },
-          { label: 'Total Events', value: activities?.total || 0, icon: '🎯', trend: 'All time' },
+          { label: 'Hôm nay', value: activities?.stats.today || 0, icon: '📅', trend: '+12%' },
+          { label: 'Tuần này', value: activities?.stats.thisWeek || 0, icon: '📊', trend: '+8%' },
+          { label: 'Tháng này', value: activities?.stats.thisMonth || 0, icon: '📈', trend: '+15%' },
+          { label: 'Tổng sự kiện', value: activities?.total || 0, icon: '🎯', trend: 'Tất cả' },
         ].map((stat) => (
           <div key={stat.label} className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
             <div className="flex items-center justify-between mb-2">
@@ -447,7 +447,7 @@ export const ActivityTimeline: React.FC = () => {
                 type="search"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Search activities..."
+                placeholder="Tìm kiếm hoạt động..."
                 className="w-full pl-10 pr-4 py-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
               />
             </div>
@@ -463,7 +463,7 @@ export const ActivityTimeline: React.FC = () => {
             }`}
           >
             <Filter className="w-5 h-5" />
-            Filters
+            Bộ lọc
             {showFilters ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
           </button>
         </div>
@@ -472,13 +472,13 @@ export const ActivityTimeline: React.FC = () => {
         {showFilters && (
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
             <div>
-              <label className="block text-sm font-medium mb-2">Action</label>
+              <label className="block text-sm font-medium mb-2">Hành động</label>
               <select
                 value={filter.action || ''}
                 onChange={(e) => setFilter({ ...filter, action: e.target.value })}
                 className="w-full px-3 py-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20"
               >
-                <option value="">All Actions</option>
+                <option value="">-- Hành động --</option>
                 {Object.entries(ACTION_CONFIG).map(([key, config]) => (
                   <option key={key} value={key}>{config.label}</option>
                 ))}
@@ -486,13 +486,13 @@ export const ActivityTimeline: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2">Entity Type</label>
+              <label className="block text-sm font-medium mb-2">Loại đối tượng</label>
               <select
                 value={filter.entityType || ''}
                 onChange={(e) => setFilter({ ...filter, entityType: e.target.value })}
                 className="w-full px-3 py-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20"
               >
-                <option value="">All Types</option>
+                <option value="">-- Loại đối tượng --</option>
                 {Object.entries(ENTITY_CONFIG).map(([key, config]) => (
                   <option key={key} value={key}>{config.label}</option>
                 ))}
@@ -500,17 +500,17 @@ export const ActivityTimeline: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2">Severity</label>
+              <label className="block text-sm font-medium mb-2">Mức độ</label>
               <select
                 value={filter.severity || ''}
                 onChange={(e) => setFilter({ ...filter, severity: e.target.value })}
                 className="w-full px-3 py-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20"
               >
-                <option value="">All Severities</option>
-                <option value="info">Info</option>
-                <option value="success">Success</option>
-                <option value="warning">Warning</option>
-                <option value="error">Error</option>
+                <option value="">-- Mức độ --</option>
+                <option value="info">Thông tin</option>
+                <option value="success">Thành công</option>
+                <option value="warning">Cảnh báo</option>
+                <option value="error">Lỗi</option>
               </select>
             </div>
 
@@ -519,7 +519,7 @@ export const ActivityTimeline: React.FC = () => {
                 onClick={() => setFilter({})}
                 className="w-full px-4 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg text-sm transition-colors"
               >
-                Clear Filters
+                Xóa bộ lọc
               </button>
             </div>
           </div>
@@ -614,7 +614,7 @@ export const ActivityTimeline: React.FC = () => {
                         {/* Changes */}
                         {event.metadata.changes && (
                           <div>
-                            <p className="text-sm font-medium mb-2">Changes:</p>
+                            <p className="text-sm font-medium mb-2">Thay đổi:</p>
                             <div className="flex flex-wrap gap-2">
                               {event.metadata.changes.map((change, i) => (
                                 <span 
@@ -633,7 +633,7 @@ export const ActivityTimeline: React.FC = () => {
                           <div className="grid grid-cols-2 gap-4">
                             {event.metadata.oldValue && (
                               <div>
-                                <p className="text-sm font-medium mb-2 text-red-600 dark:text-red-400">Old Value:</p>
+                                <p className="text-sm font-medium mb-2 text-red-600 dark:text-red-400">Giá trị cũ:</p>
                                 <pre className="p-3 bg-red-50 dark:bg-red-900/20 rounded-lg text-xs overflow-x-auto">
                                   {JSON.stringify(event.metadata.oldValue, null, 2)}
                                 </pre>
@@ -641,7 +641,7 @@ export const ActivityTimeline: React.FC = () => {
                             )}
                             {event.metadata.newValue && (
                               <div>
-                                <p className="text-sm font-medium mb-2 text-green-600 dark:text-green-400">New Value:</p>
+                                <p className="text-sm font-medium mb-2 text-green-600 dark:text-green-400">Giá trị mới:</p>
                                 <pre className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg text-xs overflow-x-auto">
                                   {JSON.stringify(event.metadata.newValue, null, 2)}
                                 </pre>
@@ -653,21 +653,21 @@ export const ActivityTimeline: React.FC = () => {
                         {/* Additional Info */}
                         <div className="grid grid-cols-2 gap-4 text-sm">
                           <div>
-                            <span className="text-gray-600 dark:text-gray-400">Event ID:</span>
+                            <span className="text-gray-600 dark:text-gray-400">Mã sự kiện:</span>
                             <span className="ml-2 font-mono">{event.id}</span>
                           </div>
                           <div>
-                            <span className="text-gray-600 dark:text-gray-400">Entity ID:</span>
+                            <span className="text-gray-600 dark:text-gray-400">Mã đối tượng:</span>
                             <span className="ml-2 font-mono">{event.entityId}</span>
                           </div>
                           {event.metadata.ip && (
                             <div>
-                              <span className="text-gray-600 dark:text-gray-400">IP Address:</span>
+                              <span className="text-gray-600 dark:text-gray-400">Địa chỉ IP:</span>
                               <span className="ml-2 font-mono">{event.metadata.ip}</span>
                             </div>
                           )}
                           <div>
-                            <span className="text-gray-600 dark:text-gray-400">Timestamp:</span>
+                            <span className="text-gray-600 dark:text-gray-400">Thời gian:</span>
                             <span className="ml-2">{format(new Date(event.timestamp), 'PPpp')}</span>
                           </div>
                         </div>
@@ -679,7 +679,7 @@ export const ActivityTimeline: React.FC = () => {
                             className="px-3 py-1.5 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg text-sm hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors"
                           >
                             <ExternalLink className="w-4 h-4 inline mr-1" />
-                            View Details
+                            Xem chi tiết
                           </button>
                         </div>
                       </div>
@@ -694,7 +694,7 @@ export const ActivityTimeline: React.FC = () => {
         {/* Pagination */}
         <div className="flex items-center justify-between mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
           <p className="text-sm text-gray-600 dark:text-gray-400">
-            Showing {activities?.events.length || 0} of {activities?.total || 0} events
+            Hiển thị {activities?.events.length || 0} / {activities?.total || 0} sự kiện
           </p>
           <div className="flex gap-2">
             <button
@@ -702,14 +702,14 @@ export const ActivityTimeline: React.FC = () => {
               disabled={page === 1}
               className="px-4 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg disabled:opacity-50 transition-colors"
             >
-              Previous
+              Trước
             </button>
             <button
               onClick={() => setPage(page + 1)}
               disabled={page * pageSize >= (activities?.total || 0)}
               className="px-4 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg disabled:opacity-50 transition-colors"
             >
-              Next
+              Sau
             </button>
           </div>
         </div>
@@ -721,7 +721,7 @@ export const ActivityTimeline: React.FC = () => {
           <div className="w-full max-w-3xl bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 max-h-[90vh] overflow-y-auto">
             <div className="flex items-start justify-between mb-4">
               <div>
-                <h3 className="text-xl font-bold">Event Details</h3>
+                <h3 className="text-xl font-bold">Chi tiết sự kiện</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400">{selectedEvent.id}</p>
               </div>
               <button
@@ -743,7 +743,7 @@ export const ActivityTimeline: React.FC = () => {
               onClick={() => setSelectedEvent(null)}
               className="w-full mt-4 px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
             >
-              Close
+              Đóng
             </button>
           </div>
         </div>

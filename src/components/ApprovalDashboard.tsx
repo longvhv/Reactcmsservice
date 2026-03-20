@@ -118,7 +118,7 @@ export function ApprovalDashboard() {
 
           <button className="flex items-center gap-2 px-4 py-2 rounded-xl bg-muted/60 hover:bg-muted transition-all">
             <Download className="w-4 h-4" />
-            Export
+            Xuất báo cáo
           </button>
 
           <button className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg shadow-blue-500/30">

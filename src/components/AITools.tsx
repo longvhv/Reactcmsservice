@@ -105,16 +105,16 @@ export function AITools({ onNavigate }: AIToolsProps) {
   const [templates, setTemplates] = useState<Template[]>([
     {
       id: '1',
-      name: 'Press Release Template',
+      name: 'Mẫu thông cáo báo chí',
       toolId: 'content-ideas',
-      content: 'Company announces new product launch...',
+      content: 'Công ty công bố ra mắt sản phẩm mới...',
       description: 'Mẫu thông cáo báo chí chuẩn',
     },
     {
       id: '2',
-      name: 'SEO Article Structure',
+      name: 'Cấu trúc bài SEO',
       toolId: 'seo',
-      content: 'H1: Main keyword...\nH2: Related topics...',
+      content: 'H1: Từ khóa chính...\nH2: Chủ đề liên quan...',
       description: 'Cấu trúc bài viết SEO chuẩn',
     },
   ]);
@@ -193,7 +193,7 @@ export function AITools({ onNavigate }: AIToolsProps) {
     {
       id: 'title',
       name: 'Tạo tiêu đề hấp dẫn',
-      description: 'Generate tiêu đề thu hút người đọc',
+      description: 'Tạo tiêu đề thu hút người đọc',
       icon: Sparkles,
       color: 'text-cyan-600',
       gradient: 'from-cyan-500 to-blue-500',
@@ -274,8 +274,8 @@ export function AITools({ onNavigate }: AIToolsProps) {
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
         result += `📝 Văn bản gốc:\n${inputText}\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        result += `✨ Bản dịch (${translationTone} tone, ${formalityLevel} formality):\n`;
-        result += `[AI would translate the text here with the specified tone and formality level]\n\n`;
+        result += `✨ Bản dịch (Giọng ${translationTone}, Mức trang trọng ${formalityLevel}):\n`;
+        result += `[AI sẽ dịch văn bản tại đây với giọng điệu và mức trang trọng đã chọn]\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
         result += `📊 Thống kê:\n`;
         result += `• Độ chính xác dự kiến: 95%\n`;
@@ -298,7 +298,7 @@ export function AITools({ onNavigate }: AIToolsProps) {
         result += `• Tổng số lỗi: ${errors}\n`;
         result += `• Điểm ngữ pháp: ${95 - errors * 5}/100\n`;
         result += `• Độ phức tạp: ${grammarLevel}\n`;
-        result += `• Dialect: ${dialectPreference}\n\n`;
+        result += `• Phương ngữ: ${dialectPreference}\n\n`;
         result += `🔍 Chi tiết lỗi:\n\n`;
         result += `1. Dấu câu (Line 1, Col 45)\n`;
         result += `   Hiện tại: "Hello world"\n`;
@@ -320,47 +320,47 @@ export function AITools({ onNavigate }: AIToolsProps) {
         const seoScore = Math.floor(Math.random() * 20) + 75;
         result = `🎯 Phân tích & Tối ưu SEO\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        result += `📊 SEO Score: ${seoScore}/100\n`;
-        result += `Target Audience: ${targetAudience}\n`;
-        result += `Content Type: ${contentType}\n`;
-        result += `Keywords: ${seoKeywords || 'Not specified'}\n\n`;
+        result += `📊 Điểm SEO: ${seoScore}/100\n`;
+        result += `Đối tượng mục tiêu: ${targetAudience}\n`;
+        result += `Loại nội dung: ${contentType}\n`;
+        result += `Từ khóa: ${seoKeywords || 'Chưa chỉ định'}\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
         result += `📝 Nội dung đã tối ưu:\n\n`;
         result += `${inputText}\n\n`;
-        result += `[AI would add optimized content with proper keyword placement]\n\n`;
+        result += `[AI sẽ thêm nội dung tối ưu với vị trí từ khóa phù hợp]\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
         result += `✅ Điểm mạnh:\n`;
-        result += `• ✓ Mật độ từ khóa: 2.3% (Optimal: 1-3%)\n`;
+        result += `• ✓ Mật độ từ khóa: 2.3% (Tối ưu: 1-3%)\n`;
         result += `• ✓ Cấu trúc heading rõ ràng\n`;
-        result += `• ✓ Độ dài nội dung phù hợp (${wordCount} words)\n`;
-        result += `• ✓ Readability score: Good\n`;
+        result += `• ✓ Độ dài nội dung phù hợp (${wordCount} từ)\n`;
+        result += `• ✓ Điểm dễ đọc: Tốt\n`;
         result += `• ✓ Meta description có sẵn\n\n`;
         result += `⚠️ Cần cải thiện:\n`;
         result += `• ⚡ Thêm 2-3 internal links\n`;
         result += `• ⚡ Bổ sung LSI keywords: [AI, machine learning, automation]\n`;
-        result += `• ⚡ Tối ưu hóa image alt text\n`;
-        result += `• ⚡ Thêm FAQ section cho featured snippets\n`;
-        result += `• ⚡ Cải thiện URL structure\n\n`;
+        result += `• ⚡ Tối ưu hóa alt text cho hình ảnh\n`;
+        result += `• ⚡ Thêm phần Câu hỏi thường gặp cho featured snippets\n`;
+        result += `• ⚡ Cải thiện cấu trúc URL\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
         result += `🔍 Phân tích từ khóa:\n`;
-        result += `Primary Keyword: "${seoKeywords || 'AI Tools'}"\n`;
-        result += `• Frequency: 8 times\n`;
-        result += `• Placement: Title ✓, H1 ✓, First paragraph ✓\n`;
-        result += `• Prominence: 95%\n\n`;
-        result += `LSI Keywords detected:\n`;
-        result += `• "artificial intelligence" (4x)\n`;
-        result += `• "content creation" (3x)\n`;
-        result += `• "automation" (2x)\n\n`;
+        result += `Từ khóa chính: "${seoKeywords || 'Công cụ AI'}"\n`;
+        result += `• Tần suất: 8 lần\n`;
+        result += `• Vị trí: Tiêu đề ✓, H1 ✓, Đoạn đầu ✓\n`;
+        result += `• Mức nổi bật: 95%\n\n`;
+        result += `Từ khóa LSI phát hiện:\n`;
+        result += `• "trí tuệ nhân tạo" (4 lần)\n`;
+        result += `• "sáng tạo nội dung" (3 lần)\n`;
+        result += `• "tự động hóa" (2 lần)\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
         result += `📈 Dự đoán hiệu suất:\n`;
-        result += `• Khả năng rank: High (85%)\n`;
-        result += `• Competition level: Medium\n`;
-        result += `• Est. organic traffic: 500-800/month\n`;
-        result += `• Click-through rate: 3.2%\n\n`;
+        result += `• Khả năng xếp hạng: Cao (85%)\n`;
+        result += `• Mức cạnh tranh: Trung bình\n`;
+        result += `• Lượt truy cập tự nhiên ước tính: 500-800/tháng\n`;
+        result += `• Tỷ lệ nhấp: 3.2%\n\n`;
         result += `💡 Khuyến nghị:\n`;
-        result += `• Publish vào thứ 3 hoặc thứ 4 để tối ưu engagement\n`;
-        result += `• Tạo content cluster liên quan\n`;
-        result += `• Build backlinks từ domain authority cao`;
+        result += `• Đăng vào thứ 3 hoặc thứ 4 để tối ưu tương tác\n`;
+        result += `• Tạo cụm nội dung liên quan\n`;
+        result += `• Xây dựng backlinks từ tên miền uy tín cao`;
         break;
 
       case 'summarize':
@@ -368,20 +368,20 @@ export function AITools({ onNavigate }: AIToolsProps) {
         result = `📝 Tóm tắt nội dung (${summaryLength})\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
         if (summaryStyle === 'bullet') {
-          result += `📌 Tóm tắt theo bullet points:\n\n`;
+          result += `📌 Tóm tắt theo gạch đầu dòng:\n\n`;
           result += `🎯 Ý chính:\n`;
           result += `• ${inputText.split('.')[0] || inputText.slice(0, 100)}\n`;
-          result += `• [AI would extract key point 2]\n`;
-          result += `• [AI would extract key point 3]\n\n`;
+          result += `• [AI sẽ trích xuất ý chính 2]\n`;
+          result += `• [AI sẽ trích xuất ý chính 3]\n\n`;
           result += `💡 Chi tiết quan trọng:\n`;
-          result += `• Concept 1: [Description]\n`;
-          result += `• Concept 2: [Description]\n`;
-          result += `• Concept 3: [Description]\n\n`;
+          result += `• Khái niệm 1: [Mô tả]\n`;
+          result += `• Khái niệm 2: [Mô tả]\n`;
+          result += `• Khái niệm 3: [Mô tả]\n\n`;
           result += `🎯 Kết luận:\n`;
-          result += `• [Main takeaway from the content]\n`;
+          result += `• [Điểm mấu chốt từ nội dung]\n`;
         } else {
           result += `📄 Tóm tắt dạng đoạn văn:\n\n`;
-          result += `${inputText.split(' ').slice(0, 30).join(' ')}... [AI would generate a coherent summary here]\n\n`;
+          result += `${inputText.split(' ').slice(0, 30).join(' ')}... [AI sẽ tạo bản tóm tắt mạch lạc tại đây]\n\n`;
         }
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
         result += `📊 Thống kê:\n`;
@@ -392,8 +392,8 @@ export function AITools({ onNavigate }: AIToolsProps) {
         result += `• Thời gian đọc tóm tắt: ${Math.ceil(targetWords / 200)} phút\n\n`;
         result += `🎯 Độ chính xác:\n`;
         result += `• Giữ nguyên ý chính: 95%\n`;
-        result += `• Độ súc tích: High\n`;
-        result += `• Readability: Improved`;
+        result += `• Độ súc tích: Cao\n`;
+        result += `• Khả năng đọc: Cải thiện`;
         break;
 
       case 'expand':
@@ -403,23 +403,23 @@ export function AITools({ onNavigate }: AIToolsProps) {
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
         result += `🚀 Nội dung đã mở rộng:\n\n`;
         result += `${inputText}\n\n`;
-        result += `Context và Background:\n`;
-        result += `This topic is particularly relevant in today's digital landscape. [AI would expand on the context here, adding relevant background information and establishing the importance of the topic.]\n\n`;
-        result += `Detailed Explanation:\n`;
-        result += `[AI would provide a comprehensive explanation with multiple paragraphs, examples, and elaboration on key points mentioned in the original text.]\n\n`;
-        result += `Real-world Applications:\n`;
-        result += `[AI would include practical examples, case studies, and real-world scenarios that demonstrate the concepts discussed.]\n\n`;
-        result += `Expert Perspectives:\n`;
-        result += `[AI would add insights from industry experts and thought leaders to add credibility and depth.]\n\n`;
-        result += `Future Implications:\n`;
-        result += `[AI would discuss future trends, predictions, and potential developments related to the topic.]\n\n`;
+        result += `Bối cảnh và Nền tảng:\n`;
+        result += `Chủ đề này đặc biệt phù hợp trong bối cảnh kỹ thuật số ngày nay. [AI sẽ mở rộng bối cảnh, thêm thông tin nền tảng liên quan và xác lập tầm quan trọng của chủ đề.]\n\n`;
+        result += `Giải thích chi tiết:\n`;
+        result += `[AI sẽ cung cấp giải thích toàn diện với nhiều đoạn văn, ví dụ và phân tích sâu các điểm chính trong nội dung gốc.]\n\n`;
+        result += `Ứng dụng thực tế:\n`;
+        result += `[AI sẽ bao gồm các ví dụ thực tế, nghiên cứu tình huống và kịch bản thực tế minh họa các khái niệm đã thảo luận.]\n\n`;
+        result += `Góc nhìn chuyên gia:\n`;
+        result += `[AI sẽ thêm nhận định từ chuyên gia ngành và các nhà tư tưởng để tăng tính uy tín và chiều sâu.]\n\n`;
+        result += `Xu hướng tương lai:\n`;
+        result += `[AI sẽ thảo luận về xu hướng tương lai, dự đoán và các phát triển tiềm năng liên quan đến chủ đề.]\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        result += `📊 Expansion Stats:\n`;
-        result += `• Original: ${wordCount} words\n`;
-        result += `• Expanded: ~${wordCount * 4} words\n`;
-        result += `• Sections added: 5\n`;
-        result += `• Tone: ${contentTone}\n`;
-        result += `• Creativity level: ${creativityLevel}%`;
+        result += `📊 Thống kê mở rộng:\n`;
+        result += `• Gốc: ${wordCount} từ\n`;
+        result += `• Mở rộng: ~${wordCount * 4} từ\n`;
+        result += `• Phần thêm: 5\n`;
+        result += `• Giọng điệu: ${contentTone}\n`;
+        result += `• Độ sáng tạo: ${creativityLevel}%`;
         break;
 
       case 'paraphrase':
@@ -427,52 +427,52 @@ export function AITools({ onNavigate }: AIToolsProps) {
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
         result += `📝 Văn bản gốc:\n${inputText}\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        result += `✨ Phiên bản 1 (${contentTone} tone):\n`;
-        result += `[AI would rewrite the content with different wording while maintaining the same meaning]\n\n`;
+        result += `✨ Phiên bản 1 (Giọng ${contentTone}):\n`;
+        result += `[AI sẽ viết lại nội dung với cách diễn đạt khác nhưng vẫn giữ nguyên ý nghĩa]\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        result += `✨ Phiên bản 2 (Alternative style):\n`;
-        result += `[AI would provide another variation with a different approach]\n\n`;
+        result += `✨ Phiên bản 2 (Phong cách khác):\n`;
+        result += `[AI sẽ cung cấp biến thể khác với cách tiếp cận khác nhau]\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        result += `✨ Phiên bản 3 (Simplified):\n`;
-        result += `[AI would provide a simplified version easier to understand]\n\n`;
+        result += `✨ Phiên bản 3 (Đơn giản hóa):\n`;
+        result += `[AI sẽ cung cấp phiên bản đơn giản dễ hiểu hơn]\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
         result += `📊 So sánh:\n`;
         result += `• Độ tương đồng nghĩa: 95%\n`;
         result += `• Từ vựng thay đổi: 78%\n`;
         result += `• Cấu trúc câu mới: 85%\n`;
-        result += `• Plagiarism score: 0%\n`;
-        result += `• Readability improvement: +15%`;
+        result += `• Điểm đạo văn: 0%\n`;
+        result += `• Cải thiện khả năng đọc: +15%`;
         break;
 
       case 'tags':
         result = `🏷️ Gợi ý Tags cho nội dung\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        result += `🎯 Tags chính (High relevance):\n`;
-        result += `#AI #ArtificialIntelligence #MachineLearning #Technology #Innovation\n\n`;
-        result += `📌 Tags phụ (Medium relevance):\n`;
-        result += `#ContentCreation #Automation #DigitalTransformation #Tech #Future\n\n`;
-        result += `🔍 Long-tail tags:\n`;
-        result += `#AIContentTools #ContentAutomation #AIWriting #SmartContent\n\n`;
+        result += `🎯 Tags chính (Độ liên quan cao):\n`;
+        result += `#AI #TríTuệNhânTạo #HọcMáy #CôngNghệ #ĐổiMới\n\n`;
+        result += `📌 Tags phụ (Độ liên quan trung bình):\n`;
+        result += `#SángTạoNộiDung #TựĐộngHóa #ChuyểnĐổiSố #Tech #TươngLai\n\n`;
+        result += `🔍 Tags dài (Long-tail):\n`;
+        result += `#CôngCụNộiDungAI #TựĐộngNộiDung #AIViếtBài #NộiDungThôngMinh\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
         result += `📊 Phân tích chi tiết:\n\n`;
         result += `Top 10 Tags theo độ liên quan:\n\n`;
-        result += `1. #AI - Relevance: 98% | Volume: High | Competition: High\n`;
-        result += `2. #Technology - Relevance: 95% | Volume: Very High | Competition: High\n`;
-        result += `3. #MachineLearning - Relevance: 92% | Volume: High | Competition: Medium\n`;
-        result += `4. #Innovation - Relevance: 88% | Volume: High | Competition: High\n`;
-        result += `5. #ContentCreation - Relevance: 85% | Volume: Medium | Competition: Medium\n`;
-        result += `6. #Automation - Relevance: 82% | Volume: Medium | Competition: Medium\n`;
-        result += `7. #Digital - Relevance: 78% | Volume: Very High | Competition: High\n`;
-        result += `8. #Future - Relevance: 75% | Volume: High | Competition: High\n`;
-        result += `9. #Tech - Relevance: 72% | Volume: Very High | Competition: High\n`;
-        result += `10. #Smart - Relevance: 68% | Volume: Medium | Competition: Low\n\n`;
+        result += `1. #AI - Liên quan: 98% | Lượng tìm: Cao | Cạnh tranh: Cao\n`;
+        result += `2. #CôngNghệ - Liên quan: 95% | Lượng tìm: Rất cao | Cạnh tranh: Cao\n`;
+        result += `3. #HọcMáy - Liên quan: 92% | Lượng tìm: Cao | Cạnh tranh: TB\n`;
+        result += `4. #ĐổiMới - Liên quan: 88% | Lượng tìm: Cao | Cạnh tranh: Cao\n`;
+        result += `5. #SángTạoNộiDung - Liên quan: 85% | Lượng tìm: TB | Cạnh tranh: TB\n`;
+        result += `6. #TựĐộngHóa - Liên quan: 82% | Lượng tìm: TB | Cạnh tranh: TB\n`;
+        result += `7. #KỹThuậtSố - Liên quan: 78% | Lượng tìm: Rất cao | Cạnh tranh: Cao\n`;
+        result += `8. #TươngLai - Liên quan: 75% | Lượng tìm: Cao | Cạnh tranh: Cao\n`;
+        result += `9. #Tech - Liên quan: 72% | Lượng tìm: Rất cao | Cạnh tranh: Cao\n`;
+        result += `10. #ThôngMinh - Liên quan: 68% | Lượng tìm: TB | Cạnh tranh: Thấp\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
         result += `💡 Khuyến nghị:\n`;
         result += `• Sử dụng 5-7 tags chính cho tối ưu\n`;
-        result += `• Mix giữa high-volume và niche tags\n`;
-        result += `• Cập nhật tags theo trending topics\n`;
-        result += `• Tránh tag spam (quá nhiều tags không liên quan)\n\n`;
-        result += `🎯 Hashtag strategy:\n`;
+        result += `• Kết hợp giữa tags phổ biến và tags chuyên biệt\n`;
+        result += `• Cập nhật tags theo xu hướng mới\n`;
+        result += `• Tránh spam tags (quá nhiều tags không liên quan)\n\n`;
+        result += `🎯 Chiến lược Hashtag:\n`;
         result += `• Instagram: 20-30 tags\n`;
         result += `• Twitter: 1-2 tags\n`;
         result += `• LinkedIn: 3-5 tags\n`;
@@ -480,40 +480,40 @@ export function AITools({ onNavigate }: AIToolsProps) {
         break;
 
       case 'title':
-        result = `✨ ${titleCount} Tiêu đề được tạo (${titleStyle} style)\n\n`;
+        result = `✨ ${titleCount} Tiêu đề được tạo (Phong cách ${titleStyle})\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
         
         const titleVariants = [
-          { emoji: '🚀', template: `${inputText.slice(0, 50)}: Complete Guide for 2024`, score: 92 },
-          { emoji: '💡', template: `Everything You Need to Know About ${inputText.slice(0, 40)}`, score: 88 },
-          { emoji: '🔥', template: `${inputText.slice(0, 45)}: Tips, Tricks & Best Practices`, score: 90 },
-          { emoji: '✨', template: `Master ${inputText.slice(0, 40)} in 5 Easy Steps`, score: 85 },
-          { emoji: '🎯', template: `The Ultimate ${inputText.slice(0, 35)} Guide: Expert Edition`, score: 87 },
-          { emoji: '⚡', template: `${inputText.slice(0, 40)}: Fast Track to Success`, score: 83 },
-          { emoji: '📈', template: `Boost Your ${inputText.slice(0, 40)} Game Today`, score: 81 },
-          { emoji: '🌟', template: `Discover the Power of ${inputText.slice(0, 40)}`, score: 86 },
+          { emoji: '🚀', template: `${inputText.slice(0, 50)}: Hướng dẫn toàn diện 2026`, score: 92 },
+          { emoji: '💡', template: `Tất cả những gì bạn cần biết về ${inputText.slice(0, 40)}`, score: 88 },
+          { emoji: '🔥', template: `${inputText.slice(0, 45)}: Mẹo, Thủ thuật & Thực hành tốt nhất`, score: 90 },
+          { emoji: '✨', template: `Thành thạo ${inputText.slice(0, 40)} trong 5 bước đơn giản`, score: 85 },
+          { emoji: '🎯', template: `Cẩm nang ${inputText.slice(0, 35)} toàn diện: Phiên bản chuyên gia`, score: 87 },
+          { emoji: '⚡', template: `${inputText.slice(0, 40)}: Con đường nhanh đến thành công`, score: 83 },
+          { emoji: '📈', template: `Nâng tầm ${inputText.slice(0, 40)} của bạn ngay hôm nay`, score: 81 },
+          { emoji: '🌟', template: `Khám phá sức mạnh của ${inputText.slice(0, 40)}`, score: 86 },
         ];
 
         titleVariants.slice(0, titleCount).forEach((variant, i) => {
           result += `${i + 1}. ${variant.emoji} "${variant.template}"\n`;
-          result += `   Score: ${variant.score}/100 | Engagement: ${variant.score > 85 ? 'High' : 'Medium'}\n\n`;
+          result += `   Điểm: ${variant.score}/100 | Tương tác: ${variant.score > 85 ? 'Cao' : 'Trung bình'}\n\n`;
         });
 
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
         result += `📊 Phân tích tiêu đề:\n\n`;
         result += `Yếu tố tối ưu:\n`;
-        result += `• Character length: 50-60 (Optimal)\n`;
-        result += `• Power words: ✓ (Complete, Ultimate, Master)\n`;
-        result += `• Numbers: ✓ (2024, 5 Easy Steps)\n`;
-        result += `• Emotional trigger: ✓ (High engagement potential)\n`;
-        result += `• SEO-friendly: ✓ (Contains target keywords)\n\n`;
+        result += `• Độ dài ký tự: 50-60 (Tối ưu)\n`;
+        result += `• Từ mạnh: ✓ (Toàn diện, Cẩm nang, Thành thạo)\n`;
+        result += `• Số liệu: ✓ (2026, 5 bước đơn giản)\n`;
+        result += `• Kích thích cảm xúc: ✓ (Tiềm năng tương tác cao)\n`;
+        result += `• Thân thiện SEO: ✓ (Chứa từ khóa mục tiêu)\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        result += `💡 Best practices:\n`;
+        result += `💡 Thực hành tốt nhất:\n`;
         result += `• Giữ tiêu đề dưới 60 ký tự cho SEO\n`;
-        result += `• Sử dụng số cụ thể (5 tips, 10 ways)\n`;
+        result += `• Sử dụng số cụ thể (5 mẹo, 10 cách)\n`;
         result += `• Thêm năm hiện tại để tăng tính cập nhật\n`;
-        result += `• Bao gồm power words: Ultimate, Complete, Essential\n`;
-        result += `• A/B test nhiều variants để tìm best performer`;
+        result += `• Sử dụng từ mạnh: Toàn diện, Cẩm nang, Thiết yếu\n`;
+        result += `• Thử nghiệm A/B nhiều biến thể để tìm hiệu quả nhất`;
         break;
 
       case 'sentiment':
@@ -524,196 +524,196 @@ export function AITools({ onNavigate }: AIToolsProps) {
         result = `😊 Phân tích cảm xúc & Tone\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
         result += `📊 Tổng quan Sentiment:\n\n`;
-        result += `Overall Sentiment: ${positiveScore > 60 ? '😊 Positive' : positiveScore > 40 ? '😐 Neutral' : '😔 Negative'}\n`;
-        result += `Confidence Score: ${positiveScore + 10}%\n\n`;
+        result += `Cảm xúc tổng thể: ${positiveScore > 60 ? '😊 Tích cực' : positiveScore > 40 ? '😐 Trung lập' : '😔 Tiêu cực'}\n`;
+        result += `Độ tin cậy: ${positiveScore + 10}%\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
         result += `📈 Phân tích chi tiết:\n\n`;
-        result += `Positive: ${positiveScore}% ${'█'.repeat(Math.floor(positiveScore / 5))}\n`;
-        result += `Neutral:  ${neutralScore}% ${'█'.repeat(Math.floor(neutralScore / 5))}\n`;
-        result += `Negative: ${negativeScore}% ${'█'.repeat(Math.floor(negativeScore / 5))}\n\n`;
+        result += `Tích cực:  ${positiveScore}% ${'█'.repeat(Math.floor(positiveScore / 5))}\n`;
+        result += `Trung lập: ${neutralScore}% ${'█'.repeat(Math.floor(neutralScore / 5))}\n`;
+        result += `Tiêu cực:  ${negativeScore}% ${'█'.repeat(Math.floor(negativeScore / 5))}\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        result += `🎭 Tone Analysis:\n`;
-        result += `• Primary tone: Professional, Informative\n`;
-        result += `• Secondary tone: Enthusiastic\n`;
-        result += `• Writing style: Formal\n`;
-        result += `• Objectivity: 75%\n`;
-        result += `• Persuasiveness: 68%\n\n`;
-        result += `😊 Emotion Breakdown:\n`;
-        result += `• Joy: 45%\n`;
-        result += `• Trust: 32%\n`;
-        result += `• Anticipation: 28%\n`;
-        result += `• Surprise: 15%\n`;
-        result += `• Fear: 8%\n`;
-        result += `• Sadness: 5%\n\n`;
+        result += `🎭 Phân tích giọng điệu:\n`;
+        result += `• Giọng chính: Chuyên nghiệp, Thông tin\n`;
+        result += `• Giọng phụ: Nhiệt huyết\n`;
+        result += `• Phong cách viết: Trang trọng\n`;
+        result += `• Tính khách quan: 75%\n`;
+        result += `• Tính thuyết phục: 68%\n\n`;
+        result += `😊 Phân tích cảm xúc:\n`;
+        result += `• Vui vẻ: 45%\n`;
+        result += `• Tin tưởng: 32%\n`;
+        result += `• Kỳ vọng: 28%\n`;
+        result += `• Ngạc nhiên: 15%\n`;
+        result += `• Lo lắng: 8%\n`;
+        result += `• Buồn: 5%\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
         result += `🔍 Từ khóa cảm xúc:\n\n`;
-        result += `Positive words: excellent, amazing, wonderful, great, innovative\n`;
-        result += `Negative words: difficult, challenging, problem\n`;
-        result += `Neutral words: however, therefore, additionally\n\n`;
+        result += `Từ tích cực: xuất sắc, tuyệt vời, tuyệt hảo, tốt, đổi mới\n`;
+        result += `Từ tiêu cực: khó khăn, thách thức, vấn đề\n`;
+        result += `Từ trung lập: tuy nhiên, do đó, ngoài ra\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        result += `💡 Recommendations:\n`;
-        result += `• Tone phù hợp cho: ${positiveScore > 60 ? 'Marketing, Sales copy' : 'Factual reporting, News'}\n`;
-        result += `• Target audience: ${positiveScore > 60 ? 'General public' : 'Professional audience'}\n`;
-        result += `• Suggested improvements: Add more ${positiveScore < 50 ? 'positive language' : 'balanced viewpoints'}`;
+        result += `💡 Khuyến nghị:\n`;
+        result += `• Giọng điệu phù hợp cho: ${positiveScore > 60 ? 'Marketing, Quảng cáo' : 'Báo cáo thực tế, Tin tức'}\n`;
+        result += `• Đối tượng mục tiêu: ${positiveScore > 60 ? 'Đại chúng' : 'Chuyên gia'}\n`;
+        result += `• Cải thiện đề xuất: Thêm ${positiveScore < 50 ? 'ngôn ngữ tích cực hơn' : 'quan điểm cân bằng hơn'}`;
         break;
 
       case 'readability':
         const readabilityScore = Math.floor(Math.random() * 30) + 60;
         const gradeLevel = Math.floor(readabilityScore / 10);
         
-        result = `📖 Đánh giá độ dễ đọc (Readability)\n\n`;
+        result = `📖 Đánh giá độ dễ đọc\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        result += `📊 Overall Score: ${readabilityScore}/100\n`;
-        result += `Grade: ${readabilityScore > 80 ? 'Excellent' : readabilityScore > 60 ? 'Good' : 'Needs Improvement'}\n\n`;
+        result += `📊 Điểm tổng: ${readabilityScore}/100\n`;
+        result += `Xếp hạng: ${readabilityScore > 80 ? 'Xuất sắc' : readabilityScore > 60 ? 'Tốt' : 'Cần cải thiện'}\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        result += `📈 Detailed Metrics:\n\n`;
-        result += `Flesch Reading Ease: ${readabilityScore + 5}/100\n`;
-        result += `• 90-100: Very Easy (5th grade)\n`;
-        result += `• 60-70: Standard (8-9th grade) ← Your content\n`;
-        result += `• 0-30: Very Difficult (College graduate)\n\n`;
-        result += `Flesch-Kincaid Grade: ${gradeLevel}th grade\n`;
-        result += `SMOG Index: ${gradeLevel + 1}\n`;
-        result += `Coleman-Liau Index: ${gradeLevel}\n`;
-        result += `Automated Readability Index: ${gradeLevel}\n\n`;
+        result += `📈 Chỉ số chi tiết:\n\n`;
+        result += `Chỉ số Flesch: ${readabilityScore + 5}/100\n`;
+        result += `• 90-100: Rất dễ (Lớp 5)\n`;
+        result += `• 60-70: Chuẩn (Lớp 8-9) ← Nội dung của bạn\n`;
+        result += `• 0-30: Rất khó (Đại học)\n\n`;
+        result += `Cấp độ Flesch-Kincaid: Lớp ${gradeLevel}\n`;
+        result += `Chỉ số SMOG: ${gradeLevel + 1}\n`;
+        result += `Chỉ số Coleman-Liau: ${gradeLevel}\n`;
+        result += `Chỉ số đọc tự động: ${gradeLevel}\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        result += `📝 Text Statistics:\n\n`;
-        result += `• Total words: ${wordCount}\n`;
-        result += `• Sentences: ${Math.floor(wordCount / 15)}\n`;
-        result += `• Paragraphs: ${Math.floor(wordCount / 80)}\n`;
-        result += `• Average sentence length: ${Math.floor(wordCount / Math.floor(wordCount / 15))} words\n`;
-        result += `• Average word length: 4.8 characters\n`;
-        result += `• Complex words: ${Math.floor(wordCount * 0.12)} (12%)\n`;
-        result += `• Long sentences (>25 words): ${Math.floor(wordCount / 100)}\n\n`;
+        result += `📝 Thống kê văn bản:\n\n`;
+        result += `• Tổng số từ: ${wordCount}\n`;
+        result += `• Số câu: ${Math.floor(wordCount / 15)}\n`;
+        result += `• Số đoạn: ${Math.floor(wordCount / 80)}\n`;
+        result += `• Độ dài câu TB: ${Math.floor(wordCount / Math.floor(wordCount / 15))} từ\n`;
+        result += `• Độ dài từ TB: 4.8 ký tự\n`;
+        result += `• Từ phức tạp: ${Math.floor(wordCount * 0.12)} (12%)\n`;
+        result += `• Câu dài (>25 từ): ${Math.floor(wordCount / 100)}\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        result += `✅ Strengths:\n`;
-        result += `• Clear sentence structure\n`;
-        result += `• Appropriate paragraph length\n`;
-        result += `• Good use of transitional phrases\n`;
-        result += `• Consistent tone throughout\n\n`;
-        result += `⚠️ Areas for Improvement:\n`;
-        result += `• Reduce sentence length (aim for 15-20 words)\n`;
-        result += `• Replace ${Math.floor(wordCount * 0.08)} complex words with simpler alternatives\n`;
-        result += `• Break ${Math.floor(wordCount / 100)} long sentences into shorter ones\n`;
-        result += `• Add more subheadings for better scanning\n`;
-        result += `• Use bullet points to break up dense text\n\n`;
+        result += `✅ Điểm mạnh:\n`;
+        result += `• Cấu trúc câu rõ ràng\n`;
+        result += `• Độ dài đoạn phù hợp\n`;
+        result += `• Sử dụng tốt các cụm từ chuyển tiếp\n`;
+        result += `• Giọng điệu nhất quán xuyên suốt\n\n`;
+        result += `⚠️ Cần cải thiện:\n`;
+        result += `• Rút ngắn câu (mục tiêu 15-20 từ)\n`;
+        result += `• Thay thế ${Math.floor(wordCount * 0.08)} từ phức tạp bằng từ đơn giản hơn\n`;
+        result += `• Chia ${Math.floor(wordCount / 100)} câu dài thành câu ngắn hơn\n`;
+        result += `• Thêm tiêu đề phụ để dễ quét nội dung\n`;
+        result += `• Sử dụng gạch đầu dòng để phân tách văn bản dày\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        result += `🎯 Target Audience Fit:\n`;
-        result += `• Current level: ${gradeLevel}th grade (${readabilityScore > 70 ? 'General audience' : 'Educated audience'})\n`;
-        result += `• Recommended for: ${readabilityScore > 70 ? 'Blog posts, Marketing' : 'Technical docs, Academic'}\n`;
-        result += `• Reading time: ${Math.ceil(wordCount / 200)} minutes`;
+        result += `🎯 Phù hợp đối tượng:\n`;
+        result += `• Mức hiện tại: Lớp ${gradeLevel} (${readabilityScore > 70 ? 'Đại chúng' : 'Độc giả có học vấn'})\n`;
+        result += `• Phù hợp cho: ${readabilityScore > 70 ? 'Bài blog, Marketing' : 'Tài liệu kỹ thuật, Học thuật'}\n`;
+        result += `• Thời gian đọc: ${Math.ceil(wordCount / 200)} phút`;
         break;
 
       case 'image-caption':
         result = `📸 Tạo Caption & Alt Text cho ảnh\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        result += `✨ Caption Suggestions:\n\n`;
-        result += `1. Engaging Style:\n`;
-        result += `   "${inputText} - A stunning visual representation that captures\n`;
-        result += `    the essence of modern innovation" 🚀\n\n`;
-        result += `2. Professional Style:\n`;
-        result += `   "Professional ${inputText} showcase demonstrating\n`;
-        result += `    excellence in visual communication"\n\n`;
-        result += `3. Creative Style:\n`;
-        result += `   "🌟 Discover ${inputText} in this captivating image that\n`;
-        result += `    tells a thousand stories"\n\n`;
-        result += `4. Minimalist Style:\n`;
-        result += `   "${inputText} | Pure elegance"\n\n`;
-        result += `5. Social Media Style:\n`;
-        result += `   "💡 ${inputText} vibes ✨ #Photography #Design #Creative"\n\n`;
+        result += `✨ Gợi ý Caption:\n\n`;
+        result += `1. Phong cách Thu hút:\n`;
+        result += `   "${inputText} - Hình ảnh tuyệt đẹp thể hiện\n`;
+        result += `    tinh thần đổi mới hiện đại" 🚀\n\n`;
+        result += `2. Phong cách Chuyên nghiệp:\n`;
+        result += `   "${inputText} chuyên nghiệp thể hiện\n`;
+        result += `    sự xuất sắc trong truyền thông thị giác"\n\n`;
+        result += `3. Phong cách Sáng tạo:\n`;
+        result += `   "🌟 Khám phá ${inputText} qua bức ảnh cuốn hút\n`;
+        result += `    kể lên ngàn câu chuyện"\n\n`;
+        result += `4. Phong cách Tối giản:\n`;
+        result += `   "${inputText} | Thanh lịch thuần khiết"\n\n`;
+        result += `5. Phong cách Mạng xã hội:\n`;
+        result += `   "💡 ${inputText} ✨ #NhiếpẢnh #ThiếtKế #SángTạo"\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        result += `🔍 SEO-Optimized Alt Text:\n\n`;
-        result += `Short version:\n`;
-        result += `"${inputText} - Professional quality image"\n\n`;
-        result += `Detailed version:\n`;
-        result += `"High-resolution ${inputText} showcasing modern design principles\n`;
-        result += `with emphasis on clarity and visual impact"\n\n`;
+        result += `🔍 Alt Text tối ưu SEO:\n\n`;
+        result += `Phiên bản ngắn:\n`;
+        result += `"${inputText} - Hình ảnh chất lượng chuyên nghiệp"\n\n`;
+        result += `Phiên bản chi tiết:\n`;
+        result += `"${inputText} độ phân giải cao thể hiện nguyên tắc thiết kế hiện đại\n`;
+        result += `với sự nhấn mạnh vào độ rõ ràng và tác động thị giác"\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        result += `📱 Platform-Specific Suggestions:\n\n`;
+        result += `📱 Gợi ý theo nền tảng:\n\n`;
         result += `Instagram:\n`;
-        result += `"${inputText} ✨ Double tap if you agree! 👇\n`;
-        result += `#${inputText.replace(/\s+/g, '')} #Design #Creative #Photography"\n\n`;
+        result += `"${inputText} ✨ Nhấn đúp nếu bạn đồng ý! 👇\n`;
+        result += `#${inputText.replace(/\s+/g, '')} #ThiếtKế #SángTạo #NhiếpẢnh"\n\n`;
         result += `Facebook:\n`;
-        result += `"Check out this amazing ${inputText}! What do you think? 💭"\n\n`;
+        result += `"Xem ${inputText} tuyệt vời này! Bạn nghĩ sao? 💭"\n\n`;
         result += `LinkedIn:\n`;
-        result += `"Professional ${inputText} that demonstrates the power of\n`;
-        result += `visual storytelling in business communication."\n\n`;
+        result += `"${inputText} chuyên nghiệp thể hiện sức mạnh của\n`;
+        result += `kể chuyện bằng hình ảnh trong truyền thông doanh nghiệp."\n\n`;
         result += `Twitter:\n`;
-        result += `"${inputText} 🚀 #Design #Innovation"\n\n`;
+        result += `"${inputText} 🚀 #ThiếtKế #ĐổiMới"\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        result += `💡 Caption Best Practices:\n`;
-        result += `• Keep under 150 characters for maximum impact\n`;
-        result += `• Include relevant hashtags (3-5 for most platforms)\n`;
-        result += `• Add call-to-action when appropriate\n`;
-        result += `• Use emojis strategically (1-3 per caption)\n`;
-        result += `• Always include descriptive alt text for accessibility`;
+        result += `💡 Thực hành tốt nhất cho Caption:\n`;
+        result += `• Giữ dưới 150 ký tự để tối đa tác động\n`;
+        result += `• Sử dụng hashtag liên quan (3-5 cho hầu hết nền tảng)\n`;
+        result += `• Thêm lời kêu gọi hành động khi phù hợp\n`;
+        result += `• Dùng emoji có chiến lược (1-3 mỗi caption)\n`;
+        result += `• Luôn thêm alt text mô tả để hỗ trợ truy cập`;
         break;
 
       case 'content-ideas':
         result = `💡 Brainstorm ý tưởng nội dung\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        result += `🚀 Topic: ${inputText}\n\n`;
+        result += `🚀 Chủ đề: ${inputText}\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        result += `📝 Article Ideas:\n\n`;
-        result += `1. "Top 10 ${inputText} Trends Shaping 2024"\n`;
-        result += `   Format: Listicle | Est. length: 1500 words\n`;
-        result += `   Angle: Data-driven analysis with expert quotes\n\n`;
-        result += `2. "How to Master ${inputText}: A Complete Beginner's Guide"\n`;
-        result += `   Format: Tutorial | Est. length: 2000 words\n`;
-        result += `   Angle: Step-by-step walkthrough with screenshots\n\n`;
-        result += `3. "Expert Tips for ${inputText} Success"\n`;
-        result += `   Format: Interview/Tips | Est. length: 1200 words\n`;
-        result += `   Angle: Industry expert perspectives\n\n`;
-        result += `4. "${inputText} Case Studies: 5 Real-World Success Stories"\n`;
-        result += `   Format: Case study | Est. length: 1800 words\n`;
-        result += `   Angle: Practical examples with metrics\n\n`;
-        result += `5. "Common ${inputText} Mistakes to Avoid (And How to Fix Them)"\n`;
-        result += `   Format: Problem-solution | Est. length: 1400 words\n`;
-        result += `   Angle: Troubleshooting guide\n\n`;
+        result += `📝 Ý tưởng bài viết:\n\n`;
+        result += `1. "Top 10 xu hướng ${inputText} định hình năm 2026"\n`;
+        result += `   Định dạng: Danh sách | Độ dài ước tính: 1500 từ\n`;
+        result += `   Góc tiếp cận: Phân tích dữ liệu kèm ý kiến chuyên gia\n\n`;
+        result += `2. "Cách thành thạo ${inputText}: Hướng dẫn toàn diện cho người mới"\n`;
+        result += `   Định dạng: Hướng dẫn | Độ dài ước tính: 2000 từ\n`;
+        result += `   Góc tiếp cận: Từng bước với ảnh minh họa\n\n`;
+        result += `3. "Mẹo từ chuyên gia để thành công với ${inputText}"\n`;
+        result += `   Định dạng: Phỏng vấn/Mẹo | Độ dài ước tính: 1200 từ\n`;
+        result += `   Góc tiếp cận: Góc nhìn chuyên gia trong ngành\n\n`;
+        result += `4. "Nghiên cứu tình huống ${inputText}: 5 câu chuyện thành công thực tế"\n`;
+        result += `   Định dạng: Nghiên cứu tình huống | Độ dài ước tính: 1800 từ\n`;
+        result += `   Góc tiếp cận: Ví dụ thực tế với số liệu\n\n`;
+        result += `5. "Những sai lầm phổ biến về ${inputText} cần tránh (Và cách khắc phục)"\n`;
+        result += `   Định dạng: Vấn đề-Giải pháp | Độ dài ước tính: 1400 từ\n`;
+        result += `   Góc tiếp cận: Hướng dẫn xử lý sự cố\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        result += `🎥 Video Content Ideas:\n\n`;
-        result += `1. "${inputText} Explained in 5 Minutes" (Short-form)\n`;
-        result += `2. "Day in the Life: Working with ${inputText}" (Vlog)\n`;
-        result += `3. "${inputText} Tutorial Series" (Educational)\n`;
-        result += `4. "Before vs After: ${inputText} Transformation" (Comparison)\n`;
-        result += `5. "${inputText} Q&A with Industry Leaders" (Interview)\n\n`;
+        result += `🎥 Ý tưởng Video:\n\n`;
+        result += `1. "${inputText} giải thích trong 5 phút" (Dạng ngắn)\n`;
+        result += `2. "Một ngày làm việc với ${inputText}" (Vlog)\n`;
+        result += `3. "Loạt hướng dẫn ${inputText}" (Giáo dục)\n`;
+        result += `4. "Trước và Sau: Chuyển đổi ${inputText}" (So sánh)\n`;
+        result += `5. "Hỏi đáp ${inputText} với chuyên gia" (Phỏng vấn)\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        result += `📱 Social Media Campaign Ideas:\n\n`;
-        result += `1. "#${inputText}Challenge" - User-generated content campaign\n`;
-        result += `2. "30 Days of ${inputText}" - Daily tips series\n`;
-        result += `3. "${inputText} Myth Busters" - Weekly fact-checking posts\n`;
-        result += `4. "Ask Me Anything: ${inputText}" - Community engagement\n`;
-        result += `5. "${inputText} Success Stories" - Customer testimonials\n\n`;
+        result += `📱 Ý tưởng chiến dịch Mạng xã hội:\n\n`;
+        result += `1. "#${inputText}Challenge" - Chiến dịch nội dung từ người dùng\n`;
+        result += `2. "30 ngày ${inputText}" - Loạt mẹo hàng ngày\n`;
+        result += `3. "Giải mã ${inputText}" - Bài kiểm chứng hàng tuần\n`;
+        result += `4. "Hỏi gì cũng được: ${inputText}" - Tương tác cộng đồng\n`;
+        result += `5. "Câu chuyện thành công ${inputText}" - Chia sẻ từ người dùng\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        result += `🎙️ Podcast Episode Ideas:\n\n`;
-        result += `1. "The Future of ${inputText}: Expert Predictions"\n`;
-        result += `2. "Behind the Scenes: How ${inputText} Works"\n`;
-        result += `3. "${inputText} Success Stories: Interviews"\n`;
-        result += `4. "Common ${inputText} Questions Answered"\n`;
-        result += `5. "${inputText} Industry News & Updates"\n\n`;
+        result += `🎙️ Ý tưởng Podcast:\n\n`;
+        result += `1. "Tương lai của ${inputText}: Dự đoán từ chuyên gia"\n`;
+        result += `2. "Hậu trường: ${inputText} hoạt động thế nào"\n`;
+        result += `3. "Câu chuyện thành công ${inputText}: Phỏng vấn"\n`;
+        result += `4. "Giải đáp câu hỏi phổ biến về ${inputText}"\n`;
+        result += `5. "Tin tức & Cập nhật ngành ${inputText}"\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        result += `📧 Email Series Ideas:\n\n`;
-        result += `1. "${inputText} Starter Kit" - 5-email onboarding series\n`;
-        result += `2. "Weekly ${inputText} Tips" - Newsletter series\n`;
-        result += `3. "${inputText} Masterclass" - Educational drip campaign\n`;
-        result += `4. "${inputText} Updates & News" - Monthly digest\n\n`;
+        result += `📧 Ý tưởng chuỗi Email:\n\n`;
+        result += `1. "Bộ khởi đầu ${inputText}" - Chuỗi 5 email giới thiệu\n`;
+        result += `2. "Mẹo ${inputText} hàng tuần" - Chuỗi bản tin\n`;
+        result += `3. "Lớp học ${inputText}" - Chiến dịch email giáo dục\n`;
+        result += `4. "Cập nhật & Tin tức ${inputText}" - Tóm tắt hàng tháng\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        result += `📊 Content Calendar Suggestion:\n\n`;
-        result += `Week 1: Introduction & basics (blog post)\n`;
-        result += `Week 2: How-to tutorial (video)\n`;
-        result += `Week 3: Case study (blog post)\n`;
-        result += `Week 4: Expert interview (podcast)\n`;
-        result += `Week 5: Roundup & trends (blog post)\n\n`;
+        result += `📊 Gợi ý lịch nội dung:\n\n`;
+        result += `Tuần 1: Giới thiệu & kiến thức cơ bản (bài viết)\n`;
+        result += `Tuần 2: Hướng dẫn thực hành (video)\n`;
+        result += `Tuần 3: Nghiên cứu tình huống (bài viết)\n`;
+        result += `Tuần 4: Phỏng vấn chuyên gia (podcast)\n`;
+        result += `Tuần 5: Tổng hợp & xu hướng (bài viết)\n\n`;
         result += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        result += `🎯 SEO Keywords to Target:\n\n`;
-        result += `Primary: "${inputText}"\n`;
-        result += `Secondary: "${inputText} guide", "best ${inputText}",\n`;
-        result += `"${inputText} tips", "how to ${inputText}"\n`;
-        result += `Long-tail: "what is ${inputText} and how does it work",\n`;
-        result += `"${inputText} for beginners", "${inputText} best practices 2024"`;
+        result += `🎯 Từ khóa SEO mục tiêu:\n\n`;
+        result += `Chính: "${inputText}"\n`;
+        result += `Phụ: "hướng dẫn ${inputText}", "${inputText} tốt nhất",\n`;
+        result += `"mẹo ${inputText}", "cách ${inputText}"\n`;
+        result += `Dài: "${inputText} là gì và hoạt động thế nào",\n`;
+        result += `"${inputText} cho người mới", "thực hành tốt nhất ${inputText} 2026"`;
         break;
 
       default:
-        result = 'AI processing completed!';
+        result = 'Xử lý AI hoàn tất!';
     }
 
     setOutputText(result);
@@ -812,28 +812,28 @@ export function AITools({ onNavigate }: AIToolsProps) {
             {showAdvanced && (
               <>
                 <div className="mb-4">
-                  <label className="block text-sm mb-2">Tone</label>
+                  <label className="block text-sm mb-2">Giọng điệu</label>
                   <select
                     value={translationTone}
                     onChange={(e) => setTranslationTone(e.target.value)}
                     className="w-full px-4 py-2.5 bg-secondary border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                   >
-                    <option value="neutral">Neutral</option>
-                    <option value="casual">Casual</option>
-                    <option value="formal">Formal</option>
-                    <option value="friendly">Friendly</option>
+                    <option value="neutral">Trung lập</option>
+                    <option value="casual">Thân mật</option>
+                    <option value="formal">Trang trọng</option>
+                    <option value="friendly">Thân thiện</option>
                   </select>
                 </div>
                 <div className="mb-4">
-                  <label className="block text-sm mb-2">Formality Level</label>
+                  <label className="block text-sm mb-2">Mức độ trang trọng</label>
                   <select
                     value={formalityLevel}
                     onChange={(e) => setFormalityLevel(e.target.value)}
                     className="w-full px-4 py-2.5 bg-secondary border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                   >
-                    <option value="low">Low (Very casual)</option>
-                    <option value="medium">Medium (Standard)</option>
-                    <option value="high">High (Very formal)</option>
+                    <option value="low">Thấp (Rất thân mật)</option>
+                    <option value="medium">Trung bình (Chuẩn)</option>
+                    <option value="high">Cao (Rất trang trọng)</option>
                   </select>
                 </div>
               </>
@@ -857,29 +857,29 @@ export function AITools({ onNavigate }: AIToolsProps) {
             {showAdvanced && (
               <>
                 <div className="mb-4">
-                  <label className="block text-sm mb-2">Target Audience</label>
+                  <label className="block text-sm mb-2">Đối tượng mục tiêu</label>
                   <select
                     value={targetAudience}
                     onChange={(e) => setTargetAudience(e.target.value)}
                     className="w-full px-4 py-2.5 bg-secondary border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                   >
-                    <option value="general">General Public</option>
-                    <option value="professional">Professionals</option>
-                    <option value="technical">Technical/Expert</option>
-                    <option value="beginner">Beginners</option>
+                    <option value="general">Đại chúng</option>
+                    <option value="professional">Chuyên gia</option>
+                    <option value="technical">Kỹ thuật chuyên sâu</option>
+                    <option value="beginner">Người mới bắt đầu</option>
                   </select>
                 </div>
                 <div className="mb-4">
-                  <label className="block text-sm mb-2">Content Type</label>
+                  <label className="block text-sm mb-2">Loại nội dung</label>
                   <select
                     value={contentType}
                     onChange={(e) => setContentType(e.target.value)}
                     className="w-full px-4 py-2.5 bg-secondary border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                   >
-                    <option value="article">Article/Blog Post</option>
-                    <option value="product">Product Description</option>
-                    <option value="landing">Landing Page</option>
-                    <option value="news">News/Press Release</option>
+                    <option value="article">Bài viết/Blog</option>
+                    <option value="product">Mô tả sản phẩm</option>
+                    <option value="landing">Trang đích</option>
+                    <option value="news">Tin tức/Thông cáo</option>
                   </select>
                 </div>
               </>
@@ -891,27 +891,27 @@ export function AITools({ onNavigate }: AIToolsProps) {
         return showAdvanced ? (
           <>
             <div className="mb-4">
-              <label className="block text-sm mb-2">Grammar Level</label>
+              <label className="block text-sm mb-2">Mức ngữ pháp</label>
               <select
                 value={grammarLevel}
                 onChange={(e) => setGrammarLevel(e.target.value)}
                 className="w-full px-4 py-2.5 bg-secondary border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
               >
-                <option value="basic">Basic</option>
-                <option value="standard">Standard</option>
-                <option value="advanced">Advanced</option>
+                <option value="basic">Cơ bản</option>
+                <option value="standard">Chuẩn</option>
+                <option value="advanced">Nâng cao</option>
               </select>
             </div>
             <div className="mb-4">
-              <label className="block text-sm mb-2">Dialect</label>
+              <label className="block text-sm mb-2">Phương ngữ</label>
               <select
                 value={dialectPreference}
                 onChange={(e) => setDialectPreference(e.target.value)}
                 className="w-full px-4 py-2.5 bg-secondary border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
               >
-                <option value="american">American English</option>
-                <option value="british">British English</option>
-                <option value="australian">Australian English</option>
+                <option value="american">Tiếng Anh Mỹ</option>
+                <option value="british">Tiếng Anh Anh</option>
+                <option value="australian">Tiếng Anh Úc</option>
               </select>
             </div>
           </>
@@ -921,28 +921,28 @@ export function AITools({ onNavigate }: AIToolsProps) {
         return (
           <>
             <div className="mb-4">
-              <label className="block text-sm mb-2">Summary Length</label>
+              <label className="block text-sm mb-2">Độ dài tóm tắt</label>
               <select
                 value={summaryLength}
                 onChange={(e) => setSummaryLength(e.target.value)}
                 className="w-full px-4 py-2.5 bg-secondary border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
               >
-                <option value="short">Short (~50 words)</option>
-                <option value="medium">Medium (~100 words)</option>
-                <option value="long">Long (~150 words)</option>
+                <option value="short">Ngắn (~50 từ)</option>
+                <option value="medium">Trung bình (~100 từ)</option>
+                <option value="long">Dài (~150 từ)</option>
               </select>
             </div>
             {showAdvanced && (
               <div className="mb-4">
-                <label className="block text-sm mb-2">Style</label>
+                <label className="block text-sm mb-2">Kiểu trình bày</label>
                 <select
                   value={summaryStyle}
                   onChange={(e) => setSummaryStyle(e.target.value)}
                   className="w-full px-4 py-2.5 bg-secondary border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                 >
-                  <option value="bullet">Bullet Points</option>
-                  <option value="paragraph">Paragraph</option>
-                  <option value="executive">Executive Summary</option>
+                  <option value="bullet">Gạch đầu dòng</option>
+                  <option value="paragraph">Đoạn văn</option>
+                  <option value="executive">Tóm tắt điều hành</option>
                 </select>
               </div>
             )}
@@ -953,7 +953,7 @@ export function AITools({ onNavigate }: AIToolsProps) {
         return (
           <>
             <div className="mb-4">
-              <label className="block text-sm mb-2">Number of Titles: {titleCount}</label>
+              <label className="block text-sm mb-2">Số lượng tiêu đề: {titleCount}</label>
               <input
                 type="range"
                 min="3"
@@ -965,16 +965,16 @@ export function AITools({ onNavigate }: AIToolsProps) {
             </div>
             {showAdvanced && (
               <div className="mb-4">
-                <label className="block text-sm mb-2">Style</label>
+                <label className="block text-sm mb-2">Phong cách</label>
                 <select
                   value={titleStyle}
                   onChange={(e) => setTitleStyle(e.target.value)}
                   className="w-full px-4 py-2.5 bg-secondary border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                 >
-                  <option value="engaging">Engaging</option>
-                  <option value="professional">Professional</option>
-                  <option value="clickbait">Clickbait</option>
-                  <option value="seo">SEO-Optimized</option>
+                  <option value="engaging">Thu hút</option>
+                  <option value="professional">Chuyên nghiệp</option>
+                  <option value="clickbait">Gây tò mò</option>
+                  <option value="seo">Tối ưu SEO</option>
                 </select>
               </div>
             )}
@@ -987,21 +987,21 @@ export function AITools({ onNavigate }: AIToolsProps) {
         return showAdvanced ? (
           <>
             <div className="mb-4">
-              <label className="block text-sm mb-2">Tone</label>
+              <label className="block text-sm mb-2">Giọng điệu</label>
               <select
                 value={contentTone}
                 onChange={(e) => setContentTone(e.target.value)}
                 className="w-full px-4 py-2.5 bg-secondary border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
               >
-                <option value="professional">Professional</option>
-                <option value="casual">Casual</option>
-                <option value="friendly">Friendly</option>
-                <option value="academic">Academic</option>
-                <option value="creative">Creative</option>
+                <option value="professional">Chuyên nghiệp</option>
+                <option value="casual">Thân mật</option>
+                <option value="friendly">Thân thiện</option>
+                <option value="academic">Học thuật</option>
+                <option value="creative">Sáng tạo</option>
               </select>
             </div>
             <div className="mb-4">
-              <label className="block text-sm mb-2">Creativity Level: {creativityLevel}%</label>
+              <label className="block text-sm mb-2">Độ sáng tạo: {creativityLevel}%</label>
               <input
                 type="range"
                 min="0"
@@ -1011,9 +1011,9 @@ export function AITools({ onNavigate }: AIToolsProps) {
                 className="w-full"
               />
               <div className="flex justify-between text-xs text-muted-foreground mt-1">
-                <span>Conservative</span>
-                <span>Balanced</span>
-                <span>Creative</span>
+                <span>Bảo thủ</span>
+                <span>Cân bằng</span>
+                <span>Sáng tạo</span>
               </div>
             </div>
           </>
@@ -1027,7 +1027,7 @@ export function AITools({ onNavigate }: AIToolsProps) {
   return (
     <PageWrapper>
       <PageHeader
-        title="AI Tools"
+        title="Công cụ AI"
         description="Công cụ AI hỗ trợ tạo và tối ưu nội dung"
         action={
           <div className="flex items-center gap-3">
@@ -1051,7 +1051,7 @@ export function AITools({ onNavigate }: AIToolsProps) {
               }`}
             >
               <BookmarkPlus className="w-4 h-4" />
-              Templates
+              Mẫu
             </button>
             <button
               onClick={() => setShowHistory(!showHistory)}
@@ -1100,7 +1100,7 @@ export function AITools({ onNavigate }: AIToolsProps) {
             </div>
             <div className="bg-white rounded-xl p-4">
               <div className="text-2xl font-semibold text-purple-600">{templates.length}</div>
-              <div className="text-sm text-muted-foreground">Templates</div>
+              <div className="text-sm text-muted-foreground">Mẫu</div>
             </div>
             <div className="bg-white rounded-xl p-4">
               <div className="text-2xl font-semibold text-orange-600">{aiTools.length}</div>
@@ -1134,7 +1134,7 @@ export function AITools({ onNavigate }: AIToolsProps) {
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-medium flex items-center gap-2">
               <BookmarkPlus className="w-5 h-5 text-purple-600" />
-              Templates có sẵn
+              Mẫu có sẵn
             </h3>
             <button className="px-3 py-1.5 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors flex items-center gap-2 text-sm">
               <Plus className="w-4 h-4" />
@@ -1197,28 +1197,28 @@ export function AITools({ onNavigate }: AIToolsProps) {
                       <button
                         onClick={() => toggleFavorite(item.id)}
                         className="p-1.5 hover:bg-background rounded-lg transition-colors"
-                        title="Favorite"
+                        title="Yêu thích"
                       >
                         <Star className={`w-4 h-4 ${item.isFavorite ? 'text-yellow-500 fill-yellow-500' : 'text-muted-foreground'}`} />
                       </button>
                       <button
                         onClick={() => loadFromHistory(item)}
                         className="p-1.5 hover:bg-background rounded-lg transition-colors"
-                        title="Load"
+                        title="Tải lại"
                       >
                         <RefreshCw className="w-4 h-4 text-blue-600" />
                       </button>
                       <button
                         onClick={() => deleteHistoryItem(item.id)}
                         className="p-1.5 hover:bg-background rounded-lg transition-colors"
-                        title="Delete"
+                        title="Xóa"
                       >
                         <Trash2 className="w-4 h-4 text-red-600" />
                       </button>
                     </div>
                   </div>
                   <div className="text-sm">
-                    <div className="text-xs text-muted-foreground mb-1">Input:</div>
+                    <div className="text-xs text-muted-foreground mb-1">Đầu vào:</div>
                     <div className="bg-background rounded p-2 text-xs mb-2 line-clamp-2">
                       {item.input}
                     </div>
@@ -1359,7 +1359,7 @@ export function AITools({ onNavigate }: AIToolsProps) {
                       alert('Đã copy vào clipboard!');
                     }}
                     className="p-2 hover:bg-muted rounded-lg transition-colors"
-                    title="Copy"
+                    title="Sao chép"
                   >
                     <Copy className="w-4 h-4" />
                   </button>
@@ -1373,13 +1373,13 @@ export function AITools({ onNavigate }: AIToolsProps) {
                       a.click();
                     }}
                     className="p-2 hover:bg-muted rounded-lg transition-colors"
-                    title="Download"
+                    title="Tải xuống"
                   >
                     <Download className="w-4 h-4" />
                   </button>
                   <button
                     className="p-2 hover:bg-muted rounded-lg transition-colors"
-                    title="Save to templates"
+                    title="Lưu vào mẫu"
                   >
                     <Save className="w-4 h-4" />
                   </button>
@@ -1421,7 +1421,7 @@ export function AITools({ onNavigate }: AIToolsProps) {
               <li>• Một số công cụ có thể yêu cầu API key hoặc credits</li>
               <li>• Thời gian xử lý phụ thuộc vào độ dài nội dung</li>
               <li>• Dữ liệu được xử lý an toàn và không lưu trữ lâu dài</li>
-              <li>• Sử dụng History và Templates để làm việc hiệu quả hơn</li>
+              <li>• Sử dụng Lịch sử và Mẫu để làm việc hiệu quả hơn</li>
               <li>• Bật "Tùy chọn nâng cao" để có nhiều options tùy chỉnh hơn</li>
             </ul>
           </div>

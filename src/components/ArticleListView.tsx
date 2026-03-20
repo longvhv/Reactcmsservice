@@ -3,7 +3,7 @@ import {
   Eye, Edit, Trash2, MoreVertical, Calendar, User, MessageSquare,
   Star, Clock, FileText, Video, Image as ImageIcon, File, Briefcase,
   Mic, MapPin, Download, Users, ChevronRight, Filter, Search,
-  Grid, List, Check, X
+  Grid, List, Check, X, BarChart3, DollarSign, Coins
 } from 'lucide-react';
 import { Card } from './Card';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -15,6 +15,7 @@ export interface Article {
   status: 'published' | 'draft' | 'review' | 'scheduled' | 'archived';
   category?: string;
   author: string;
+  authorId?: number;
   views: number;
   comments: number;
   publishDate: string;
@@ -42,6 +43,11 @@ export interface Article {
   fileSize?: string;
   fileType?: string;
   downloadCount?: number;
+  // Royalty fields - Integration with Royalty Management
+  wordCount?: number;
+  royaltyAmount?: number;
+  royaltyStatus?: 'pending' | 'calculated' | 'paid';
+  royaltyConfig?: string;
 }
 
 interface ArticleListViewProps {
@@ -95,7 +101,7 @@ export function ArticleListView({
   const [selectedArticles, setSelectedArticles] = useState<number[]>(selectedIds || []);
 
   const articleTypes = [
-    { value: 'all', label: 'Tất cả loại', icon: FileText },
+    { value: 'all', label: '-- Loại bài viết --', icon: FileText },
     { value: 'news', label: 'Tin tức', icon: FileText },
     { value: 'video', label: 'Video', icon: Video },
     { value: 'gallery', label: 'Thư viện ảnh', icon: ImageIcon },
@@ -105,10 +111,11 @@ export function ArticleListView({
     { value: 'podcast', label: 'Podcast', icon: Mic },
     { value: 'event', label: 'Sự kiện', icon: MapPin },
     { value: 'download', label: 'Tải xuống', icon: Download },
+    { value: 'infographic', label: 'Infographic', icon: BarChart3 },
   ];
 
   const statusOptions = [
-    { value: 'all', label: 'Tất cả trạng thái' },
+    { value: 'all', label: '-- Trạng thái --' },
     { value: 'published', label: 'Đã xuất bản' },
     { value: 'draft', label: 'Nháp' },
     { value: 'review', label: 'Chờ duyệt' },

@@ -339,7 +339,7 @@ export function StatsAnalytics() {
             <div className="bg-gradient-to-br from-purple-50 to-purple-100 border border-purple-200 rounded-xl p-4">
               <div className="flex items-center gap-2 mb-2">
                 <Target className="w-4 h-4 text-purple-600" />
-                <span className="text-sm text-purple-900">Bounce rate</span>
+                <span className="text-sm text-purple-900">Tỷ lệ thoát</span>
               </div>
               <div className="text-2xl font-bold text-purple-700">34.5%</div>
             </div>

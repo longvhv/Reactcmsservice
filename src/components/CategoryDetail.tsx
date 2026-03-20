@@ -57,6 +57,7 @@ export function CategoryDetail({
   onEdit,
   onDelete 
 }: CategoryDetailProps) {
+  const { t } = useLanguage();
   const [isEditing, setIsEditing] = useState(false);
   const [activeTab, setActiveTab] = useState<'overview' | 'articles' | 'seo' | 'settings'>('overview');
   
@@ -479,7 +480,7 @@ export function CategoryDetail({
                   onChange={(e) => setSelectedStatus(e.target.value)}
                   className="px-4 py-2.5 bg-secondary border border-border/60 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 min-w-[160px]"
                 >
-                  <option value="all">Tất cả trạng thái</option>
+                  <option value="all">-- Trạng thái --</option>
                   <option value="published">Đã xuất bản</option>
                   <option value="draft">Nháp</option>
                   <option value="review">Chờ duyệt</option>

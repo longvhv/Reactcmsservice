@@ -165,7 +165,7 @@ export function ArticleManagementOptimized({ onNavigate }: ArticleManagementProp
             onChange={(e) => setFilters(prev => ({ ...prev, type: e.target.value as any }))}
             className="px-4 py-2 bg-secondary border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
           >
-            <option value="all">{t('filters.allTypes')}</option>
+            <option value="all">-- Loại bài viết --</option>
             {ARTICLE_TYPE_OPTIONS.map(type => (
               <option key={type.value} value={type.value}>
                 {t(type.labelKey)}
@@ -179,7 +179,7 @@ export function ArticleManagementOptimized({ onNavigate }: ArticleManagementProp
             onChange={(e) => setFilters(prev => ({ ...prev, status: e.target.value as any }))}
             className="px-4 py-2 bg-secondary border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
           >
-            <option value="all">{t('filters.allStatuses')}</option>
+            <option value="all">-- Trạng thái --</option>
             {STATUS_OPTIONS.map(status => (
               <option key={status.value} value={status.value}>
                 {t(status.labelKey)}

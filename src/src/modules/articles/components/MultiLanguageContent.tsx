@@ -106,7 +106,7 @@ export const MultiLanguageContent: React.FC<MultiLanguageContentProps> = ({
     },
     {
       onSuccess: () => {
-        notifications.success('Translation saved successfully');
+        notifications.success('Đã lưu bản dịch thành công');
         setShowAddModal(false);
         setEditingTranslation(null);
         refetch();
@@ -122,7 +122,7 @@ export const MultiLanguageContent: React.FC<MultiLanguageContentProps> = ({
     },
     {
       onSuccess: () => {
-        notifications.success('Translation deleted');
+        notifications.success('Đã xóa bản dịch');
         refetch();
       },
     }
@@ -136,7 +136,7 @@ export const MultiLanguageContent: React.FC<MultiLanguageContentProps> = ({
     },
     {
       onSuccess: () => {
-        notifications.success('Auto-translation completed');
+        notifications.success('Đã hoàn tất dịch tự động');
         refetch();
       },
     }
@@ -169,7 +169,7 @@ export const MultiLanguageContent: React.FC<MultiLanguageContentProps> = ({
         <div>
           <h2 className="text-xl font-bold flex items-center gap-2">
             <Globe className="w-6 h-6" />
-            Multi-Language Content
+            Nội dung đa ngôn ngữ
           </h2>
           <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
             Manage translations for this article
@@ -428,8 +428,8 @@ export const MultiLanguageContent: React.FC<MultiLanguageContentProps> = ({
                   defaultValue={editingTranslation?.status || 'draft'}
                   className="w-full px-4 py-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl"
                 >
-                  <option value="draft">Draft</option>
-                  <option value="published">Published</option>
+                  <option value="draft">Nháp</option>
+                  <option value="published">Đã xuất bản</option>
                 </select>
               </div>
             </div>

@@ -118,7 +118,7 @@ export function AdvancedSearch({ onNavigate }: { onNavigate: (page: any) => void
   ];
 
   const dateRanges = [
-    { value: 'all', label: 'Tất cả thời gian' },
+    { value: 'all', label: '-- Thời gian --' },
     { value: 'today', label: 'Hôm nay' },
     { value: 'week', label: '7 ngày qua' },
     { value: 'month', label: '30 ngày qua' },
@@ -305,7 +305,7 @@ export function AdvancedSearch({ onNavigate }: { onNavigate: (page: any) => void
 
             {/* Tags */}
             <div className="mb-6">
-              <span className="text-sm font-medium mb-2 block">Tags</span>
+              <span className="text-sm font-medium mb-2 block">Thẻ</span>
               <div className="flex flex-wrap gap-2">
                 {tags.map((tag) => (
                   <button

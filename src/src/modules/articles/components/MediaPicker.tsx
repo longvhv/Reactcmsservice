@@ -116,7 +116,7 @@ export const MediaPicker: React.FC<MediaPickerProps> = ({
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
           <div>
-            <h2 className="text-2xl font-bold">Media Library</h2>
+            <h2 className="text-2xl font-bold">Thư viện Media</h2>
             <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
               Select or upload media files
             </p>
@@ -245,7 +245,7 @@ export const MediaPicker: React.FC<MediaPickerProps> = ({
             <div className="p-6">
               <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-2xl p-12 text-center">
                 <Upload className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-                <h3 className="text-lg font-semibold mb-2">Upload Media</h3>
+                <h3 className="text-lg font-semibold mb-2">Tải lên Media</h3>
                 <p className="text-gray-600 dark:text-gray-400 mb-4">
                   Drag and drop files here, or click to browse
                 </p>
@@ -273,7 +273,7 @@ export const MediaPicker: React.FC<MediaPickerProps> = ({
               onClick={onClose}
               className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-xl transition-colors"
             >
-              Cancel
+              Hủy
             </button>
             <button
               onClick={handleSelect}

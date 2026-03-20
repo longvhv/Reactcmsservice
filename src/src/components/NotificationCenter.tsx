@@ -125,7 +125,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, 
     },
     {
       onSuccess: () => {
-        notifications.success('All notifications marked as read');
+        notifications.success('Đã đánh dấu tất cả đã đọc');
         refetch();
       },
     }
@@ -139,7 +139,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, 
     },
     {
       onSuccess: () => {
-        notifications.success('Notification deleted');
+        notifications.success('Đã xóa thông báo');
         refetch();
       },
     }
@@ -153,7 +153,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, 
     },
     {
       onSuccess: () => {
-        notifications.success('All notifications cleared');
+        notifications.success('Đã xóa tất cả thông báo');
         refetch();
       },
     }
@@ -203,10 +203,10 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, 
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
             <div>
-              <h2 className="text-lg font-bold">Notifications</h2>
+              <h2 className="text-lg font-bold">Thông báo</h2>
               {unreadCount > 0 && (
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {unreadCount} unread
+                  {unreadCount} chưa đọc
                 </p>
               )}
             </div>
@@ -228,7 +228,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, 
                   : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
               }`}
             >
-              All
+              Tất cả
             </button>
             <button
               onClick={() => setFilter('unread')}
@@ -238,7 +238,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, 
                   : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
               }`}
             >
-              Unread {unreadCount > 0 && `(${unreadCount})`}
+              Chưa đọc {unreadCount > 0 && `(${unreadCount})`}
             </button>
 
             <div className="ml-auto flex items-center gap-2">
@@ -247,13 +247,13 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, 
                   onClick={() => markAllAsRead()}
                   className="text-xs text-blue-600 dark:text-blue-400 hover:underline"
                 >
-                  Mark all read
+                  Đánh dấu tất cả đã đọc
                 </button>
               )}
               <button
                 onClick={() => clearAll()}
                 className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors"
-                title="Clear all"
+                title="Xóa tất cả"
               >
                 <Trash2 className="w-4 h-4" />
               </button>
@@ -309,7 +309,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, 
                                 href={notification.actionUrl}
                                 onClick={onClose}
                                 className="p-1.5 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition-colors"
-                                title="View"
+                                title="Xem"
                               >
                                 <Eye className="w-3.5 h-3.5" />
                               </a>
@@ -318,7 +318,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, 
                               <button
                                 onClick={() => markAsRead(notification.id)}
                                 className="p-1.5 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition-colors"
-                                title="Mark as read"
+                                title="Đánh dấu đã đọc"
                               >
                                 <Check className="w-3.5 h-3.5" />
                               </button>
@@ -326,7 +326,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, 
                             <button
                               onClick={() => deleteNotification(notification.id)}
                               className="p-1.5 hover:bg-red-50 dark:hover:bg-red-900/20 text-red-600 rounded transition-colors"
-                              title="Delete"
+                              title="Xóa"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
                             </button>
@@ -341,7 +341,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, 
               <div className="text-center py-12">
                 <Bell className="w-12 h-12 mx-auto text-gray-300 dark:text-gray-600 mb-3" />
                 <p className="text-gray-600 dark:text-gray-400">
-                  {filter === 'unread' ? 'No unread notifications' : 'No notifications'}
+                  {filter === 'unread' ? 'Không có thông báo chưa đọc' : 'Không có thông báo'}
                 </p>
               </div>
             )}
@@ -354,7 +354,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({ isOpen, 
               onClick={onClose}
               className="block text-center text-sm text-blue-600 dark:text-blue-400 hover:underline"
             >
-              View all notifications
+              Xem tất cả thông báo
             </a>
           </div>
         </div>

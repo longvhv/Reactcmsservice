@@ -174,41 +174,39 @@ export function SEOOptimizer({
   };
 
   const getScoreGrade = (score: number) => {
-    if (score >= 90) return 'Excellent';
-    if (score >= 80) return 'Very Good';
-    if (score >= 70) return 'Good';
-    if (score >= 60) return 'Fair';
-    return 'Needs Improvement';
+    if (score >= 90) return 'Xuất sắc';
+    if (score >= 80) return 'Tốt';
+    return 'Cần cải thiện';
   };
 
   const suggestions = [
     {
       type: 'warning',
-      title: 'Title Length',
-      description: analysis.title.suggestion || 'Title length is optimal',
+      title: 'Độ dài tiêu đề',
+      description: analysis.title.suggestion || 'Độ dài tiêu đề đã tối ưu',
       priority: analysis.title.optimal ? 'low' : 'high',
-      action: 'Edit Title',
+      action: 'Sửa tiêu đề',
     },
     {
       type: analysis.metaDescription.optimal ? 'success' : 'warning',
-      title: 'Meta Description',
-      description: analysis.metaDescription.suggestion || 'Meta description is optimal',
+      title: 'Mô tả Meta',
+      description: analysis.metaDescription.suggestion || 'Mô tả Meta đã tối ưu',
       priority: analysis.metaDescription.optimal ? 'low' : 'high',
-      action: 'Edit Description',
+      action: 'Sửa mô tả',
     },
     {
       type: 'warning',
-      title: 'Image Alt Text',
-      description: `${analysis.images.withoutAlt} image(s) missing alt text`,
+      title: 'Alt text hình ảnh',
+      description: `${analysis.images.withoutAlt} hình ảnh thiếu alt text`,
       priority: 'medium',
-      action: 'Add Alt Text',
+      action: 'Thêm Alt Text',
     },
     {
       type: 'info',
-      title: 'Internal Linking',
-      description: 'Add more internal links to improve SEO',
+      title: 'Liên kết nội bộ',
+      description: 'Thêm liên kết nội bộ để cải thiện SEO',
       priority: 'medium',
-      action: 'Add Links',
+      action: 'Thêm liên kết',
     },
   ];
 
@@ -221,7 +219,7 @@ export function SEOOptimizer({
             <Search className="w-6 h-6 text-green-600" />
           </div>
           <div>
-            <h2 className="text-2xl mb-1">SEO Optimizer</h2>
+            <h2 className="text-2xl mb-1">Tối ưu SEO</h2>
             <p className="text-sm text-muted-foreground">
               Tối ưu hóa nội dung cho công cụ tìm kiếm
             </p>
@@ -236,12 +234,12 @@ export function SEOOptimizer({
           {isAnalyzing ? (
             <>
               <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-              Analyzing...
+              Đang phân tích...
             </>
           ) : (
             <>
               <Zap className="w-4 h-4" />
-              Re-analyze
+              Phân tích lại
             </>
           )}
         </button>
@@ -251,7 +249,7 @@ export function SEOOptimizer({
       <div className="glass-card p-6">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h3 className="text-lg mb-1">Overall SEO Score</h3>
+            <h3 className="text-lg mb-1">Điểm SEO tổng thể</h3>
             <p className="text-sm text-muted-foreground">
               {getScoreGrade(scores.overall)}
             </p>
@@ -267,12 +265,12 @@ export function SEOOptimizer({
         {/* Score Breakdown */}
         <div className="grid grid-cols-3 gap-4">
           {[
-            { label: 'Title', score: scores.title, icon: FileText },
-            { label: 'Description', score: scores.description, icon: MessageSquare },
-            { label: 'Keywords', score: scores.keywords, icon: Hash },
-            { label: 'Readability', score: scores.readability, icon: Eye },
-            { label: 'Structure', score: scores.structure, icon: BarChart3 },
-            { label: 'Performance', score: scores.performance, icon: TrendingUp },
+            { label: 'Tiêu đề', score: scores.title, icon: FileText },
+            { label: 'Mô tả', score: scores.description, icon: MessageSquare },
+            { label: 'Từ khóa', score: scores.keywords, icon: Hash },
+            { label: 'Khả năng đọc', score: scores.readability, icon: Eye },
+            { label: 'Cấu trúc', score: scores.structure, icon: BarChart3 },
+            { label: 'Hiệu suất', score: scores.performance, icon: TrendingUp },
           ].map((item) => {
             const Icon = item.icon;
             const color = getScoreColor(item.score);
@@ -303,9 +301,9 @@ export function SEOOptimizer({
       {/* Tabs */}
       <div className="flex items-center gap-2">
         {[
-          { key: 'overview', label: 'Overview', icon: BarChart3 },
-          { key: 'keywords', label: 'Keywords', icon: Hash },
-          { key: 'suggestions', label: 'Suggestions', icon: Lightbulb },
+          { key: 'overview', label: 'Tổng quan', icon: BarChart3 },
+          { key: 'keywords', label: 'Từ khóa', icon: Hash },
+          { key: 'suggestions', label: 'Gợi ý', icon: Lightbulb },
         ].map((tab) => {
           const Icon = tab.icon;
           return (
@@ -341,14 +339,14 @@ export function SEOOptimizer({
             <div className="glass-card p-6">
               <h3 className="text-lg mb-4 flex items-center gap-2">
                 <FileText className="w-5 h-5" />
-                Title & Meta Description
+                Tiêu đề & Mô tả Meta
               </h3>
 
               <div className="space-y-4">
                 {/* Title */}
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <label className="text-sm font-medium">SEO Title</label>
+                    <label className="text-sm font-medium">Tiêu đề SEO</label>
                     <div className={`
                       text-xs px-2 py-1 rounded
                       ${analysis.title.optimal 
@@ -356,7 +354,7 @@ export function SEOOptimizer({
                         : 'bg-yellow-500/10 text-yellow-600'
                       }
                     `}>
-                      {analysis.title.length} / 60 characters
+                      {analysis.title.length} / 60 ký tự
                     </div>
                   </div>
                   <input
@@ -376,7 +374,7 @@ export function SEOOptimizer({
                 {/* Meta Description */}
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <label className="text-sm font-medium">Meta Description</label>
+                    <label className="text-sm font-medium">Mô tả Meta</label>
                     <div className={`
                       text-xs px-2 py-1 rounded
                       ${analysis.metaDescription.optimal 
@@ -384,7 +382,7 @@ export function SEOOptimizer({
                         : 'bg-yellow-500/10 text-yellow-600'
                       }
                     `}>
-                      {analysis.metaDescription.length} / 160 characters
+                      {analysis.metaDescription.length} / 160 ký tự
                     </div>
                   </div>
                   <textarea
@@ -409,26 +407,26 @@ export function SEOOptimizer({
               <div className="glass-card p-6">
                 <h3 className="text-lg mb-4 flex items-center gap-2">
                   <BarChart3 className="w-5 h-5" />
-                  Content Structure
+                  Cấu trúc nội dung
                 </h3>
 
                 <div className="space-y-3">
                   <div className="flex items-center justify-between p-3 rounded-lg bg-muted/30">
-                    <span className="text-sm">H1 Headings</span>
+                    <span className="text-sm">Tiêu đề H1</span>
                     <span className={`font-semibold ${analysis.headings.h1 === 1 ? 'text-green-600' : 'text-red-600'}`}>
                       {analysis.headings.h1}
                     </span>
                   </div>
                   <div className="flex items-center justify-between p-3 rounded-lg bg-muted/30">
-                    <span className="text-sm">H2 Headings</span>
+                    <span className="text-sm">Tiêu đề H2</span>
                     <span className="font-semibold">{analysis.headings.h2}</span>
                   </div>
                   <div className="flex items-center justify-between p-3 rounded-lg bg-muted/30">
-                    <span className="text-sm">H3 Headings</span>
+                    <span className="text-sm">Tiêu đề H3</span>
                     <span className="font-semibold">{analysis.headings.h3}</span>
                   </div>
                   <div className="flex items-center justify-between p-3 rounded-lg bg-muted/30">
-                    <span className="text-sm">Paragraphs</span>
+                    <span className="text-sm">Đoạn văn</span>
                     <span className="font-semibold">{analysis.content.paragraphs}</span>
                   </div>
                 </div>
@@ -438,24 +436,24 @@ export function SEOOptimizer({
               <div className="glass-card p-6">
                 <h3 className="text-lg mb-4 flex items-center gap-2">
                   <Link2 className="w-5 h-5" />
-                  Links & Media
+                  Liên kết & Media
                 </h3>
 
                 <div className="space-y-3">
                   <div className="flex items-center justify-between p-3 rounded-lg bg-muted/30">
-                    <span className="text-sm">Internal Links</span>
+                    <span className="text-sm">Liên kết nội bộ</span>
                     <span className="font-semibold text-blue-600">{analysis.links.internal}</span>
                   </div>
                   <div className="flex items-center justify-between p-3 rounded-lg bg-muted/30">
-                    <span className="text-sm">External Links</span>
+                    <span className="text-sm">Liên kết ngoài</span>
                     <span className="font-semibold text-purple-600">{analysis.links.external}</span>
                   </div>
                   <div className="flex items-center justify-between p-3 rounded-lg bg-muted/30">
-                    <span className="text-sm">Images</span>
+                    <span className="text-sm">Hình ảnh</span>
                     <span className="font-semibold">{analysis.images.total}</span>
                   </div>
                   <div className="flex items-center justify-between p-3 rounded-lg bg-muted/30">
-                    <span className="text-sm">Images with Alt</span>
+                    <span className="text-sm">Ảnh có Alt</span>
                     <span className={`font-semibold ${analysis.images.withoutAlt === 0 ? 'text-green-600' : 'text-yellow-600'}`}>
                       {analysis.images.withAlt} / {analysis.images.total}
                     </span>
@@ -468,31 +466,31 @@ export function SEOOptimizer({
             <div className="glass-card p-6">
               <h3 className="text-lg mb-4 flex items-center gap-2">
                 <Eye className="w-5 h-5" />
-                Readability Analysis
+                Phân tích khả năng đọc
               </h3>
 
               <div className="grid grid-cols-4 gap-4 mb-4">
                 <div className="p-4 rounded-xl bg-muted/30 text-center">
                   <div className="text-2xl font-semibold mb-1">{analysis.content.wordCount}</div>
-                  <div className="text-xs text-muted-foreground">Words</div>
+                  <div className="text-xs text-muted-foreground">Từ</div>
                 </div>
                 <div className="p-4 rounded-xl bg-muted/30 text-center">
                   <div className="text-2xl font-semibold mb-1">{analysis.content.readingTime}</div>
-                  <div className="text-xs text-muted-foreground">Min Read</div>
+                  <div className="text-xs text-muted-foreground">Phút đọc</div>
                 </div>
                 <div className="p-4 rounded-xl bg-muted/30 text-center">
                   <div className="text-2xl font-semibold mb-1">{analysis.content.sentences}</div>
-                  <div className="text-xs text-muted-foreground">Sentences</div>
+                  <div className="text-xs text-muted-foreground">Câu</div>
                 </div>
                 <div className="p-4 rounded-xl bg-muted/30 text-center">
                   <div className="text-2xl font-semibold mb-1">{analysis.readability.grade}</div>
-                  <div className="text-xs text-muted-foreground">Grade</div>
+                  <div className="text-xs text-muted-foreground">Xếp hạng</div>
                 </div>
               </div>
 
               {analysis.readability.suggestions.length > 0 && (
                 <div className="space-y-2">
-                  <h4 className="text-sm font-medium">Suggestions:</h4>
+                  <h4 className="text-sm font-medium">Gợi ý cải thiện:</h4>
                   {analysis.readability.suggestions.map((suggestion, idx) => (
                     <div key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
                       <Lightbulb className="w-4 h-4 text-yellow-600 mt-0.5 flex-shrink-0" />
@@ -515,13 +513,13 @@ export function SEOOptimizer({
           >
             <h3 className="text-lg mb-4 flex items-center gap-2">
               <Hash className="w-5 h-5" />
-              Keyword Analysis
+              Phân tích Từ khóa
             </h3>
 
             <div className="space-y-6">
               {/* Primary Keywords */}
               <div>
-                <h4 className="text-sm font-medium mb-3">Primary Keywords</h4>
+                <h4 className="text-sm font-medium mb-3">Từ khóa chính</h4>
                 <div className="flex flex-wrap gap-2">
                   {analysis.keywords.primary.map((keyword) => (
                     <span
@@ -536,7 +534,7 @@ export function SEOOptimizer({
 
               {/* Secondary Keywords */}
               <div>
-                <h4 className="text-sm font-medium mb-3">Secondary Keywords</h4>
+                <h4 className="text-sm font-medium mb-3">Từ khóa phụ</h4>
                 <div className="flex flex-wrap gap-2">
                   {analysis.keywords.secondary.map((keyword) => (
                     <span
@@ -552,7 +550,7 @@ export function SEOOptimizer({
               {/* Keyword Density */}
               <div className="p-4 rounded-xl bg-muted/30">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium">Keyword Density</span>
+                  <span className="text-sm font-medium">Mật độ từ khóa</span>
                   <span className="text-lg font-semibold text-green-600">
                     {analysis.keywords.density}%
                   </span>
@@ -564,7 +562,7 @@ export function SEOOptimizer({
                   />
                 </div>
                 <p className="text-xs text-muted-foreground mt-2">
-                  Optimal: 1-3% • Current: {analysis.keywords.density}%
+                  Tối ưu: 1-3% • Hiện tại: {analysis.keywords.density}%
                 </p>
               </div>
             </div>
@@ -624,7 +622,7 @@ export function SEOOptimizer({
                       ${suggestion.priority === 'medium' ? 'bg-yellow-500/10 text-yellow-600' : ''}
                       ${suggestion.priority === 'low' ? 'bg-blue-500/10 text-blue-600' : ''}
                     `}>
-                      {suggestion.priority}
+                      {suggestion.priority === 'high' ? 'Cao' : suggestion.priority === 'medium' ? 'Trung bình' : 'Thấp'}
                     </span>
                   </div>
                 </motion.div>

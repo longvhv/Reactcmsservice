@@ -50,7 +50,7 @@ export const BulkOperations: React.FC<BulkOperationsProps> = ({
     },
     {
       onSuccess: (data) => {
-        notifications.success(`Published ${data.count} articles`);
+        notifications.success(`Đã xuất bản ${data.count} bài viết`);
         onClearSelection();
         onRefresh();
       },
@@ -65,7 +65,7 @@ export const BulkOperations: React.FC<BulkOperationsProps> = ({
     },
     {
       onSuccess: (data) => {
-        notifications.success(`Unpublished ${data.count} articles`);
+        notifications.success(`Đã hủy xuất bản ${data.count} bài viết`);
         onClearSelection();
         onRefresh();
       },
@@ -80,7 +80,7 @@ export const BulkOperations: React.FC<BulkOperationsProps> = ({
     },
     {
       onSuccess: (data) => {
-        notifications.success(`Deleted ${data.count} articles`);
+        notifications.success(`Đã xóa ${data.count} bài viết`);
         onClearSelection();
         onRefresh();
       },
@@ -95,7 +95,7 @@ export const BulkOperations: React.FC<BulkOperationsProps> = ({
     },
     {
       onSuccess: (data) => {
-        notifications.success(`Archived ${data.count} articles`);
+        notifications.success(`Đã lưu trữ ${data.count} bài viết`);
         onClearSelection();
         onRefresh();
       },
@@ -110,7 +110,7 @@ export const BulkOperations: React.FC<BulkOperationsProps> = ({
     },
     {
       onSuccess: (data) => {
-        notifications.success(`Duplicated ${data.count} articles`);
+        notifications.success(`Đã nhân bản ${data.count} bài viết`);
         onClearSelection();
         onRefresh();
       },
@@ -125,7 +125,7 @@ export const BulkOperations: React.FC<BulkOperationsProps> = ({
     },
     {
       onSuccess: (data) => {
-        notifications.success(`Updated category for ${data.count} articles`);
+        notifications.success(`Đã cập nhật danh mục cho ${data.count} bài viết`);
         setShowCategoryModal(false);
         onClearSelection();
         onRefresh();
@@ -141,7 +141,7 @@ export const BulkOperations: React.FC<BulkOperationsProps> = ({
     },
     {
       onSuccess: (data) => {
-        notifications.success(`Added tags to ${data.count} articles`);
+        notifications.success(`Đã thêm thẻ cho ${data.count} bài viết`);
         setShowTagModal(false);
         onClearSelection();
         onRefresh();
@@ -164,7 +164,7 @@ export const BulkOperations: React.FC<BulkOperationsProps> = ({
     },
     {
       onSuccess: (data) => {
-        notifications.success(`Exported ${data.count} articles`);
+        notifications.success(`Đã xuất ${data.count} bài viết`);
       },
     }
   );
@@ -200,10 +200,10 @@ export const BulkOperations: React.FC<BulkOperationsProps> = ({
               </div>
               <div>
                 <div className="font-semibold">
-                  {selectedIds.size} selected
+                  {selectedIds.size} đã chọn
                 </div>
                 <div className="text-xs text-gray-600 dark:text-gray-400">
-                  of {totalCount} articles
+                  trên {totalCount} bài viết
                 </div>
               </div>
             </div>
@@ -220,7 +220,7 @@ export const BulkOperations: React.FC<BulkOperationsProps> = ({
                 title="Publish selected"
               >
                 <Eye className="w-4 h-4" />
-                <span className="hidden sm:inline">Publish</span>
+                <span className="hidden sm:inline">Xuất bản</span>
               </button>
 
               <button
@@ -230,7 +230,7 @@ export const BulkOperations: React.FC<BulkOperationsProps> = ({
                 title="Unpublish selected"
               >
                 <EyeOff className="w-4 h-4" />
-                <span className="hidden sm:inline">Unpublish</span>
+                <span className="hidden sm:inline">Hủy xuất bản</span>
               </button>
 
               <button
@@ -240,7 +240,7 @@ export const BulkOperations: React.FC<BulkOperationsProps> = ({
                 title="Archive selected"
               >
                 <Archive className="w-4 h-4" />
-                <span className="hidden sm:inline">Archive</span>
+                <span className="hidden sm:inline">Lưu trữ</span>
               </button>
 
               {/* More Actions Dropdown */}
@@ -263,7 +263,7 @@ export const BulkOperations: React.FC<BulkOperationsProps> = ({
                       className="w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-left"
                     >
                       <FolderOpen className="w-4 h-4" />
-                      <span>Change Category</span>
+                      <span>Đổi danh mục</span>
                     </button>
 
                     <button
@@ -274,7 +274,7 @@ export const BulkOperations: React.FC<BulkOperationsProps> = ({
                       className="w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-left"
                     >
                       <Tag className="w-4 h-4" />
-                      <span>Add Tags</span>
+                      <span>Thêm thẻ</span>
                     </button>
 
                     <button
@@ -286,7 +286,7 @@ export const BulkOperations: React.FC<BulkOperationsProps> = ({
                       className="w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-left disabled:opacity-50"
                     >
                       <Copy className="w-4 h-4" />
-                      <span>Duplicate</span>
+                      <span>Nhân bản</span>
                     </button>
 
                     <button
@@ -298,7 +298,7 @@ export const BulkOperations: React.FC<BulkOperationsProps> = ({
                       className="w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-left disabled:opacity-50"
                     >
                       <Download className="w-4 h-4" />
-                      <span>Export</span>
+                      <span>Xuất</span>
                     </button>
 
                     <div className="border-t border-gray-200 dark:border-gray-700" />
@@ -307,8 +307,8 @@ export const BulkOperations: React.FC<BulkOperationsProps> = ({
                       onClick={() => {
                         handleConfirm(
                           'delete',
-                          'Delete Articles',
-                          `Are you sure you want to delete ${selectedIds.size} articles? This action cannot be undone.`,
+                          'Xóa bài viết',
+                          `Bạn có chắc muốn xóa ${selectedIds.size} bài viết? Hành động này không thể hoàn tác.`,
                           () => bulkDelete(Array.from(selectedIds))
                         );
                         setShowActions(false);
@@ -316,7 +316,7 @@ export const BulkOperations: React.FC<BulkOperationsProps> = ({
                       className="w-full flex items-center gap-3 px-4 py-3 hover:bg-red-50 dark:hover:bg-red-900/20 text-red-600 transition-colors text-left"
                     >
                       <Trash2 className="w-4 h-4" />
-                      <span>Delete</span>
+                      <span>Xóa</span>
                     </button>
                   </div>
                 )}
@@ -341,7 +341,7 @@ export const BulkOperations: React.FC<BulkOperationsProps> = ({
             <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
               <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                 <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
-                <span>Processing...</span>
+                <span>Đang xử lý...</span>
               </div>
             </div>
           )}
@@ -352,11 +352,11 @@ export const BulkOperations: React.FC<BulkOperationsProps> = ({
       {showCategoryModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
           <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6">
-            <h3 className="text-xl font-bold mb-4">Change Category</h3>
+            <h3 className="text-xl font-bold mb-4">Đổi danh mục</h3>
 
             <div className="mb-4">
               <label className="block text-sm font-medium mb-2">
-                Select Category
+                Chọn danh mục
               </label>
               <select className="w-full px-4 py-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl">
                 <option>Technology</option>
@@ -368,7 +368,7 @@ export const BulkOperations: React.FC<BulkOperationsProps> = ({
             </div>
 
             <div className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-              This will update the category for {selectedIds.size} selected articles.
+              Sẽ cập nhật danh mục cho {selectedIds.size} bài viết đã chọn.
             </div>
 
             <div className="flex gap-3">
@@ -376,14 +376,14 @@ export const BulkOperations: React.FC<BulkOperationsProps> = ({
                 onClick={() => setShowCategoryModal(false)}
                 className="flex-1 px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
               >
-                Cancel
+                Hủy
               </button>
               <button
                 onClick={() => bulkChangeCategory({ ids: Array.from(selectedIds), categoryId: '1' })}
                 disabled={isChangingCategory}
                 className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors disabled:opacity-50"
               >
-                {isChangingCategory ? 'Updating...' : 'Update'}
+                {isChangingCategory ? 'Đang cập nhật...' : 'Cập nhật'}
               </button>
             </div>
           </div>
@@ -394,11 +394,11 @@ export const BulkOperations: React.FC<BulkOperationsProps> = ({
       {showTagModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
           <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6">
-            <h3 className="text-xl font-bold mb-4">Add Tags</h3>
+            <h3 className="text-xl font-bold mb-4">Thêm thẻ</h3>
 
             <div className="mb-4">
               <label className="block text-sm font-medium mb-2">
-                Tags (comma-separated)
+                Thẻ (phân cách bằng dấu phẩy)
               </label>
               <input
                 type="text"
@@ -408,7 +408,7 @@ export const BulkOperations: React.FC<BulkOperationsProps> = ({
             </div>
 
             <div className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-              These tags will be added to {selectedIds.size} selected articles.
+              Các thẻ này sẽ được thêm vào {selectedIds.size} bài viết đã chọn.
             </div>
 
             <div className="flex gap-3">
@@ -416,14 +416,14 @@ export const BulkOperations: React.FC<BulkOperationsProps> = ({
                 onClick={() => setShowTagModal(false)}
                 className="flex-1 px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
               >
-                Cancel
+                Hủy
               </button>
               <button
                 onClick={() => bulkAddTags({ ids: Array.from(selectedIds), tags: ['react', 'typescript'] })}
                 disabled={isAddingTags}
                 className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors disabled:opacity-50"
               >
-                {isAddingTags ? 'Adding...' : 'Add Tags'}
+                {isAddingTags ? 'Đang thêm...' : 'Thêm thẻ'}
               </button>
             </div>
           </div>
@@ -450,13 +450,13 @@ export const BulkOperations: React.FC<BulkOperationsProps> = ({
                 }}
                 className="flex-1 px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
               >
-                Cancel
+                Hủy
               </button>
               <button
                 onClick={executeConfirm}
                 className="flex-1 px-4 py-2 bg-red-600 text-white rounded-xl hover:bg-red-700 transition-colors"
               >
-                Confirm
+                Xác nhận
               </button>
             </div>
           </div>

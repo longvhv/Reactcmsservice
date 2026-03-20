@@ -107,7 +107,7 @@ export function EventSeries() {
           </div>
           
           <select className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <option value="all">Tất cả trạng thái</option>
+            <option value="all">-- Trạng thái --</option>
             <option value="active">Đang hoạt động</option>
             <option value="completed">Đã hoàn thành</option>
             <option value="draft">Nháp</option>

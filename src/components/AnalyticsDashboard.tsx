@@ -1,16 +1,12 @@
-import React, { useState } from 'react';
-import {
-  TrendingUp, TrendingDown, Eye, MessageSquare, Users, FileText,
-  Calendar, Download, Share2, Clock, Target, Award, Zap, Globe,
-  ArrowUp, ArrowDown, Activity, BarChart3, PieChart, LineChart
-} from 'lucide-react';
-import { Card } from './Card';
+import { useState } from 'react';
+import { useLanguage } from '../contexts/LanguageContext';
 import { PageWrapper } from './PageWrapper';
 import { PageHeader } from './PageHeader';
-import { AreaChart, Area, BarChart, Bar, PieChart as RePieChart, Pie, Cell, LineChart as ReLineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { useLanguage } from '../contexts/LanguageContext';
+import { Card } from './Card';
+import { Eye, Users, Target, FileText, ArrowUp, ArrowDown, Download, LineChart, BarChart3, MessageSquare, Share2, Clock, TrendingUp, TrendingDown } from 'lucide-react';
+import { ResponsiveContainer, AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip, Legend, PieChart as RePieChart, Pie, Cell, BarChart, Bar } from 'recharts';
 
-export function AnalyticsDashboard({ onNavigate }: { onNavigate: (page: any) => void }) {
+export function AnalyticsDashboard({ onNavigate = () => {} }: { onNavigate?: (page: any) => void }) {
   const { t } = useLanguage();
   const [timeRange, setTimeRange] = useState('7days');
   const [compareMode, setCompareMode] = useState(false);
@@ -56,7 +52,7 @@ export function AnalyticsDashboard({ onNavigate }: { onNavigate: (page: any) => 
     },
     {
       id: 2,
-      title: 'Cloud Infrastructure: Best Practices',
+      title: 'Cloud Infrastructure: Thực hành tốt nhất',
       views: 4876,
       comments: 72,
       shares: 134,
@@ -101,10 +97,10 @@ export function AnalyticsDashboard({ onNavigate }: { onNavigate: (page: any) => 
   ];
 
   const trafficSources = [
-    { source: 'Direct', visits: 45, color: '#3B82F6' },
-    { source: 'Social Media', visits: 30, color: '#8B5CF6' },
-    { source: 'Search', visits: 15, color: '#10B981' },
-    { source: 'Referral', visits: 10, color: '#F59E0B' },
+    { source: 'Trực tiếp', visits: 45, color: '#3B82F6' },
+    { source: 'Mạng xã hội', visits: 30, color: '#8B5CF6' },
+    { source: 'Tìm kiếm', visits: 15, color: '#10B981' },
+    { source: 'Giới thiệu', visits: 10, color: '#F59E0B' },
   ];
 
   const stats = {
@@ -153,7 +149,7 @@ export function AnalyticsDashboard({ onNavigate }: { onNavigate: (page: any) => 
   return (
     <PageWrapper>
       <PageHeader
-        title="Analytics Dashboard"
+        title="Bảng phân tích"
         description="Phân tích và thống kê chi tiết"
         action={
           <div className="flex items-center gap-3">
@@ -286,12 +282,12 @@ export function AnalyticsDashboard({ onNavigate }: { onNavigate: (page: any) => 
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-        {/* Views Trend */}
-        <Card className="lg:col-span-2 p-6">
+        {/* Views Over Time */}
+        <Card className="p-6">
           <div className="flex items-center justify-between mb-6">
             <div>
               <h3 className="text-lg font-semibold mb-1">Lượt xem theo thời gian</h3>
-              <p className="text-sm text-muted-foreground">Theo dõi xu hướng lượt xem</p>
+              <p className="text-sm text-muted-foreground">Xu hướng tương tác người dùng</p>
             </div>
             <div className="flex gap-2">
               <button className="p-2 hover:bg-secondary rounded-lg transition-colors">
@@ -302,73 +298,77 @@ export function AnalyticsDashboard({ onNavigate }: { onNavigate: (page: any) => 
               </button>
             </div>
           </div>
-          <ResponsiveContainer width="100%" height={300}>
-            <AreaChart data={viewsData}>
-              <defs>
-                <linearGradient id="colorViews" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.3}/>
-                  <stop offset="95%" stopColor="#3B82F6" stopOpacity={0}/>
-                </linearGradient>
-                {compareMode && (
-                  <linearGradient id="colorPrevious" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#8B5CF6" stopOpacity={0.3}/>
-                    <stop offset="95%" stopColor="#8B5CF6" stopOpacity={0}/>
+          <div style={{ width: '100%', height: '300px', minHeight: '300px' }}>
+            <ResponsiveContainer width="100%" height="100%" minHeight={300}>
+              <AreaChart data={viewsData}>
+                <defs>
+                  <linearGradient id="colorViews" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.3}/>
+                    <stop offset="95%" stopColor="#3B82F6" stopOpacity={0}/>
                   </linearGradient>
-                )}
-              </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" opacity={0.3} />
-              <XAxis dataKey="date" stroke="#9CA3AF" />
-              <YAxis stroke="#9CA3AF" />
-              <Tooltip content={<CustomTooltip />} />
-              <Legend />
-              <Area 
-                type="monotone" 
-                dataKey="views" 
-                stroke="#3B82F6" 
-                fillOpacity={1} 
-                fill="url(#colorViews)" 
-                name="Lượt xem"
-                strokeWidth={2}
-              />
-              {compareMode && (
+                  {compareMode && (
+                    <linearGradient id="colorPrevious" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#8B5CF6" stopOpacity={0.3}/>
+                      <stop offset="95%" stopColor="#8B5CF6" stopOpacity={0}/>
+                    </linearGradient>
+                  )}
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" opacity={0.3} />
+                <XAxis dataKey="date" stroke="#9CA3AF" />
+                <YAxis stroke="#9CA3AF" />
+                <Tooltip content={<CustomTooltip />} />
+                <Legend />
                 <Area 
                   type="monotone" 
-                  dataKey="previousViews" 
-                  stroke="#8B5CF6" 
+                  dataKey="views" 
+                  stroke="#3B82F6" 
                   fillOpacity={1} 
-                  fill="url(#colorPrevious)" 
-                  name="Kỳ trước"
+                  fill="url(#colorViews)" 
+                  name="Lượt xem"
                   strokeWidth={2}
-                  strokeDasharray="5 5"
                 />
-              )}
-            </AreaChart>
-          </ResponsiveContainer>
+                {compareMode && (
+                  <Area 
+                    type="monotone" 
+                    dataKey="previousViews" 
+                    stroke="#8B5CF6" 
+                    fillOpacity={1} 
+                    fill="url(#colorPrevious)" 
+                    name="Kỳ trước"
+                    strokeWidth={2}
+                    strokeDasharray="5 5"
+                  />
+                )}
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
         </Card>
 
         {/* Article Types Distribution */}
         <Card className="p-6">
           <h3 className="text-lg font-semibold mb-1">Phân bố loại bài viết</h3>
           <p className="text-sm text-muted-foreground mb-6">Tỷ lệ các loại nội dung</p>
-          <ResponsiveContainer width="100%" height={250}>
-            <RePieChart>
-              <Pie
-                data={articleTypeData}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                outerRadius={80}
-                fill="#8884d8"
-                dataKey="value"
-              >
-                {articleTypeData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.color} />
-                ))}
-              </Pie>
-              <Tooltip />
-            </RePieChart>
-          </ResponsiveContainer>
+          <div style={{ width: '100%', height: '250px', minHeight: '250px' }}>
+            <ResponsiveContainer width="100%" height="100%" minHeight={250}>
+              <RePieChart>
+                <Pie
+                  data={articleTypeData}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                  outerRadius={80}
+                  fill="#8884d8"
+                  dataKey="value"
+                >
+                  {articleTypeData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </RePieChart>
+            </ResponsiveContainer>
+          </div>
           <div className="mt-4 space-y-2">
             {articleTypeData.map((type) => (
               <div key={type.name} className="flex items-center justify-between">
@@ -455,16 +455,18 @@ export function AnalyticsDashboard({ onNavigate }: { onNavigate: (page: any) => 
         <Card className="p-6">
           <h3 className="text-lg font-semibold mb-1">Hiệu suất tác giả</h3>
           <p className="text-sm text-muted-foreground mb-6">Top 5 tác giả xuất sắc nhất</p>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={authorPerformance} layout="vertical">
-              <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" opacity={0.3} />
-              <XAxis type="number" stroke="#9CA3AF" />
-              <YAxis dataKey="name" type="category" width={120} stroke="#9CA3AF" />
-              <Tooltip content={<CustomTooltip />} />
-              <Legend />
-              <Bar dataKey="articles" fill="#3B82F6" name="Bài viết" radius={[0, 8, 8, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
+          <div style={{ width: '100%', height: '300px', minHeight: '300px' }}>
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={authorPerformance} layout="vertical">
+                <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" opacity={0.3} />
+                <XAxis type="number" stroke="#9CA3AF" />
+                <YAxis dataKey="name" type="category" width={120} stroke="#9CA3AF" />
+                <Tooltip content={<CustomTooltip />} />
+                <Legend />
+                <Bar dataKey="articles" fill="#3B82F6" name="Bài viết" radius={[0, 8, 8, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </Card>
 
         {/* Traffic Sources */}
@@ -491,11 +493,11 @@ export function AnalyticsDashboard({ onNavigate }: { onNavigate: (page: any) => 
             <div className="grid grid-cols-2 gap-4">
               <div className="text-center p-4 bg-secondary rounded-xl">
                 <p className="text-2xl font-bold mb-1">68%</p>
-                <p className="text-sm text-muted-foreground">Returning Visitors</p>
+                <p className="text-sm text-muted-foreground">Khách quay lại</p>
               </div>
               <div className="text-center p-4 bg-secondary rounded-xl">
                 <p className="text-2xl font-bold mb-1">32%</p>
-                <p className="text-sm text-muted-foreground">New Visitors</p>
+                <p className="text-sm text-muted-foreground">Khách mới</p>
               </div>
             </div>
           </div>

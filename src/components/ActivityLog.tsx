@@ -141,7 +141,7 @@ export function ActivityLog({ onNavigate }: { onNavigate: (page: any) => void })
         id: '104',
         name: 'Bài viết cũ không còn cần thiết',
       },
-      details: 'Xóa bài viết kh���i hệ thống',
+      details: 'Xóa bài viết khi hệ thống',
       timestamp: '2024-12-27 08:00:00',
       ipAddress: '192.168.1.100',
       userAgent: 'Chrome 120.0.0',
@@ -209,7 +209,7 @@ export function ActivityLog({ onNavigate }: { onNavigate: (page: any) => void })
   };
 
   const users = [
-    { value: 'all', label: 'Tất cả người dùng' },
+    { value: 'all', label: '-- Người dùng --' },
     { value: 'admin', label: 'Admin' },
     { value: 'nguyen-van-a', label: 'Nguyễn Văn A' },
     { value: 'tran-thi-b', label: 'Trần Thị B' },
@@ -222,7 +222,7 @@ export function ActivityLog({ onNavigate }: { onNavigate: (page: any) => void })
     { value: 'yesterday', label: 'Hôm qua' },
     { value: 'week', label: '7 ngày qua' },
     { value: 'month', label: '30 ngày qua' },
-    { value: 'all', label: 'Tất cả' },
+    { value: 'all', label: '-- Thời gian --' },
   ];
 
   const filteredLogs = activityLogs.filter((log) => {
@@ -260,7 +260,7 @@ export function ActivityLog({ onNavigate }: { onNavigate: (page: any) => void })
   return (
     <PageWrapper>
       <PageHeader
-        title="Nhật ký hoạt động"
+        title="Nh���t ký hoạt động"
         description="Theo dõi tất cả các hoạt động trên hệ thống"
       />
 
@@ -334,7 +334,7 @@ export function ActivityLog({ onNavigate }: { onNavigate: (page: any) => void })
             onChange={(e) => setSelectedAction(e.target.value)}
             className="px-4 py-2.5 bg-secondary border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
           >
-            <option value="all">Tất cả hành động</option>
+            <option value="all">-- Hành động --</option>
             {Object.entries(actionConfig).map(([key, config]) => (
               <option key={key} value={key}>{config.label}</option>
             ))}
@@ -345,7 +345,7 @@ export function ActivityLog({ onNavigate }: { onNavigate: (page: any) => void })
             onChange={(e) => setSelectedType(e.target.value)}
             className="px-4 py-2.5 bg-secondary border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
           >
-            <option value="all">Tất cả loại</option>
+            <option value="all">-- Loại đối tượng --</option>
             {Object.entries(typeConfig).map(([key, config]) => (
               <option key={key} value={key}>{config.label}</option>
             ))}

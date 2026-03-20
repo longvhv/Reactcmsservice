@@ -56,12 +56,12 @@ const ArticleDetailPage: React.FC = () => {
   if (!article) {
     return (
       <div className="text-center py-12">
-        <h2 className="text-2xl font-bold mb-4">Article not found</h2>
+        <h2 className="text-2xl font-bold mb-4">Không tìm thấy bài viết</h2>
         <Link
           to="/articles"
           className="text-blue-600 dark:text-blue-400 hover:underline"
         >
-          Back to articles
+          Quay lại danh sách bài viết
         </Link>
       </div>
     );

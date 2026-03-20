@@ -63,14 +63,14 @@ export const ImportExportSystem: React.FC = () => {
       onSuccess: (result) => {
         setImportResult(result);
         if (result.success > 0) {
-          notifications.success(`Successfully imported ${result.success} articles`);
+          notifications.success(`Đã nhập thành công ${result.success} bài viết`);
         }
         if (result.failed > 0) {
-          notifications.error(`Failed to import ${result.failed} articles`);
+          notifications.error(`Nhập thất bại ${result.failed} bài viết`);
         }
       },
       onError: () => {
-        notifications.error('Import failed');
+        notifications.error('Nhập dữ liệu thất bại');
       },
     }
   );
@@ -141,7 +141,7 @@ ${data.articles.map(a => `  <article id="${a.id}">
     },
     {
       onSuccess: (result) => {
-        notifications.success(`Exported ${result.count} articles successfully`);
+        notifications.success(`Đã xuất ${result.count} bài viết thành công`);
       },
     }
   );
@@ -178,10 +178,10 @@ ${data.articles.map(a => `  <article id="${a.id}">
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-          Import & Export
+          Nhập & Xuất dữ liệu
         </h1>
         <p className="text-gray-600 dark:text-gray-400 mt-1">
-          Bulk import or export articles
+          Nhập hoặc xuất hàng loạt bài viết
         </p>
       </div>
 
@@ -197,7 +197,7 @@ ${data.articles.map(a => `  <article id="${a.id}">
             }`}
           >
             <Upload className="w-5 h-5" />
-            Import Articles
+            Nhập bài viết
           </button>
           <button
             onClick={() => setActiveTab('export')}
@@ -208,7 +208,7 @@ ${data.articles.map(a => `  <article id="${a.id}">
             }`}
           >
             <Download className="w-5 h-5" />
-            Export Articles
+            Xuất bài viết
           </button>
         </div>
 
@@ -219,21 +219,21 @@ ${data.articles.map(a => `  <article id="${a.id}">
               {/* Instructions */}
               <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4 border border-blue-200 dark:border-blue-800">
                 <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">
-                  Import Instructions
+                  Hướng dẫn nhập dữ liệu
                 </h3>
                 <ul className="text-sm text-blue-800 dark:text-blue-200 space-y-1 list-disc list-inside">
-                  <li>Supported formats: JSON, CSV, XML</li>
-                  <li>Maximum file size: 10MB</li>
-                  <li>Required fields: title, content, status</li>
-                  <li>Optional fields: category, tags, author, publishedAt</li>
-                  <li>Images should be URLs or base64 encoded</li>
+                  <li>Định dạng hỗ trợ: JSON, CSV, XML</li>
+                  <li>Dung lượng tối đa: 10MB</li>
+                  <li>Trường bắt buộc: title, content, status</li>
+                  <li>Trường tùy chọn: category, tags, author, publishedAt</li>
+                  <li>Hình ảnh nên là URL hoặc mã hóa base64</li>
                 </ul>
               </div>
 
               {/* File Upload */}
               <div>
                 <label className="block text-sm font-medium mb-3">
-                  Choose File to Import
+                  Chọn tệp để nhập
                 </label>
                 <div className="relative">
                   <input
@@ -260,10 +260,10 @@ ${data.articles.map(a => `  <article id="${a.id}">
                     ) : (
                       <div className="text-center">
                         <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                          Click to upload or drag and drop
+                          Nhấp để tải lên hoặc kéo thả
                         </p>
                         <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                          JSON, CSV, or XML (max 10MB)
+                          JSON, CSV, hoặc XML (tối đa 10MB)
                         </p>
                       </div>
                     )}
@@ -280,12 +280,12 @@ ${data.articles.map(a => `  <article id="${a.id}">
                 {isImporting ? (
                   <>
                     <Loader className="w-5 h-5 animate-spin" />
-                    Importing...
+                    Đang nhập...
                   </>
                 ) : (
                   <>
                     <Upload className="w-5 h-5" />
-                    Import Articles
+                    Nhập bài viết
                   </>
                 )}
               </button>
@@ -296,17 +296,17 @@ ${data.articles.map(a => `  <article id="${a.id}">
                   {/* Summary */}
                   <div className="grid grid-cols-3 gap-4">
                     <div className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4 text-center">
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Total</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Tổng cộng</p>
                       <p className="text-2xl font-bold">{importResult.total}</p>
                     </div>
                     <div className="bg-green-50 dark:bg-green-900/20 rounded-xl p-4 text-center">
-                      <p className="text-sm text-green-600 dark:text-green-400 mb-1">Success</p>
+                      <p className="text-sm text-green-600 dark:text-green-400 mb-1">Thành công</p>
                       <p className="text-2xl font-bold text-green-600 dark:text-green-400">
                         {importResult.success}
                       </p>
                     </div>
                     <div className="bg-red-50 dark:bg-red-900/20 rounded-xl p-4 text-center">
-                      <p className="text-sm text-red-600 dark:text-red-400 mb-1">Failed</p>
+                      <p className="text-sm text-red-600 dark:text-red-400 mb-1">Thất bại</p>
                       <p className="text-2xl font-bold text-red-600 dark:text-red-400">
                         {importResult.failed}
                       </p>
@@ -318,12 +318,12 @@ ${data.articles.map(a => `  <article id="${a.id}">
                     <div className="bg-red-50 dark:bg-red-900/20 rounded-xl p-4 border border-red-200 dark:border-red-800">
                       <h4 className="font-semibold text-red-900 dark:text-red-100 mb-3 flex items-center gap-2">
                         <AlertCircle className="w-5 h-5" />
-                        Import Errors ({importResult.errors.length})
+                        Lỗi nhập dữ liệu ({importResult.errors.length})
                       </h4>
                       <div className="space-y-2 max-h-48 overflow-y-auto">
                         {importResult.errors.map((error, index) => (
                           <div key={index} className="text-sm text-red-800 dark:text-red-200">
-                            <span className="font-medium">Row {error.row}:</span> {error.message}
+                            <span className="font-medium">Dòng {error.row}:</span> {error.message}
                           </div>
                         ))}
                       </div>
@@ -337,13 +337,13 @@ ${data.articles.map(a => `  <article id="${a.id}">
               {/* Format Selection */}
               <div>
                 <label className="block text-sm font-medium mb-3">
-                  Export Format
+                  Định dạng xuất
                 </label>
                 <div className="grid grid-cols-3 gap-4">
                   {[
-                    { value: 'json', label: 'JSON', description: 'Best for data backup' },
-                    { value: 'csv', label: 'CSV', description: 'Excel compatible' },
-                    { value: 'xml', label: 'XML', description: 'Standard format' },
+                    { value: 'json', label: 'JSON', description: 'Tốt nhất cho sao lưu dữ liệu' },
+                    { value: 'csv', label: 'CSV', description: 'Tương thích Excel' },
+                    { value: 'xml', label: 'XML', description: 'Định dạng chuẩn' },
                   ].map((format) => (
                     <button
                       key={format.value}
@@ -369,7 +369,7 @@ ${data.articles.map(a => `  <article id="${a.id}">
               {/* Export Options */}
               <div>
                 <label className="block text-sm font-medium mb-3">
-                  Export Options
+                  Tùy chọn xuất
                 </label>
                 <div className="space-y-3">
                   <label className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-900 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
@@ -380,9 +380,9 @@ ${data.articles.map(a => `  <article id="${a.id}">
                       className="w-4 h-4 text-blue-600 rounded"
                     />
                     <div>
-                      <div className="font-medium">Include Full Content</div>
+                      <div className="font-medium">Bao gồm nội dung đầy đủ</div>
                       <div className="text-xs text-gray-600 dark:text-gray-400">
-                        Export complete article content (larger file size)
+                        Xuất toàn bộ nội dung bài viết (kích thước tệp lớn hơn)
                       </div>
                     </div>
                   </label>
@@ -395,9 +395,9 @@ ${data.articles.map(a => `  <article id="${a.id}">
                       className="w-4 h-4 text-blue-600 rounded"
                     />
                     <div>
-                      <div className="font-medium">Include Metadata</div>
+                      <div className="font-medium">Bao gồm Metadata</div>
                       <div className="text-xs text-gray-600 dark:text-gray-400">
-                        Export date, author, category, tags, etc.
+                        Xuất ngày tháng, tác giả, danh mục, thẻ, v.v.
                       </div>
                     </div>
                   </label>
@@ -410,9 +410,9 @@ ${data.articles.map(a => `  <article id="${a.id}">
                       className="w-4 h-4 text-blue-600 rounded"
                     />
                     <div>
-                      <div className="font-medium">Include Images (Base64)</div>
+                      <div className="font-medium">Bao gồm hình ảnh (Base64)</div>
                       <div className="text-xs text-gray-600 dark:text-gray-400">
-                        Embed images as base64 (very large file size)
+                        Nhúng hình ảnh dạng base64 (kích thước tệp rất lớn)
                       </div>
                     </div>
                   </label>
@@ -423,34 +423,34 @@ ${data.articles.map(a => `  <article id="${a.id}">
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium mb-2">
-                    Date Range
+                    Khoảng thời gian
                   </label>
                   <select
                     value={exportOptions.dateRange}
                     onChange={(e) => setExportOptions({ ...exportOptions, dateRange: e.target.value as any })}
                     className="w-full px-4 py-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl"
                   >
-                    <option value="all">All Time</option>
-                    <option value="last7">Last 7 Days</option>
-                    <option value="last30">Last 30 Days</option>
-                    <option value="last90">Last 90 Days</option>
-                    <option value="custom">Custom Range</option>
+                    <option value="all">-- Thời gian --</option>
+                    <option value="last7">7 ngày qua</option>
+                    <option value="last30">30 ngày qua</option>
+                    <option value="last90">90 ngày qua</option>
+                    <option value="custom">Tùy chỉnh</option>
                   </select>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium mb-2">
-                    Article Status
+                    Trạng thái bài viết
                   </label>
                   <select
                     value={exportOptions.status}
                     onChange={(e) => setExportOptions({ ...exportOptions, status: e.target.value as any })}
                     className="w-full px-4 py-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl"
                   >
-                    <option value="all">All Status</option>
-                    <option value="published">Published Only</option>
-                    <option value="draft">Drafts Only</option>
-                    <option value="archived">Archived Only</option>
+                    <option value="all">-- Trạng thái --</option>
+                    <option value="published">Chỉ đã xuất bản</option>
+                    <option value="draft">Chỉ nháp</option>
+                    <option value="archived">Chỉ lưu trữ</option>
                   </select>
                 </div>
               </div>
@@ -464,12 +464,12 @@ ${data.articles.map(a => `  <article id="${a.id}">
                 {isExporting ? (
                   <>
                     <Loader className="w-5 h-5 animate-spin" />
-                    Exporting...
+                    Đang xuất...
                   </>
                 ) : (
                   <>
                     <Download className="w-5 h-5" />
-                    Export Articles
+                    Xuất bài viết
                   </>
                 )}
               </button>

@@ -87,7 +87,7 @@ export function EventStreamEmbed({ streamId, streamName, streamColor }: {
     {
       key: 'timeline',
       label: 'Timeline',
-      description: 'Hiển thị timeline đầy đủ với các bài vi���t',
+      description: 'Hiển thị timeline đầy đủ với các bài viết',
       icon: Layout,
     },
     {
@@ -123,7 +123,7 @@ export function EventStreamEmbed({ streamId, streamName, streamColor }: {
   return (
     <PageWrapper>
       <PageHeader
-        title="Embed & Share"
+        title="Nhúng & Chia sẻ"
         description="Nhúng dòng sự kiện vào website của bạn"
       />
 
@@ -134,7 +134,7 @@ export function EventStreamEmbed({ streamId, streamName, streamColor }: {
           <Card className="p-6">
             <h3 className="font-semibold mb-4 flex items-center gap-2">
               <Code className="w-5 h-5" style={{ color: streamColor }} />
-              Kiểu embed
+              Kiểu nhúng
             </h3>
             <div className="space-y-2">
               {embedTypes.map((type) => {
@@ -253,7 +253,7 @@ export function EventStreamEmbed({ streamId, streamName, streamColor }: {
               </div>
 
               <div>
-                <label className="block text-sm mb-2">Border radius</label>
+                <label className="block text-sm mb-2">Bo góc</label>
                 <input
                   type="range"
                   min="0"
@@ -351,7 +351,7 @@ export function EventStreamEmbed({ streamId, streamName, streamColor }: {
                     <div className="p-6 border-b border-gray-200 dark:border-gray-700">
                       <h2 className="text-2xl font-bold mb-2">{streamName}</h2>
                       <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Chuỗi tin tức và sự kiện công nghệ
+                        Chuỗi tin tức và sự kiện
                       </p>
                     </div>
                   )}
@@ -415,9 +415,9 @@ export function EventStreamEmbed({ streamId, streamName, streamColor }: {
                       style={{ borderRadius: `${config.borderRadius}px` }}
                     />
                   )}
-                  <h4 className="font-semibold mb-2">Latest Article Title</h4>
+                  <h4 className="font-semibold mb-2">Bài viết mới nhất</h4>
                   <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                    Article excerpt text...
+                    Trích dẫn bài viết...
                   </p>
                   {config.showStats && (
                     <div className="flex gap-4 text-sm text-gray-500 mb-4">
@@ -447,7 +447,7 @@ export function EventStreamEmbed({ streamId, streamName, streamColor }: {
                     {config.showHeader && (
                       <h2 className="text-3xl font-bold text-white mb-2">{streamName}</h2>
                     )}
-                    <p className="text-white/80 mb-4">Featured article title</p>
+                    <p className="text-white/80 mb-4">Tiêu đề bài viết nổi bật</p>
                     <button 
                       className="text-white px-6 py-3 w-fit"
                       style={{ 

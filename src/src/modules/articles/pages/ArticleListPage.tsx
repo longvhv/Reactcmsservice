@@ -42,11 +42,11 @@ const ArticleListPage: React.FC = () => {
     (id: string) => articleService.delete(id),
     {
       onSuccess: () => {
-        notifications.success('Article deleted successfully');
+        notifications.success('Đã xóa bài viết thành công');
         refetch();
       },
       onError: () => {
-        notifications.error('Failed to delete article');
+        notifications.error('Xóa bài viết thất bại');
       },
     }
   );
@@ -56,17 +56,17 @@ const ArticleListPage: React.FC = () => {
     (id: string) => articleService.updateStatus(id, 'published'),
     {
       onSuccess: () => {
-        notifications.success('Article published successfully');
+        notifications.success('Đã xuất bản bài viết thành công');
         refetch();
       },
       onError: () => {
-        notifications.error('Failed to publish article');
+        notifications.error('Xuất bản bài viết thất bại');
       },
     }
   );
 
   const articleTypes = [
-    { value: 'all', label: 'All Types', icon: '📄' },
+    { value: 'all', label: '-- Loại bài viết --', icon: '📄' },
     { value: 'news', label: 'News', icon: '📰' },
     { value: 'video', label: 'Video', icon: '🎥' },
     { value: 'gallery', label: 'Gallery', icon: '🖼️' },
@@ -177,11 +177,11 @@ const ArticleListPage: React.FC = () => {
             className="px-4 py-2.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl 
               focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50 transition-all"
           >
-            <option value="all">All Status</option>
-            <option value="draft">Draft</option>
-            <option value="pending">Pending</option>
-            <option value="published">Published</option>
-            <option value="rejected">Rejected</option>
+            <option value="all">-- Trạng thái --</option>
+            <option value="draft">Nháp</option>
+            <option value="pending">Chờ duyệt</option>
+            <option value="published">Đã xuất bản</option>
+            <option value="rejected">Từ chối</option>
           </select>
 
           {/* Type Filter */}

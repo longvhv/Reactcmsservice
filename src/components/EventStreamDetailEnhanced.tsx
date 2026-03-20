@@ -12,6 +12,7 @@ import { PageHeader } from './PageHeader';
 import { Card } from './Card';
 import { ArticleListView, Article } from './ArticleListView';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useRouter } from '../contexts/RouterContext';
 
 interface StreamArticle {
   id: string;
@@ -54,7 +55,27 @@ interface StreamEvent {
   };
 }
 
-export function EventStreamDetailEnhanced({ streamId, onNavigate }: { streamId: string; onNavigate: (page: any) => void }) {
+export function EventStreamDetailEnhanced({ streamId, onNavigate }: { streamId: string; onNavigate?: (page: any) => void }) {
+  const { t } = useLanguage();
+  const router = useRouter();
+  
+  // Use onNavigate if provided, otherwise use router
+  const handleNavigate = (page: any) => {
+    if (onNavigate) {
+      onNavigate(page);
+    } else if (page.page === 'event-series') {
+      router.push('/page/cms/event-series');
+    } else if (page.page === 'event-stream-form') {
+      if (page.id) {
+        router.push(`/page/cms/event-series/edit/${page.id}`);
+      } else {
+        router.push('/page/cms/event-series/new');
+      }
+    } else if (typeof page === 'string') {
+      router.push(`/page/cms/${page}`);
+    }
+  };
+  
   const [selectedTab, setSelectedTab] = useState<'overview' | 'articles' | 'analytics' | 'activity' | 'settings'>('overview');
   const [articleFilter, setArticleFilter] = useState<'all' | 'published' | 'draft'>('all');
   const [showAddArticle, setShowAddArticle] = useState(false);
@@ -125,7 +146,7 @@ export function EventStreamDetailEnhanced({ streamId, onNavigate }: { streamId: 
       order: 2,
       title: 'AI Revolution: Xu hướng AI năm 2024',
       slug: 'ai-revolution-trends-2024',
-      excerpt: 'Phân tích sâu về c��c xu hướng AI đột phá sẽ định hình tương lai cng nghệ trong năm 2024.',
+      excerpt: 'Phân tích sâu về cc xu hướng AI đột phá sẽ định hình tương lai cng nghệ trong năm 2024.',
       type: 'analysis',
       status: 'published',
       publishedAt: '2024-01-17',
@@ -311,13 +332,11 @@ export function EventStreamDetailEnhanced({ streamId, onNavigate }: { streamId: 
     return colors[role as keyof typeof colors] || colors.viewer;
   };
 
-  const { t } = useLanguage();
-
   return (
     <PageWrapper>
       {/* Back Button */}
       <button
-        onClick={() => onNavigate({ page: 'event-series' })}
+        onClick={() => handleNavigate({ page: 'event-series' })}
         className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-4"
       >
         <ArrowLeft className="w-4 h-4" />
@@ -361,7 +380,7 @@ export function EventStreamDetailEnhanced({ streamId, onNavigate }: { streamId: 
             {/* Quick Actions */}
             <div className="flex gap-2">
               <button 
-                onClick={() => onNavigate({ page: 'event-stream-form', id: streamId })}
+                onClick={() => handleNavigate({ page: 'event-stream-form', id: streamId })}
                 className="px-4 py-2 bg-white/20 backdrop-blur-sm text-white rounded-xl hover:bg-white/30 transition-all flex items-center gap-2"
               >
                 <Edit className="w-4 h-4" />
@@ -710,7 +729,7 @@ export function EventStreamDetailEnhanced({ streamId, onNavigate }: { streamId: 
               {/* Article List */}
               <ArticleListView
                 articles={convertToArticles(filteredArticles)}
-                onNavigate={onNavigate}
+                onNavigate={handleNavigate}
                 onEdit={(id) => console.log('Edit article:', id)}
                 onDelete={(id) => {
                   const articleToRemove = filteredArticles.find(a => parseInt(a.id.replace('a', '')) === id);

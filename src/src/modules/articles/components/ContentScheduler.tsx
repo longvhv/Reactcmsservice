@@ -117,7 +117,7 @@ export const ContentScheduler: React.FC<ContentSchedulerProps> = ({
     },
     {
       onSuccess: () => {
-        notifications.success('Article scheduled successfully');
+        notifications.success('Đã lên lịch bài viết thành công');
         setShowAddModal(false);
         setEditingSchedule(null);
         setFormData({
@@ -141,7 +141,7 @@ export const ContentScheduler: React.FC<ContentSchedulerProps> = ({
     },
     {
       onSuccess: () => {
-        notifications.success('Schedule cancelled');
+        notifications.success('Đã hủy lịch');
         refetch();
       },
     }
@@ -155,7 +155,7 @@ export const ContentScheduler: React.FC<ContentSchedulerProps> = ({
     },
     {
       onSuccess: () => {
-        notifications.success('Schedule retried');
+        notifications.success('Đã thử lại lịch');
         refetch();
       },
     }
@@ -244,7 +244,7 @@ export const ContentScheduler: React.FC<ContentSchedulerProps> = ({
         <div>
           <h2 className="text-xl font-bold flex items-center gap-2">
             <Calendar className="w-6 h-6" />
-            Content Scheduler
+            Lịch xuất bản nội dung
           </h2>
           <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
             Schedule articles for automatic publishing

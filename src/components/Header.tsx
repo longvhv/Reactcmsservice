@@ -1,17 +1,30 @@
-import { Search, Command, Bell, Settings, User, LogOut, HelpCircle, Moon, Sun, Menu, Clock, Plus, Upload, TrendingUp, Layout, MessageSquare, CheckCircle, Zap, ChevronDown, X } from 'lucide-react';
+'use client';
+
+import { Search, Command, Bell, Settings, User, LogOut, HelpCircle, Moon, Sun, Menu, Clock, Plus, Upload, TrendingUp, Layout, MessageSquare, CheckCircle, Zap, ChevronDown, X, PenSquare, Repeat } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { NotificationCenter } from './NotificationCenter';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useRouter } from '../contexts/RouterContext';
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  role: string;
+  avatar?: string;
+}
 
 interface HeaderProps {
   onToggleSidebar?: () => void;
-  onNavigate?: (page: any) => void;
+  currentUser?: User;
+  onNavigate?: (state: any) => void;
 }
 
-export function Header({ onToggleSidebar, onNavigate }: HeaderProps) {
+export function Header({ onToggleSidebar, currentUser, onNavigate }: HeaderProps) {
   const { t } = useLanguage();
+  const router = useRouter();
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
@@ -204,7 +217,7 @@ export function Header({ onToggleSidebar, onNavigate }: HeaderProps) {
                   <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white shadow-sm" />
                 </div>
                 <div className="text-left hidden lg:block">
-                  <div className="text-sm font-medium text-foreground">Admin User</div>
+                  <div className="text-sm font-medium text-foreground">Quản trị viên</div>
                   <div className="text-xs text-muted-foreground">admin@cms.com</div>
                 </div>
                 <ChevronDown className="w-4 h-4 text-muted-foreground group-hover:rotate-180 transition-transform duration-300" />
@@ -225,16 +238,16 @@ export function Header({ onToggleSidebar, onNavigate }: HeaderProps) {
                         <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white shadow-sm" />
                       </div>
                       <div>
-                        <div className="font-semibold text-foreground">Admin User</div>
+                        <div className="font-semibold text-foreground">Quản trị viên</div>
                         <div className="text-xs text-muted-foreground">admin@cms.com</div>
                       </div>
                     </div>
                     <div className="px-3 py-2.5 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg text-white shadow-lg">
                       <div className="flex items-center justify-between mb-1">
-                        <div className="text-xs font-semibold opacity-90">Premium Plan</div>
+                        <div className="text-xs font-semibold opacity-90">Gói Premium</div>
                         <div className="px-2 py-0.5 bg-white/20 rounded text-[10px] font-medium">PRO</div>
                       </div>
-                      <div className="text-xs opacity-80">Expires in 30 days</div>
+                      <div className="text-xs opacity-80">Hết hạn sau 30 ngày</div>
                     </div>
                   </div>
 
@@ -256,6 +269,25 @@ export function Header({ onToggleSidebar, onNavigate }: HeaderProps) {
                     >
                       <HelpCircle className="w-4 h-4 group-hover:scale-110 transition-transform" />
                       <span>🧪 i18n Test Suite</span>
+                    </button>
+                    
+                    {/* Switch to Reporter Button - HIGHLIGHT */}
+                    <div className="my-2 h-px bg-border/60" />
+                    <button 
+                      onClick={() => {
+                        onNavigate?.({ page: 'reporter-portal' });
+                        setShowProfile(false);
+                      }}
+                      className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100 border border-blue-200 transition-all duration-200 text-sm group"
+                    >
+                      <div className="w-7 h-7 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
+                        <Repeat className="w-4 h-4 text-white group-hover:rotate-180 transition-transform duration-300" />
+                      </div>
+                      <div className="flex-1 text-left">
+                        <div className="font-semibold text-blue-900">Chuyển sang Reporter</div>
+                        <div className="text-xs text-blue-600">Xem trang phóng viên</div>
+                      </div>
+                      <PenSquare className="w-4 h-4 text-blue-600" />
                     </button>
                   </div>
 

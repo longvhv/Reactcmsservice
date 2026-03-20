@@ -168,7 +168,7 @@ export const TemplateManagement: React.FC<TemplateManagementProps> = ({
     },
     {
       onSuccess: () => {
-        notifications.success('Template saved successfully');
+        notifications.success('Đã lưu mẫu thành công');
         setShowCreateModal(false);
         setEditingTemplate(null);
         refetch();
@@ -184,7 +184,7 @@ export const TemplateManagement: React.FC<TemplateManagementProps> = ({
     },
     {
       onSuccess: () => {
-        notifications.success('Template deleted');
+        notifications.success('Đã xóa mẫu');
         refetch();
       },
     }
@@ -198,7 +198,7 @@ export const TemplateManagement: React.FC<TemplateManagementProps> = ({
     },
     {
       onSuccess: () => {
-        notifications.success('Template duplicated');
+        notifications.success('Đã nhân bản mẫu');
         refetch();
       },
     }
@@ -242,7 +242,7 @@ export const TemplateManagement: React.FC<TemplateManagementProps> = ({
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Template Management
+            Quản lý mẫu
           </h1>
           <p className="text-gray-600 dark:text-gray-400 mt-1">
             Create and manage article templates
@@ -596,7 +596,7 @@ export const TemplateManagement: React.FC<TemplateManagementProps> = ({
                   onClick={() => setPreviewTemplate(null)}
                   className="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
                 >
-                  Close
+                  Đóng
                 </button>
               </div>
             </div>

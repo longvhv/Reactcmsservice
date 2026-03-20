@@ -1,3 +1,5 @@
+'use client';
+
 import { 
   TrendingUp, 
   Users, 
@@ -23,13 +25,15 @@ import {
 } from 'lucide-react';
 import { PageWrapper } from './PageWrapper';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useRouter } from '../contexts/RouterContext';
 
 interface DashboardProps {
-  onNavigate: (page: any) => void;
+  onNavigate?: (page: any) => void;
 }
 
-export function Dashboard({ onNavigate }: DashboardProps) {
+export function Dashboard({ onNavigate }: DashboardProps = {}) {
   const { t } = useLanguage();
+  const router = useRouter();
   const stats = [
     { 
       label: t('dashboard.totalArticles'), 
@@ -78,11 +82,11 @@ export function Dashboard({ onNavigate }: DashboardProps) {
   ];
 
   const quickActions = [
-    { id: 1, icon: FileText, label: t('dashboard.createArticle'), color: 'blue', action: () => onNavigate('articles') },
-    { id: 2, icon: Video, label: t('articleTypes.video'), color: 'red', action: () => onNavigate('articles') },
-    { id: 3, icon: Image, label: t('articleTypes.gallery'), color: 'purple', action: () => onNavigate('articles') },
-    { id: 4, icon: Briefcase, label: t('articleTypes.job'), color: 'green', action: () => onNavigate('articles') },
-    { id: 5, icon: Calendar, label: t('articleTypes.event'), color: 'orange', action: () => onNavigate('articles') },
+    { id: 1, icon: FileText, label: t('dashboard.createArticle'), color: 'blue', action: () => onNavigate ? onNavigate('articles') : router.push('/articles') },
+    { id: 2, icon: Video, label: t('articleTypes.video'), color: 'red', action: () => onNavigate ? onNavigate('articles') : router.push('/articles') },
+    { id: 3, icon: Image, label: t('articleTypes.gallery'), color: 'purple', action: () => onNavigate ? onNavigate('articles') : router.push('/articles') },
+    { id: 4, icon: Briefcase, label: t('articleTypes.job'), color: 'green', action: () => onNavigate ? onNavigate('articles') : router.push('/articles') },
+    { id: 5, icon: Calendar, label: t('articleTypes.event'), color: 'orange', action: () => onNavigate ? onNavigate('articles') : router.push('/articles') },
   ];
 
   const notifications = [
@@ -297,7 +301,7 @@ export function Dashboard({ onNavigate }: DashboardProps) {
               <span>Bài viết gần đây</span>
             </h3>
             <button 
-              onClick={() => onNavigate('articles')}
+              onClick={() => onNavigate ? onNavigate('articles') : router.push('/articles')}
               className="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1"
             >
               <span>Xem tất cả</span>

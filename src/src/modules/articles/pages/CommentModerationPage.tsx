@@ -141,7 +141,7 @@ const CommentModerationPage: React.FC = () => {
     },
     {
       onSuccess: () => {
-        notifications.success('Comment approved');
+        notifications.success('Đã duyệt bình luận');
         refetch();
       },
     }
@@ -155,7 +155,7 @@ const CommentModerationPage: React.FC = () => {
     },
     {
       onSuccess: () => {
-        notifications.success('Comment rejected');
+        notifications.success('Đã từ chối bình luận');
         refetch();
       },
     }
@@ -169,7 +169,7 @@ const CommentModerationPage: React.FC = () => {
     },
     {
       onSuccess: () => {
-        notifications.success('Marked as spam');
+        notifications.success('Đã đánh dấu spam');
         refetch();
       },
     }
@@ -183,7 +183,7 @@ const CommentModerationPage: React.FC = () => {
     },
     {
       onSuccess: () => {
-        notifications.success('Comment deleted');
+        notifications.success('Đã xóa bình luận');
         refetch();
       },
     }
@@ -228,7 +228,7 @@ const CommentModerationPage: React.FC = () => {
   const submitReply = async () => {
     // API call
     await new Promise(resolve => setTimeout(resolve, 1000));
-    notifications.success('Reply posted');
+    notifications.success('Đã gửi trả lời');
     setShowReplyModal(false);
     setReplyText('');
     setReplyingTo(null);
@@ -275,9 +275,9 @@ const CommentModerationPage: React.FC = () => {
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total', value: comments?.length || 0, color: 'blue', icon: '💬' },
-          { label: 'Pending', value: comments?.filter(c => c.status === 'pending').length || 0, color: 'yellow', icon: '⏳' },
-          { label: 'Approved', value: comments?.filter(c => c.status === 'approved').length || 0, color: 'green', icon: '✅' },
+          { label: 'Tổng cộng', value: comments?.length || 0, color: 'blue', icon: '💬' },
+          { label: 'Chờ duyệt', value: comments?.filter(c => c.status === 'pending').length || 0, color: 'yellow', icon: '⏳' },
+          { label: 'Đã duyệt', value: comments?.filter(c => c.status === 'approved').length || 0, color: 'green', icon: '✅' },
           { label: 'Spam', value: comments?.filter(c => c.status === 'spam').length || 0, color: 'red', icon: '🚫' },
         ].map((stat) => (
           <div key={stat.label} className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
@@ -315,11 +315,11 @@ const CommentModerationPage: React.FC = () => {
             onChange={(e) => setStatusFilter(e.target.value)}
             className="px-4 py-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
           >
-            <option value="all">All Status</option>
-            <option value="pending">Pending</option>
-            <option value="approved">Approved</option>
+            <option value="all">-- Trạng thái --</option>
+            <option value="pending">Chờ duyệt</option>
+            <option value="approved">Đã duyệt</option>
             <option value="spam">Spam</option>
-            <option value="rejected">Rejected</option>
+            <option value="rejected">Từ chối</option>
           </select>
 
           {/* Bulk Actions */}
@@ -330,14 +330,14 @@ const CommentModerationPage: React.FC = () => {
                 className="flex items-center gap-2 px-4 py-2 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-xl hover:bg-green-200 dark:hover:bg-green-900/50 transition-colors"
               >
                 <Check className="w-4 h-4" />
-                Approve ({selectedComments.size})
+                Duyệt ({selectedComments.size})
               </button>
               <button
                 onClick={handleBulkReject}
                 className="flex items-center gap-2 px-4 py-2 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded-xl hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors"
               >
                 <X className="w-4 h-4" />
-                Reject ({selectedComments.size})
+                Từ chối ({selectedComments.size})
               </button>
               <button
                 onClick={handleBulkSpam}
@@ -400,7 +400,7 @@ const CommentModerationPage: React.FC = () => {
 
               {/* Article Reference */}
               <div className="mb-3 text-sm">
-                <span className="text-gray-600 dark:text-gray-400">On article:</span>{' '}
+                <span className="text-gray-600 dark:text-gray-400">Trên bài viết:</span>{' '}
                 <a href={`/articles/${comment.article.id}`} className="text-blue-600 dark:text-blue-400 hover:underline">
                   {comment.article.title}
                 </a>
@@ -427,14 +427,14 @@ const CommentModerationPage: React.FC = () => {
                       className="flex items-center gap-2 px-3 py-1.5 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm"
                     >
                       <Check className="w-4 h-4" />
-                      Approve
+                      Duyệt
                     </button>
                     <button
                       onClick={() => rejectComment(comment.id)}
                       className="flex items-center gap-2 px-3 py-1.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm"
                     >
                       <X className="w-4 h-4" />
-                      Reject
+                      Từ chối
                     </button>
                   </>
                 )}
@@ -450,14 +450,14 @@ const CommentModerationPage: React.FC = () => {
                   className="flex items-center gap-2 px-3 py-1.5 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors text-sm"
                 >
                   <Reply className="w-4 h-4" />
-                  Reply {comment.replies ? `(${comment.replies})` : ''}
+                  Trả lời {comment.replies ? `(${comment.replies})` : ''}
                 </button>
                 <button
                   onClick={() => deleteComment(comment.id)}
                   className="flex items-center gap-2 px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm"
                 >
                   <Trash2 className="w-4 h-4" />
-                  Delete
+                  Xóa
                 </button>
               </div>
             </div>
@@ -467,7 +467,7 @@ const CommentModerationPage: React.FC = () => {
         {filteredComments?.length === 0 && (
           <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
             <MessageSquare className="w-16 h-16 mx-auto text-gray-300 dark:text-gray-600 mb-4" />
-            <p className="text-gray-500 dark:text-gray-400">No comments found</p>
+            <p className="text-gray-500 dark:text-gray-400">Không tìm thấy bình luận nào</p>
           </div>
         )}
       </div>
@@ -476,7 +476,7 @@ const CommentModerationPage: React.FC = () => {
       {showReplyModal && replyingTo && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
           <div className="w-full max-w-2xl bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6">
-            <h3 className="text-xl font-bold mb-4">Reply to Comment</h3>
+            <h3 className="text-xl font-bold mb-4">Trả lời bình luận</h3>
 
             {/* Original Comment */}
             <div className="mb-4 p-4 bg-gray-50 dark:bg-gray-900 rounded-xl">
@@ -491,12 +491,12 @@ const CommentModerationPage: React.FC = () => {
 
             {/* Reply Input */}
             <div className="mb-4">
-              <label className="block text-sm font-medium mb-2">Your Reply</label>
+              <label className="block text-sm font-medium mb-2">Nội dung trả lời</label>
               <textarea
                 value={replyText}
                 onChange={(e) => setReplyText(e.target.value)}
                 rows={4}
-                placeholder="Write your reply..."
+                placeholder="Viết câu trả lời của bạn..."
                 className="w-full px-4 py-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 resize-none"
               />
             </div>
@@ -511,7 +511,7 @@ const CommentModerationPage: React.FC = () => {
                 }}
                 className="flex-1 px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
               >
-                Cancel
+                Hủy
               </button>
               <button
                 onClick={submitReply}
@@ -519,7 +519,7 @@ const CommentModerationPage: React.FC = () => {
                 className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors disabled:opacity-50"
               >
                 <Reply className="w-4 h-4" />
-                Send Reply
+                Gửi trả lời
               </button>
             </div>
           </div>

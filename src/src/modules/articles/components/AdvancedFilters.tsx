@@ -145,7 +145,7 @@ export const AdvancedFilters: React.FC<AdvancedFiltersProps> = ({
           }`}
         >
           <Filter className="w-5 h-5" />
-          <span className="font-medium">Advanced Filters</span>
+          <span className="font-medium">Bộ lọc nâng cao</span>
           {activeFilterCount > 0 && (
             <span className="px-2 py-0.5 bg-blue-600 text-white rounded-full text-xs font-medium">
               {activeFilterCount}
@@ -160,7 +160,7 @@ export const AdvancedFilters: React.FC<AdvancedFiltersProps> = ({
             className="flex items-center gap-2 px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 transition-colors"
           >
             <RotateCcw className="w-4 h-4" />
-            <span>Reset</span>
+            <span>Đặt lại</span>
           </button>
         )}
       </div>
@@ -173,13 +173,13 @@ export const AdvancedFilters: React.FC<AdvancedFiltersProps> = ({
             <div className="lg:col-span-3">
               <label className="block text-sm font-medium mb-2">
                 <Search className="w-4 h-4 inline mr-2" />
-                Search
+                Tìm kiếm
               </label>
               <input
                 type="search"
                 value={filters.search}
                 onChange={(e) => updateFilter('search', e.target.value)}
-                placeholder="Search by title, content, or ID..."
+                placeholder="Tìm theo tiêu đề, nội dung hoặc ID..."
                 className="w-full px-4 py-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
               />
             </div>
@@ -188,7 +188,7 @@ export const AdvancedFilters: React.FC<AdvancedFiltersProps> = ({
             <div>
               <label className="block text-sm font-medium mb-2">
                 <Eye className="w-4 h-4 inline mr-2" />
-                Status
+                Trạng thái
               </label>
               <div className="space-y-2">
                 {statuses.map((status) => (
@@ -217,7 +217,7 @@ export const AdvancedFilters: React.FC<AdvancedFiltersProps> = ({
             <div>
               <label className="block text-sm font-medium mb-2">
                 <FolderOpen className="w-4 h-4 inline mr-2" />
-                Category
+                Danh mục
               </label>
               <div className="space-y-2">
                 {categories.map((category) => (
@@ -245,7 +245,7 @@ export const AdvancedFilters: React.FC<AdvancedFiltersProps> = ({
             <div>
               <label className="block text-sm font-medium mb-2">
                 <Hash className="w-4 h-4 inline mr-2" />
-                Tags
+                Thẻ
               </label>
               <div className="space-y-2">
                 {tags.map((tag) => (
@@ -273,7 +273,7 @@ export const AdvancedFilters: React.FC<AdvancedFiltersProps> = ({
             <div>
               <label className="block text-sm font-medium mb-2">
                 <User className="w-4 h-4 inline mr-2" />
-                Author
+                Tác giả
               </label>
               <div className="space-y-2">
                 {authors.map((author) => (
@@ -304,7 +304,7 @@ export const AdvancedFilters: React.FC<AdvancedFiltersProps> = ({
             <div>
               <label className="block text-sm font-medium mb-2">
                 <FileText className="w-4 h-4 inline mr-2" />
-                Article Type
+                Loại bài viết
               </label>
               <div className="space-y-2">
                 {articleTypes.map((type) => (
@@ -332,12 +332,12 @@ export const AdvancedFilters: React.FC<AdvancedFiltersProps> = ({
             <div>
               <label className="block text-sm font-medium mb-2">
                 <Calendar className="w-4 h-4 inline mr-2" />
-                Date Range
+                Khoảng thời gian
               </label>
               <div className="space-y-3">
                 <div>
                   <label className="text-xs text-gray-600 dark:text-gray-400 mb-1 block">
-                    From
+                    Từ ngày
                   </label>
                   <input
                     type="date"
@@ -351,7 +351,7 @@ export const AdvancedFilters: React.FC<AdvancedFiltersProps> = ({
                 </div>
                 <div>
                   <label className="text-xs text-gray-600 dark:text-gray-400 mb-1 block">
-                    To
+                    Đến ngày
                   </label>
                   <input
                     type="date"
@@ -369,7 +369,7 @@ export const AdvancedFilters: React.FC<AdvancedFiltersProps> = ({
             {/* Featured Filter */}
             <div className="lg:col-span-3">
               <label className="block text-sm font-medium mb-2">
-                Featured Articles
+                Bài viết nổi bật
               </label>
               <div className="flex items-center gap-4">
                 <label className="flex items-center gap-2 cursor-pointer">
@@ -380,7 +380,7 @@ export const AdvancedFilters: React.FC<AdvancedFiltersProps> = ({
                     onChange={() => updateFilter('featured', null)}
                     className="w-4 h-4 text-blue-600"
                   />
-                  <span className="text-sm">All</span>
+                  <span className="text-sm">Tất cả</span>
                 </label>
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
@@ -390,7 +390,7 @@ export const AdvancedFilters: React.FC<AdvancedFiltersProps> = ({
                     onChange={() => updateFilter('featured', true)}
                     className="w-4 h-4 text-blue-600"
                   />
-                  <span className="text-sm">Featured Only</span>
+                  <span className="text-sm">Chỉ nổi bật</span>
                 </label>
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
@@ -400,7 +400,7 @@ export const AdvancedFilters: React.FC<AdvancedFiltersProps> = ({
                     onChange={() => updateFilter('featured', false)}
                     className="w-4 h-4 text-blue-600"
                   />
-                  <span className="text-sm">Not Featured</span>
+                  <span className="text-sm">Không nổi bật</span>
                 </label>
               </div>
             </div>
@@ -411,13 +411,13 @@ export const AdvancedFilters: React.FC<AdvancedFiltersProps> = ({
             <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-sm font-medium">
-                  Active Filters ({activeFilterCount})
+                  Bộ lọc đang áp dụng ({activeFilterCount})
                 </span>
                 <button
                   onClick={handleReset}
                   className="text-sm text-red-600 dark:text-red-400 hover:underline"
                 >
-                  Clear All
+                  Xóa tất cả
                 </button>
               </div>
               <div className="flex flex-wrap gap-2">

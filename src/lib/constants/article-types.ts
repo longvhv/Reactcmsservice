@@ -19,6 +19,9 @@ import {
   BookOpen,
   Award,
   MessageSquare,
+  BarChart3,
+  FileType,
+  HelpCircle,
 } from 'lucide-react';
 
 export type ArticleType =
@@ -33,9 +36,11 @@ export type ArticleType =
   | 'personnel'
   | 'download'
   | 'blog'
-  | 'tutorial'
   | 'press-release'
-  | 'interview';
+  | 'interview'
+  | 'infographic'
+  | 'pdf'
+  | 'faq';
 
 export interface ArticleTypeConfig {
   value: ArticleType;
@@ -159,16 +164,6 @@ export const ARTICLE_TYPES: Record<ArticleType, ArticleTypeConfig> = {
     description: 'Bài viết blog',
     descriptionKey: 'articleTypes.blogDesc',
   },
-  tutorial: {
-    value: 'tutorial',
-    label: 'Hướng dẫn',
-    labelKey: 'articleTypes.tutorial',
-    icon: BookOpen,
-    color: 'text-violet-600',
-    bgColor: 'bg-violet-100 dark:bg-violet-900/30',
-    description: 'Bài hướng dẫn',
-    descriptionKey: 'articleTypes.tutorialDesc',
-  },
   'press-release': {
     value: 'press-release',
     label: 'Thông cáo báo chí',
@@ -188,6 +183,36 @@ export const ARTICLE_TYPES: Record<ArticleType, ArticleTypeConfig> = {
     bgColor: 'bg-emerald-100 dark:bg-emerald-900/30',
     description: 'Bài phỏng vấn',
     descriptionKey: 'articleTypes.interviewDesc',
+  },
+  infographic: {
+    value: 'infographic',
+    label: 'Infographic',
+    labelKey: 'articleTypes.infographic',
+    icon: BarChart3,
+    color: 'text-sky-600',
+    bgColor: 'bg-sky-100 dark:bg-sky-900/30',
+    description: 'Biểu đồ thông tin trực quan',
+    descriptionKey: 'articleTypes.infographicDesc',
+  },
+  pdf: {
+    value: 'pdf',
+    label: 'PDF',
+    labelKey: 'articleTypes.pdf',
+    icon: FileType,
+    color: 'text-rose-600',
+    bgColor: 'bg-rose-100 dark:bg-rose-900/30',
+    description: 'Tài liệu PDF',
+    descriptionKey: 'articleTypes.pdfDesc',
+  },
+  faq: {
+    value: 'faq',
+    label: 'FAQ',
+    labelKey: 'articleTypes.faq',
+    icon: HelpCircle,
+    color: 'text-cyan-600',
+    bgColor: 'bg-cyan-100 dark:bg-cyan-900/30',
+    description: 'Câu hỏi thường gặp',
+    descriptionKey: 'articleTypes.faqDesc',
   },
 };
 

@@ -1,607 +1,165 @@
-# 🔄 Migration Guide: VHV CMS → VHV Platform Framework
+# Migration Guide: React Router to RouterContext
 
-Hướng dẫn chi tiết về việc chuyển đổi CMS từ architecture cũ sang **VHV Platform React Framework**.
+## ✅ Completed Migration
 
-## 📋 Tổng Quan
+All components have been migrated from `next/navigation` to use the custom `RouterContext` shim layer for Figma Make compatibility.
 
-### Thay Đổi Chính
+## Changed Imports
 
-| Trước | Sau | Lý do |
-|-------|-----|-------|
-| Component-based | **Module-based** | Auto-discovery, better organization |
-| Custom Auth | **@longvhv/auth** | JWT, OAuth, secure tokens |
-| Custom API client | **@longvhv/api-client** | Interceptors, error handling |
-| Custom Toast | **@longvhv/notifications** | react-hot-toast integration |
-| Manual state | **@longvhv/query** | React Query caching |
-| Custom theme | **@longvhv/theme** | Dark/Light mode system |
-| Custom i18n | **@longvhv/i18n** | 6 languages support |
-
-## 🏗️ Kiến Trúc Mới
-
-### 1. Module System
-
-**Trước:**
+### Before (Next.js only):
 ```tsx
-// App.tsx
-<Routes>
-  <Route path="/" element={<Dashboard />} />
-  <Route path="/articles" element={<Articles />} />
-</Routes>
+import { useRouter, usePathname, useParams } from 'next/navigation';
+import Link from 'next/link';
 ```
 
-**Sau:**
+### After (Figma Make compatible):
 ```tsx
-// modules/dashboard/index.ts
-export const dashboardModule: ModuleConfig = {
-  id: 'dashboard',
-  name: 'Dashboard',
-  routes,
-  permissions: ['dashboard.view'],
-};
-
-// App.tsx
-<AppCore modules={[dashboardModule, articlesModule]} />
+import { useRouter, usePathname, useParams } from '../contexts/RouterContext';
+// No Link component needed - use router.push() or button onClick
 ```
 
-**Lợi ích:**
-- ✅ Auto-discovery modules
-- ✅ Dependency management
-- ✅ Hot Module Replacement
-- ✅ Independent development
-- ✅ Permission-based loading
+## Updated Components
 
-### 2. Authentication
+### Core Components
+- ✅ `/components/Dashboard.tsx`
+- ✅ `/components/ArticleManagement.tsx`
+- ✅ `/components/CategoryManagement.tsx`
+- ✅ `/components/SidebarNext.tsx`
+- ✅ `/components/Header.tsx`
 
-**Trước:**
+### App Components
+- ✅ `/app/page/cms/dashboard/DashboardComponent.tsx`
+- ✅ `/app/page/cms/articles/ArticlesComponent.tsx`
+- ✅ `/app/page/cms/articles/[id]/ArticleDetailComponent.tsx`
+- ✅ `/app/page/cms/categories/CategoriesComponent.tsx`
+- ✅ `/app/page/cms/categories/[id]/CategoryDetailComponent.tsx`
+
+### Shim Pages
+- ✅ All 35+ pages in `/pages/page/cms/*`
+
+## Usage Examples
+
+### Navigation
 ```tsx
-// Custom AuthContext
-const AuthContext = createContext();
+const router = useRouter();
 
-function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+// Navigate to a page
+router.push('/page/cms/articles');
+
+// Navigate with state (Figma Make)
+router.push('/page/cms/articles/123');
+
+// Go back
+router.back();
+```
+
+### Getting Current Route
+```tsx
+const pathname = usePathname();
+
+// Check current path
+if (pathname === '/page/cms/dashboard') {
+  // Do something
+}
+```
+
+### Getting Route Parameters
+```tsx
+// In /pages/page/cms/articles/[id].tsx
+const params = useParams();
+const articleId = params.id;
+```
+
+## How RouterContext Works
+
+The `RouterContext` provides a unified interface that works in both:
+
+1. **Figma Make**: Uses state-based routing from `/App.tsx`
+2. **Next.js**: Falls back to browser navigation (future)
+
+### Implementation Details
+
+```tsx
+// contexts/RouterContext.tsx
+export function useRouter() {
+  const context = useContext(RouterContext);
   
-  const login = async (credentials) => {
-    const response = await fetch('/api/login', {
-      method: 'POST',
-      body: JSON.stringify(credentials),
-    });
-    const data = await response.json();
-    setUser(data.user);
-    localStorage.setItem('token', data.token);
+  if (!context) {
+    // Fallback for Next.js
+    return {
+      push: (path: string) => {
+        window.location.href = path;
+      },
+      back: () => {
+        window.history.back();
+      },
+    };
+  }
+
+  // Figma Make implementation
+  return {
+    push: (path: string) => context.navigate(path),
+    back: () => window.history.back(),
   };
-  
-  return (
-    <AuthContext.Provider value={{ user, login }}>
-      {children}
-    </AuthContext.Provider>
-  );
 }
 ```
 
-**Sau:**
-```tsx
-// Using @longvhv/auth
-import { AuthProvider, useAuth } from '@longvhv/auth';
+## Important Notes
 
-function App() {
-  return (
-    <AuthProvider
-      apiUrl={process.env.VITE_API_URL}
-      onLoginSuccess={() => console.log('Logged in')}
-    >
-      <YourApp />
-    </AuthProvider>
-  );
-}
+⚠️ **Do NOT import from next/navigation in components**
+- All components should use `/contexts/RouterContext`
+- This ensures Figma Make compatibility
 
-function MyComponent() {
-  const { user, login, logout, isAuthenticated } = useAuth();
-  
-  return (
-    <div>
-      {isAuthenticated ? (
-        <h1>Welcome {user.firstName}</h1>
-      ) : (
-        <LoginForm onSubmit={login} />
-      )}
-    </div>
-  );
-}
-```
+⚠️ **Link Component**
+- Don't use `<Link>` from `next/link`
+- Use `<button onClick={() => router.push('/path')}>` instead
+- Or use `<a href="/path" onClick={(e) => { e.preventDefault(); router.push('/path'); }}>`
 
-**Lợi ích:**
-- ✅ JWT token management
-- ✅ OAuth support (Google, GitHub)
-- ✅ Automatic token refresh
-- ✅ Secure storage
-- ✅ Protected routes component
+⚠️ **Route Paths**
+- All CMS routes use `/page/cms/` prefix
+- Example: `/page/cms/dashboard`, `/page/cms/articles`, etc.
 
-### 3. Data Fetching
+## Future Migration to Next.js
 
-**Trước:**
-```tsx
-function ArticleList() {
-  const [articles, setArticles] = useState([]);
-  const [loading, setLoading] = useState(true);
-  
-  useEffect(() => {
-    fetch('/api/articles')
-      .then(res => res.json())
-      .then(data => {
-        setArticles(data);
-        setLoading(false);
-      });
-  }, []);
-  
-  if (loading) return <div>Loading...</div>;
-  
-  return <ul>{articles.map(a => <li>{a.title}</li>)}</ul>;
-}
-```
+When ready to migrate to pure Next.js:
 
-**Sau:**
-```tsx
-import { useFetch } from '@longvhv/query';
+1. Replace all `import { useRouter } from '../contexts/RouterContext'` with `import { useRouter } from 'next/navigation'`
+2. Replace all `router.push()` calls with Next.js router
+3. Add back `<Link>` components from `next/link` where appropriate
+4. Remove `/contexts/RouterContext.tsx`
+5. Remove `/pages` shim layer
+6. Remove `/App.tsx`
 
-function ArticleList() {
-  const { data: articles, isLoading } = useFetch(
-    'articles',
-    () => api.get('/articles')
-  );
-  
-  if (isLoading) return <Spinner />;
-  
-  return <ul>{articles.map(a => <li>{a.title}</li>)}</ul>;
-}
-```
+## Testing
 
-**Lợi ích:**
-- ✅ Automatic caching
-- ✅ Background refetch
-- ✅ Optimistic updates
-- ✅ Pagination support
-- ✅ Error handling
-- ✅ Loading states
-
-### 4. Notifications
-
-**Trước:**
-```tsx
-// Custom toast implementation
-const [toast, setToast] = useState(null);
-
-const showToast = (message) => {
-  setToast(message);
-  setTimeout(() => setToast(null), 3000);
-};
-
-return (
-  <>
-    {toast && <div className="toast">{toast}</div>}
-    <button onClick={() => showToast('Saved!')}>Save</button>
-  </>
-);
-```
-
-**Sau:**
-```tsx
-import { useNotifications } from '@longvhv/notifications';
-
-function MyComponent() {
-  const notifications = useNotifications();
-  
-  const handleSave = async () => {
-    await notifications.promise(
-      api.save(data),
-      {
-        loading: 'Saving...',
-        success: 'Saved successfully!',
-        error: 'Failed to save',
-      }
-    );
-  };
-  
-  return <button onClick={handleSave}>Save</button>;
-}
-```
-
-**Lợi ích:**
-- ✅ Promise-based notifications
-- ✅ 4 types (success, error, warning, info)
-- ✅ Auto-dismiss
-- ✅ Customizable position
-- ✅ Beautiful animations
-
-### 5. Theme Management
-
-**Trước:**
-```tsx
-const [isDark, setIsDark] = useState(false);
-
-const toggleTheme = () => {
-  setIsDark(!isDark);
-  document.body.classList.toggle('dark');
-};
-
-return (
-  <button onClick={toggleTheme}>
-    {isDark ? 'Light' : 'Dark'}
-  </button>
-);
-```
-
-**Sau:**
-```tsx
-import { useTheme } from '@longvhv/theme';
-
-function ThemeToggle() {
-  const { isDark, toggleMode } = useTheme();
-  
-  return (
-    <button onClick={toggleMode}>
-      {isDark ? '☀️ Light' : '🌙 Dark'}
-    </button>
-  );
-}
-
-// In App.tsx
-<ThemeProvider defaultMode="system">
-  <YourApp />
-</ThemeProvider>
-```
-
-**Lợi ích:**
-- ✅ System preference detection
-- ✅ localStorage persistence
-- ✅ CSS variable integration
-- ✅ Smooth transitions
-
-### 6. Internationalization
-
-**Trước:**
-```tsx
-const translations = {
-  en: { hello: 'Hello' },
-  vi: { hello: 'Xin chào' },
-};
-
-const [lang, setLang] = useState('vi');
-
-return <h1>{translations[lang].hello}</h1>;
-```
-
-**Sau:**
-```tsx
-import { useTranslation } from '@longvhv/i18n';
-
-function MyComponent() {
-  const { t, language, setLanguage } = useTranslation();
-  
-  return (
-    <>
-      <h1>{t('hello')}</h1>
-      <select value={language} onChange={(e) => setLanguage(e.target.value)}>
-        <option value="vi">Tiếng Việt</option>
-        <option value="en">English</option>
-      </select>
-    </>
-  );
-}
-
-// In App.tsx
-<I18nProvider defaultLanguage="vi">
-  <YourApp />
-</I18nProvider>
-```
-
-**Lợi ích:**
-- ✅ 6 languages support
-- ✅ 200+ translations
-- ✅ Type-safe keys
-- ✅ Easy to extend
-
-## 📦 Cấu Trúc Thư Mục
-
-### Trước
-```
-src/
-├── components/
-│   ├── Dashboard.tsx
-│   ├── ArticleManagement.tsx
-│   ├── MediaManagement.tsx
-│   └── ...
-├── App.tsx
-└── main.tsx
-```
-
-### Sau
-```
-src/
-├── modules/               # Module-based architecture
-│   ├── dashboard/
-│   │   ├── index.ts      # Module config
-│   │   ├── routes.tsx    # Routes
-│   │   ├── pages/        # Page components
-│   │   │   └── DashboardPage.tsx
-│   │   └── components/   # Module-specific components
-│   ├── articles/
-│   │   ├── index.ts
-│   │   ├── routes.tsx
-│   │   └── pages/
-│   │       ├── ArticleListPage.tsx
-│   │       └── ArticleEditorPage.tsx
-│   └── media/
-│       ├── index.ts
-│       ├── routes.tsx
-│       └── pages/
-│           └── MediaLibraryPage.tsx
-├── components/           # Shared components
-│   └── Layout.tsx
-├── services/             # API services
-├── types/                # TypeScript types
-├── App.tsx               # Application entry
-└── main.tsx              # Entry point
-```
-
-## 🔄 Migration Steps
-
-### Step 1: Setup Dependencies
-
+### Test in Figma Make
 ```bash
-# Install framework packages
-pnpm add @longvhv/core @longvhv/auth @longvhv/query
-pnpm add @longvhv/theme @longvhv/notifications @longvhv/i18n
-pnpm add @longvhv/ui-components @longvhv/shared
+# Current setup - works with shim layer
+npm run dev
+# Navigate to http://localhost:3000
 ```
 
-### Step 2: Create Module Structure
+### Test Navigation
+1. Click sidebar items - should navigate without page refresh
+2. Use browser back/forward - should work
+3. Direct URL access - should work
 
-```bash
-# Create modules directory
-mkdir -p src/modules
+## Troubleshooting
 
-# Create first module
-mkdir -p src/modules/dashboard/{pages,components}
-touch src/modules/dashboard/index.ts
-touch src/modules/dashboard/routes.tsx
-touch src/modules/dashboard/pages/DashboardPage.tsx
-```
+### Error: "invariant expected app router to be mounted"
+- This means a component is still importing from `next/navigation`
+- Search for: `from 'next/navigation'` or `from 'next/link'`
+- Replace with RouterContext imports
 
-### Step 3: Convert Components to Modules
+### Error: "Cannot read property 'push' of undefined"
+- Router context not available
+- Make sure component is wrapped in `<RouterProvider>` (done in `/App.tsx`)
 
-**Old Component:**
-```tsx
-// components/Dashboard.tsx
-export function Dashboard() {
-  return <div>Dashboard</div>;
-}
-```
+### Navigation not working
+- Check console for errors
+- Verify route paths start with `/page/cms/`
+- Verify route is registered in `/App.tsx` routing logic
 
-**New Module:**
-```tsx
-// modules/dashboard/index.ts
-export const dashboardModule: ModuleConfig = {
-  id: 'dashboard',
-  name: 'Dashboard',
-  routes,
-};
+## Questions?
 
-// modules/dashboard/routes.tsx
-export const routes: RouteObject[] = [
-  { path: '/', element: <DashboardPage /> },
-];
-
-// modules/dashboard/pages/DashboardPage.tsx
-function DashboardPage() {
-  return <div>Dashboard</div>;
-}
-export default DashboardPage;
-```
-
-### Step 4: Update App.tsx
-
-```tsx
-import { AppCore } from '@longvhv/core';
-import { ThemeProvider } from '@longvhv/theme';
-import { QueryProvider } from '@longvhv/query';
-import { AuthProvider } from '@longvhv/auth';
-
-// Import modules
-import dashboardModule from './modules/dashboard';
-import articlesModule from './modules/articles';
-
-const modules = [dashboardModule, articlesModule];
-
-function App() {
-  return (
-    <ThemeProvider>
-      <QueryProvider>
-        <AuthProvider apiUrl={import.meta.env.VITE_API_URL}>
-          <Router>
-            <AppCore modules={modules}>
-              <Layout />
-            </AppCore>
-          </Router>
-        </AuthProvider>
-      </QueryProvider>
-    </ThemeProvider>
-  );
-}
-```
-
-### Step 5: Update Layout
-
-Use framework packages in Layout:
-
-```tsx
-import { useAuth } from '@longvhv/auth';
-import { useTheme } from '@longvhv/theme';
-import { useTranslation } from '@longvhv/i18n';
-```
-
-### Step 6: Update API Calls
-
-Replace fetch with `@longvhv/query`:
-
-```tsx
-// Before
-useEffect(() => {
-  fetch('/api/articles').then(...)
-}, []);
-
-// After
-const { data } = useFetch('articles', () => api.get('/articles'));
-```
-
-### Step 7: Update Notifications
-
-Replace custom toast with `@longvhv/notifications`:
-
-```tsx
-// Before
-setToast('Saved!');
-
-// After
-notifications.success('Saved!');
-```
-
-## 🎯 Best Practices
-
-### 1. Module Organization
-
-✅ **DO:**
-- One feature per module
-- Keep modules independent
-- Use clear naming conventions
-- Define permissions per module
-
-❌ **DON'T:**
-- Mix unrelated features
-- Create circular dependencies
-- Use hardcoded paths
-- Skip permission definitions
-
-### 2. Component Structure
-
-✅ **DO:**
-```tsx
-// Good: Using framework packages
-import { useFetch } from '@longvhv/query';
-import { useAuth } from '@longvhv/auth';
-import { Button } from '@longvhv/ui-components';
-
-function MyPage() {
-  const { data } = useFetch('key', fetcher);
-  const { user } = useAuth();
-  
-  return <Button onClick={...}>Click</Button>;
-}
-```
-
-❌ **DON'T:**
-```tsx
-// Bad: Reinventing the wheel
-function MyPage() {
-  const [data, setData] = useState();
-  const [user, setUser] = useState();
-  
-  useEffect(() => {
-    fetch(...).then(setData);
-  }, []);
-  
-  return <button className="...">Click</button>;
-}
-```
-
-### 3. State Management
-
-✅ **DO:**
-- Use `@longvhv/query` for server state
-- Use `@longvhv/context` for tenant context
-- Use React hooks for local state
-
-❌ **DON'T:**
-- Create custom data fetching
-- Mix server and client state
-- Duplicate context providers
-
-## 🐛 Troubleshooting
-
-### Issue: Module not discovered
-
-**Solution:**
-```tsx
-// Make sure module is exported as default
-export default myModule;
-
-// And imported in App.tsx
-import myModule from './modules/my-module';
-```
-
-### Issue: Auth not working
-
-**Solution:**
-```tsx
-// Ensure AuthProvider wraps entire app
-<AuthProvider apiUrl="...">
-  <Router>
-    <AppCore modules={modules}>
-      <Layout />
-    </AppCore>
-  </Router>
-</AuthProvider>
-```
-
-### Issue: Dark mode not working
-
-**Solution:**
-```tsx
-// Wrap app with ThemeProvider
-<ThemeProvider defaultMode="system">
-  <YourApp />
-</ThemeProvider>
-
-// Ensure Tailwind config has darkMode
-// tailwind.config.js
-module.exports = {
-  darkMode: 'class',
-  // ...
-};
-```
-
-## 📚 Resources
-
-- [Framework Documentation](https://github.com/vhvplatform/react-framework)
-- [API Reference](./docs/API.md)
-- [Examples](./docs/EXAMPLES.md)
-- [TypeScript Guide](./docs/TYPESCRIPT.md)
-
-## 🎉 Benefits After Migration
-
-✅ **Developer Experience:**
-- Auto-discovery modules
-- Hot Module Replacement
-- Type-safe APIs
-- Reusable packages
-
-✅ **Performance:**
-- Automatic code splitting
-- React Query caching
-- Optimized builds
-- Lazy loading
-
-✅ **Maintainability:**
-- Clear module boundaries
-- Shared utilities
-- Consistent patterns
-- Easy testing
-
-✅ **Features:**
-- Dark mode built-in
-- Multi-language support
-- Professional UI components
-- Enterprise authentication
-
----
-
-**Happy Migrating! 🚀**
+See `/ARCHITECTURE.md` for full architecture details.

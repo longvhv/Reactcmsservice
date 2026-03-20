@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { X, Save, Plus, AlertCircle, Link as LinkIcon, Eye, EyeOff, Folder, Tag, FileText } from 'lucide-react';
+import { X, Save, Plus, AlertCircle, Link as LinkIcon, Eye, EyeOff, Folder, Tag } from 'lucide-react';
 import { Card } from './Card';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -37,15 +37,15 @@ interface Category {
 }
 
 const articleTypeOptions = [
-  { value: 'news', label: 'Tin tức', icon: FileText },
-  { value: 'video', label: 'Video', icon: FileText },
-  { value: 'gallery', label: 'Thư viện ảnh', icon: FileText },
-  { value: 'legal', label: 'Văn bản pháp luật', icon: FileText },
-  { value: 'job', label: 'Tuyển dụng', icon: FileText },
-  { value: 'podcast', label: 'Podcast', icon: FileText },
-  { value: 'event', label: 'Sự kiện', icon: FileText },
-  { value: 'staff', label: 'Nhân sự', icon: FileText },
-  { value: 'download', label: 'Tải xuống', icon: FileText },
+  { value: 'news', label: 'Tin tức' },
+  { value: 'video', label: 'Video' },
+  { value: 'gallery', label: 'Thư viện ảnh' },
+  { value: 'legal', label: 'Văn bản pháp luật' },
+  { value: 'job', label: 'Tuyển dụng' },
+  { value: 'podcast', label: 'Podcast' },
+  { value: 'event', label: 'Sự kiện' },
+  { value: 'staff', label: 'Nhân sự' },
+  { value: 'download', label: 'Tải xuống' },
 ];
 
 export function CategoryFormModal({ 

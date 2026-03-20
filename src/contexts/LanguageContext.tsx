@@ -38,6 +38,9 @@ const translationsMap: Record<Language, Record<string, any>> = {
   ko: koTranslations,
 };
 
+// Export for backward compatibility (used by ErrorBoundary)
+export const translations = translationsMap;
+
 export function LanguageProvider({ children }: LanguageProviderProps) {
   const [language, setLanguageState] = useState<Language>(() => {
     const saved = localStorage.getItem('cms-language');

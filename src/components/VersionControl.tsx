@@ -50,9 +50,9 @@ export function VersionControl({
       content: 'Content version 5...',
       author: 'Nguyễn Văn A',
       timestamp: new Date(Date.now() - 1 * 60 * 60 * 1000),
-      changeLog: 'Published final version with SEO improvements',
+      changeLog: 'Xuất bản phiên bản cuối với cải thiện SEO',
       changes: [
-        { field: 'meta_description', oldValue: 'Old description', newValue: 'Optimized SEO description' },
+        { field: 'meta_description', oldValue: 'Mô tả cũ', newValue: 'Mô tả SEO tối ưu' },
         { field: 'keywords', oldValue: 'react, hooks', newValue: 'react, hooks, tutorial, 2024' },
       ],
       status: 'published',
@@ -65,10 +65,10 @@ export function VersionControl({
       content: 'Content version 4...',
       author: 'Editor B',
       timestamp: new Date(Date.now() - 3 * 60 * 60 * 1000),
-      changeLog: 'Added code examples and improved formatting',
+      changeLog: 'Thêm ví dụ mã nguồn và cải thiện định dạng',
       changes: [
-        { field: 'content', oldValue: 'Basic content', newValue: 'Added 5 code examples' },
-        { field: 'formatting', oldValue: 'Plain text', newValue: 'Markdown with syntax highlighting' },
+        { field: 'content', oldValue: 'Nội dung cơ bản', newValue: 'Thêm 5 ví dụ mã nguồn' },
+        { field: 'formatting', oldValue: 'Văn bản thuần', newValue: 'Markdown với highlight cú pháp' },
       ],
       status: 'draft',
       isCurrent: false,
@@ -80,10 +80,10 @@ export function VersionControl({
       content: 'Content version 3...',
       author: 'Nguyễn Văn A',
       timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
-      changeLog: 'Expanded introduction section',
+      changeLog: 'Mở rộng phần giới thiệu',
       changes: [
         { field: 'title', oldValue: 'React Hooks Guide', newValue: 'Hướng dẫn React Hooks' },
-        { field: 'intro', oldValue: '1 paragraph', newValue: '3 paragraphs' },
+        { field: 'intro', oldValue: '1 đoạn văn', newValue: '3 đoạn văn' },
       ],
       status: 'draft',
       isCurrent: false,
@@ -95,9 +95,9 @@ export function VersionControl({
       content: 'Content version 2...',
       author: 'Editor C',
       timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
-      changeLog: 'Fixed grammar and typos',
+      changeLog: 'Sửa lỗi ngữ pháp và chính tả',
       changes: [
-        { field: 'grammar', oldValue: '12 errors', newValue: '0 errors' },
+        { field: 'grammar', oldValue: '12 lỗi', newValue: '0 lỗi' },
       ],
       status: 'draft',
       isCurrent: false,
@@ -109,7 +109,7 @@ export function VersionControl({
       content: 'Content version 1...',
       author: 'Nguyễn Văn A',
       timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
-      changeLog: 'Initial draft',
+      changeLog: 'Bản nháp đầu tiên',
       changes: [],
       status: 'draft',
       isCurrent: false,
@@ -151,9 +151,9 @@ export function VersionControl({
             <GitBranch className="w-6 h-6 text-purple-600" />
           </div>
           <div>
-            <h2 className="text-2xl">Version Control</h2>
+            <h2 className="text-2xl">Quản lý phiên bản</h2>
             <p className="text-sm text-muted-foreground">
-              {versions.length} versions • Current: v{currentVersion.version}
+              {versions.length} phiên bản • Hiện tại: v{currentVersion.version}
             </p>
           </div>
         </div>
@@ -170,7 +170,7 @@ export function VersionControl({
             `}
           >
             <GitCommit className="w-4 h-4" />
-            Compare Mode
+            Chế độ so sánh
           </button>
 
           {selectedVersions.length === 2 && (
@@ -179,13 +179,13 @@ export function VersionControl({
               className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg shadow-blue-500/30"
             >
               <Eye className="w-4 h-4" />
-              Compare Selected
+              So sánh đã chọn
             </button>
           )}
 
           <button className="flex items-center gap-2 px-4 py-2 rounded-xl bg-muted/60 hover:bg-muted transition-all border border-border/40">
             <Download className="w-4 h-4" />
-            Export
+            Xuất
           </button>
         </div>
       </div>
@@ -201,7 +201,7 @@ export function VersionControl({
             <Info className="w-5 h-5 text-blue-600" />
             <div className="flex-1">
               <p className="text-sm">
-                Select 2 versions to compare ({selectedVersions.length}/2 selected)
+                Chọn 2 phiên bản để so sánh ({selectedVersions.length}/2 đã chọn)
               </p>
             </div>
             {selectedVersions.length > 0 && (
@@ -209,7 +209,7 @@ export function VersionControl({
                 onClick={() => setSelectedVersions([])}
                 className="text-sm text-blue-600 hover:text-blue-700 transition-colors"
               >
-                Clear selection
+                Bỏ chọn
               </button>
             )}
           </div>
@@ -220,7 +220,7 @@ export function VersionControl({
         {/* Version Timeline */}
         <div className="col-span-5 space-y-3">
           <h3 className="text-sm font-medium text-muted-foreground mb-4">
-            Version History
+            Lịch sử phiên bản
           </h3>
 
           <div className="space-y-3 relative">
@@ -275,7 +275,7 @@ export function VersionControl({
                       }
                     `}>
                       v{version.version}
-                      {version.isCurrent && ' • Current'}
+                      {version.isCurrent && ' • Hiện tại'}
                     </span>
                     <span className={`
                       px-2 py-1 rounded-lg text-xs
@@ -283,7 +283,7 @@ export function VersionControl({
                       ${version.status === 'draft' ? 'bg-yellow-500/10 text-yellow-600' : ''}
                       ${version.status === 'archived' ? 'bg-gray-500/10 text-gray-600' : ''}
                     `}>
-                      {version.status}
+                      {version.status === 'published' ? 'Đã xuất bản' : version.status === 'draft' ? 'Nháp' : 'Lưu trữ'}
                     </span>
                   </div>
                 </div>
@@ -308,7 +308,7 @@ export function VersionControl({
                 {version.changes.length > 0 && (
                   <div className="flex items-center gap-2 text-xs text-muted-foreground">
                     <Edit3 className="w-3 h-3" />
-                    <span>{version.changes.length} changes</span>
+                    <span>{version.changes.length} thay đổi</span>
                   </div>
                 )}
 
@@ -322,7 +322,7 @@ export function VersionControl({
                       className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-muted/60 hover:bg-muted transition-all text-xs"
                     >
                       <Eye className="w-3 h-3" />
-                      Preview
+                      Xem trước
                     </button>
                     <button
                       onClick={(e) => {
@@ -332,7 +332,7 @@ export function VersionControl({
                       className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-blue-500/10 text-blue-600 hover:bg-blue-500/20 transition-all text-xs border border-blue-500/20"
                     >
                       <RotateCcw className="w-3 h-3" />
-                      Restore
+                      Khôi phục
                     </button>
                   </div>
                 )}
@@ -348,10 +348,10 @@ export function VersionControl({
               <div className="flex items-start justify-between mb-6">
                 <div>
                   <div className="flex items-center gap-2 mb-2">
-                    <h3 className="text-xl font-medium">Version {selectedVersions.length > 0 ? versions.find(v => v.id === selectedVersions[0])?.version : ''}</h3>
+                    <h3 className="text-xl font-medium">Phiên bản {selectedVersions.length > 0 ? versions.find(v => v.id === selectedVersions[0])?.version : ''}</h3>
                     {selectedVersions.length > 0 && versions.find(v => v.id === selectedVersions[0])?.isCurrent && (
                       <span className="px-2 py-1 rounded-lg bg-green-500/10 text-green-600 text-xs font-medium border border-green-500/20">
-                        Current
+                        Hiện tại
                       </span>
                     )}
                   </div>
@@ -386,7 +386,7 @@ export function VersionControl({
                 <div className="mb-6">
                   <h4 className="text-sm font-medium mb-3 flex items-center gap-2">
                     <Edit3 className="w-4 h-4" />
-                    Changes ({selectedVersions.length > 0 && versions.find(v => v.id === selectedVersions[0])?.changes.length})
+                    Thay đổi ({selectedVersions.length > 0 && versions.find(v => v.id === selectedVersions[0])?.changes.length})
                   </h4>
 
                   <div className="space-y-2">
@@ -402,13 +402,13 @@ export function VersionControl({
                         </div>
                         <div className="grid grid-cols-2 gap-3 text-sm">
                           <div>
-                            <div className="text-xs text-muted-foreground mb-1">Before:</div>
+                            <div className="text-xs text-muted-foreground mb-1">Trước:</div>
                             <div className="p-2 rounded bg-red-500/10 border border-red-500/20 text-red-600">
                               {change.oldValue}
                             </div>
                           </div>
                           <div>
-                            <div className="text-xs text-muted-foreground mb-1">After:</div>
+                            <div className="text-xs text-muted-foreground mb-1">Sau:</div>
                             <div className="p-2 rounded bg-green-500/10 border border-green-500/20 text-green-600">
                               {change.newValue}
                             </div>
@@ -424,7 +424,7 @@ export function VersionControl({
               <div>
                 <h4 className="text-sm font-medium mb-3 flex items-center gap-2">
                   <FileText className="w-4 h-4" />
-                  Content Preview
+                  Xem trước nội dung
                 </h4>
                 <div className="p-4 rounded-xl bg-muted/30 border border-border/40">
                   <h5 className="font-medium mb-3">{selectedVersions.length > 0 && versions.find(v => v.id === selectedVersions[0])?.title}</h5>
@@ -442,11 +442,11 @@ export function VersionControl({
                     className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg shadow-blue-500/30"
                   >
                     <RotateCcw className="w-4 h-4" />
-                    Restore This Version
+                    Khôi phục phiên bản này
                   </button>
                   <button className="flex items-center gap-2 px-4 py-2 rounded-xl bg-muted/60 hover:bg-muted transition-all border border-border/40">
                     <Copy className="w-4 h-4" />
-                    Duplicate
+                    Nhân bản
                   </button>
                 </div>
               )}
@@ -454,7 +454,7 @@ export function VersionControl({
           ) : (
             <div className="glass-card p-12 text-center">
               <GitBranch className="w-12 h-12 mx-auto mb-3 text-muted-foreground/50" />
-              <p className="text-muted-foreground">Select a version to view details</p>
+              <p className="text-muted-foreground">Chọn một phiên bản để xem chi tiết</p>
             </div>
           )}
         </div>

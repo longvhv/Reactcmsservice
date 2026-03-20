@@ -123,10 +123,10 @@ const AnalyticsPage: React.FC = () => {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Analytics & Statistics
+            Phân tích & Thống kê
           </h1>
           <p className="text-gray-600 dark:text-gray-400 mt-1">
-            Track your content performance
+            Theo dõi hiệu suất nội dung của bạn
           </p>
         </div>
 
@@ -137,10 +137,10 @@ const AnalyticsPage: React.FC = () => {
             onChange={(e) => setTimeRange(e.target.value as any)}
             className="px-4 py-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
           >
-            <option value="7d">Last 7 days</option>
-            <option value="30d">Last 30 days</option>
-            <option value="90d">Last 90 days</option>
-            <option value="1y">Last year</option>
+            <option value="7d">7 ngày qua</option>
+            <option value="30d">30 ngày qua</option>
+            <option value="90d">90 ngày qua</option>
+            <option value="1y">Năm qua</option>
           </select>
 
           <button
@@ -148,12 +148,12 @@ const AnalyticsPage: React.FC = () => {
             className="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
           >
             <RefreshCw className="w-5 h-5" />
-            Refresh
+            Làm mới
           </button>
 
           <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors">
             <Download className="w-5 h-5" />
-            Export
+            Xuất báo cáo
           </button>
         </div>
       </div>
@@ -161,28 +161,28 @@ const AnalyticsPage: React.FC = () => {
       {/* Summary Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
-          title="Total Views"
+          title="Tổng lượt xem"
           value={analytics?.summary.totalViews || 0}
           change={analytics?.summary.viewsChange || 0}
           icon={<Eye className="w-6 h-6 text-blue-600" />}
           color="blue"
         />
         <StatCard
-          title="Total Likes"
+          title="Tổng lượt thích"
           value={analytics?.summary.totalLikes || 0}
           change={analytics?.summary.likesChange || 0}
           icon={<ThumbsUp className="w-6 h-6 text-purple-600" />}
           color="purple"
         />
         <StatCard
-          title="Total Comments"
+          title="Tổng bình luận"
           value={analytics?.summary.totalComments || 0}
           change={analytics?.summary.commentsChange || 0}
           icon={<MessageCircle className="w-6 h-6 text-green-600" />}
           color="green"
         />
         <StatCard
-          title="Total Shares"
+          title="Tổng chia sẻ"
           value={analytics?.summary.totalShares || 0}
           change={analytics?.summary.sharesChange || 0}
           icon={<Share2 className="w-6 h-6 text-orange-600" />}
@@ -192,7 +192,7 @@ const AnalyticsPage: React.FC = () => {
 
       {/* Views Over Time Chart */}
       <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
-        <h2 className="text-xl font-bold mb-6">Views Over Time</h2>
+        <h2 className="text-xl font-bold mb-6">Lượt xem theo thời gian</h2>
         <ResponsiveContainer width="100%" height={300}>
           <AreaChart data={analytics?.viewsOverTime}>
             <defs>
@@ -228,7 +228,7 @@ const AnalyticsPage: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Articles by Type */}
         <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
-          <h2 className="text-xl font-bold mb-6">Articles by Type</h2>
+          <h2 className="text-xl font-bold mb-6">Bài viết theo loại</h2>
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
               <Pie
@@ -252,7 +252,7 @@ const AnalyticsPage: React.FC = () => {
 
         {/* Traffic Sources */}
         <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
-          <h2 className="text-xl font-bold mb-6">Traffic Sources</h2>
+          <h2 className="text-xl font-bold mb-6">Nguồn truy cập</h2>
           <div className="space-y-4">
             {analytics?.trafficSources.map((source: any) => (
               <div key={source.source}>
@@ -277,26 +277,26 @@ const AnalyticsPage: React.FC = () => {
       {/* Top Articles */}
       <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
         <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-xl font-bold">Top Performing Articles</h2>
+          <h2 className="text-xl font-bold">Bài viết nổi bật</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50 dark:bg-gray-900/50">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
-                  Rank
+                  Hạng
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
-                  Article
+                  Bài viết
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
-                  Type
+                  Loại
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
-                  Views
+                  Lượt xem
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
-                  Likes
+                  Lượt thích
                 </th>
               </tr>
             </thead>

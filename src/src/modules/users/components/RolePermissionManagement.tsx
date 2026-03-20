@@ -180,7 +180,7 @@ export const RolePermissionManagement: React.FC = () => {
     },
     {
       onSuccess: () => {
-        notifications.success('Role saved successfully');
+        notifications.success('Đã lưu vai trò thành công');
         setShowEditModal(false);
         setEditingRole({});
         refetch();
@@ -196,7 +196,7 @@ export const RolePermissionManagement: React.FC = () => {
     },
     {
       onSuccess: () => {
-        notifications.success('Role deleted');
+        notifications.success('Đã xóa vai trò');
         refetch();
       },
     }
@@ -210,7 +210,7 @@ export const RolePermissionManagement: React.FC = () => {
     },
     {
       onSuccess: () => {
-        notifications.success('Role duplicated');
+        notifications.success('Đã nhân bản vai trò');
         refetch();
       },
     }
@@ -261,10 +261,10 @@ export const RolePermissionManagement: React.FC = () => {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Roles & Permissions
+            Vai trò & Quyền hạn
           </h1>
           <p className="text-gray-600 dark:text-gray-400 mt-1">
-            Manage user roles and access control
+            Quản lý vai trò người dùng và kiểm soát truy cập
           </p>
         </div>
 
@@ -276,7 +276,7 @@ export const RolePermissionManagement: React.FC = () => {
           className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg"
         >
           <Plus className="w-5 h-5" />
-          Create Role
+          Tạo Vai Trò
         </button>
       </div>
 
@@ -508,7 +508,7 @@ export const RolePermissionManagement: React.FC = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm overflow-y-auto">
           <div className="w-full max-w-4xl bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 my-8">
             <h3 className="text-xl font-bold mb-4">
-              {editingRole.id ? 'Edit Role' : 'Create Role'}
+              {editingRole.id ? 'Sửa vai trò' : 'Tạo vai trò'}
             </h3>
 
             <div className="space-y-6">
@@ -669,14 +669,14 @@ export const RolePermissionManagement: React.FC = () => {
                 }}
                 className="flex-1 px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
               >
-                Cancel
+                Hủy
               </button>
               <button
                 onClick={() => saveRole(editingRole)}
                 disabled={isSaving || !editingRole.name || !editingRole.key}
                 className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors disabled:opacity-50"
               >
-                {isSaving ? 'Saving...' : editingRole.id ? 'Update Role' : 'Create Role'}
+                {isSaving ? 'Đang lưu...' : editingRole.id ? 'Cập nhật' : 'Tạo vai trò'}
               </button>
             </div>
           </div>

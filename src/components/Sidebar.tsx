@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { LayoutDashboard, FileText, FolderTree, Image, Bot, BarChart3, Settings, Shield, ChevronDown, ChevronRight, Sparkles, Zap, Activity, Layers, Users, Calendar, Package, ArrowLeft, ArrowRight, CheckCircle, BookOpen, Clock, Wand2 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { LayoutDashboard, FileText, FolderTree, Image, Bot, BarChart3, Settings, Shield, ChevronDown, ChevronRight, Sparkles, Zap, Activity, Layers, Users, Calendar, Package, ArrowLeft, ArrowRight, CheckCircle, BookOpen, Clock, Wand2, Lock, DollarSign } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useSystemSettings } from '../contexts/SystemSettingsContext';
 
 interface SidebarProps {
   currentPage: any;
@@ -11,7 +12,40 @@ interface SidebarProps {
 
 export function Sidebar({ currentPage, onPageChange, isCollapsed = false, onToggleCollapse }: SidebarProps) {
   const { t } = useLanguage();
-  const [expandedMenus, setExpandedMenus] = useState<string[]>(['crawler']);
+  const { isRoyaltyEnabled } = useSystemSettings();
+  
+  // Auto-expand submenu if we're on a user-related page
+  const getUsersExpanded = () => {
+    const userPages = ['users', 'user-detail', 'user-roles', 'user-groups', 'user-access-logs', 'user-security-settings'];
+    return userPages.includes(currentPage.page);
+  };
+  
+  // Auto-expand submenu if we're on a royalty-related page
+  const getRoyaltyExpanded = () => {
+    const royaltyPages = ['royalty-management', 'royalty-integration'];
+    return royaltyPages.includes(currentPage.page);
+  };
+  
+  const [expandedMenus, setExpandedMenus] = useState<string[]>(() => {
+    const initial = ['crawler'];
+    if (getUsersExpanded()) {
+      initial.push('users');
+    }
+    if (getRoyaltyExpanded()) {
+      initial.push('royalty');
+    }
+    return initial;
+  });
+
+  // Auto-expand users and royalty menu when navigating
+  useEffect(() => {
+    if (getUsersExpanded() && !expandedMenus.includes('users')) {
+      setExpandedMenus(prev => [...prev, 'users']);
+    }
+    if (getRoyaltyExpanded() && !expandedMenus.includes('royalty')) {
+      setExpandedMenus(prev => [...prev, 'royalty']);
+    }
+  }, [currentPage.page]);
 
   const menuItems = [
     { id: 'dashboard', label: t('menu.dashboard'), icon: LayoutDashboard, badge: null },
@@ -19,22 +53,32 @@ export function Sidebar({ currentPage, onPageChange, isCollapsed = false, onTogg
     { id: 'categories', label: t('menu.categories'), icon: FolderTree, badge: null },
     { id: 'event-series', label: t('menu.eventSeries'), icon: Activity, badge: '4' },
     { id: 'permissions', label: t('menu.permissions'), icon: Shield, badge: null },
-    { id: 'ai-tools', label: t('menu.aiTools'), icon: Wand2, badge: 'HOT' },
-    { id: 'media', label: t('menu.media'), icon: Image, badge: null },
-    { id: 'content-moderation', label: t('menu.moderation'), icon: CheckCircle, badge: '23' },
     { 
-      id: 'crawler', 
-      label: t('menu.crawler'), 
-      icon: Bot,
-      badge: 'NEW',
+      id: 'users', 
+      label: t('menu.users'), 
+      icon: Users, 
+      badge: '8',
       submenu: [
-        { id: 'campaigns', label: t('crawler.submenu.campaigns'), icon: Package },
-        { id: 'sources', label: t('crawler.submenu.sources'), icon: Layers },
-        { id: 'crawled', label: t('crawler.submenu.crawled'), icon: FileText },
-        { id: 'approved', label: t('crawler.submenu.approved'), icon: CheckCircle },
+        { id: 'list', label: t('users.submenu.list'), icon: Users },
+        { id: 'roles', label: t('users.submenu.roles'), icon: Shield },
+        { id: 'groups', label: t('users.submenu.groups'), icon: Users },
+        { id: 'access-logs', label: t('users.submenu.accessLogs'), icon: Activity },
+        { id: 'security', label: t('users.submenu.security'), icon: Lock },
       ]
     },
+    { id: 'ai-tools', label: t('menu.aiTools'), icon: Wand2, badge: 'HOT' },
+    { id: 'content-moderation', label: t('menu.moderation'), icon: CheckCircle, badge: '23' },
     { id: 'stats', label: t('menu.analytics'), icon: BarChart3, badge: null },
+    { 
+      id: 'royalty', 
+      label: 'Nhuận Bút', 
+      icon: DollarSign, 
+      badge: 'NEW',
+      submenu: [
+        { id: 'royalty-management', label: 'Cấu hình', icon: Settings },
+        { id: 'royalty-integration', label: 'Quản lý & Báo cáo', icon: BarChart3 },
+      ]
+    },
     { id: 'activity', label: t('menu.activity'), icon: Clock, badge: null },
     { 
       id: 'settings', 
@@ -120,7 +164,15 @@ export function Sidebar({ currentPage, onPageChange, isCollapsed = false, onTogg
       
       {/* Navigation with enhanced scrollbar */}
       <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
-        {menuItems.map((item) => {
+        {menuItems
+          .filter(item => {
+            // Hide Royalty menu if royalty is disabled
+            if (item.id === 'royalty' && !isRoyaltyEnabled) {
+              return false;
+            }
+            return true;
+          })
+          .map((item) => {
           const Icon = item.icon;
           const hasSubmenu = item.submenu && item.submenu.length > 0;
           const isExpanded = expandedMenus.includes(item.id);
@@ -181,19 +233,41 @@ export function Sidebar({ currentPage, onPageChange, isCollapsed = false, onTogg
                 <div className="ml-3 mt-1 space-y-0.5 animate-slide-in-top">
                   {item.submenu!.map((subItem) => {
                     const SubIcon = subItem.icon || FileText;
-                    // Special handling for approval submenu - each item is a separate page
-                    const isApprovalMenu = item.id === 'approval';
-                    const itemIsActive = isApprovalMenu 
-                      ? currentPage.page === subItem.id
+                    // Special handling for users and royalty submenu - each item is a separate page
+                    const isUsersMenu = item.id === 'users';
+                    const isRoyaltyMenu = item.id === 'royalty';
+                    
+                    // For users menu, map subItem.id to actual page names
+                    const userPageMap: Record<string, string> = {
+                      'list': 'users',
+                      'roles': 'user-roles',
+                      'groups': 'user-groups',
+                      'access-logs': 'user-access-logs',
+                      'security': 'user-security-settings',
+                    };
+                    
+                    // For royalty menu, map subItem.id to actual page names
+                    const royaltyPageMap: Record<string, string> = {
+                      'royalty-management': 'royalty-management',
+                      'royalty-integration': 'royalty-integration',
+                    };
+                    
+                    const itemIsActive = isUsersMenu
+                      ? currentPage.page === userPageMap[subItem.id]
+                      : isRoyaltyMenu
+                      ? currentPage.page === royaltyPageMap[subItem.id]
                       : isActive(item.id, subItem.id);
                     
                     return (
                       <button
                         key={subItem.id}
                         onClick={() => {
-                          if (isApprovalMenu) {
-                            // For approval menu, navigate to separate pages
-                            onPageChange({ page: subItem.id });
+                          if (isUsersMenu) {
+                            // For users menu, navigate to separate pages
+                            onPageChange({ page: userPageMap[subItem.id] });
+                          } else if (isRoyaltyMenu) {
+                            // For royalty menu, navigate to separate pages
+                            onPageChange({ page: royaltyPageMap[subItem.id] });
                           } else {
                             // For other menus, use subPage
                             onPageChange({ page: item.id, subPage: subItem.id });

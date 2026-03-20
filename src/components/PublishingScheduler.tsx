@@ -168,7 +168,7 @@ export function PublishingScheduler({
             <CalendarDays className="w-6 h-6 text-blue-600" />
           </div>
           <div>
-            <h1 className="text-3xl mb-1">Publishing Scheduler</h1>
+            <h1 className="text-3xl mb-1">Lịch xuất bản</h1>
             <p className="text-sm text-muted-foreground">
               Lên lịch và quản lý xuất bản nội dung tự động
             </p>
@@ -189,7 +189,7 @@ export function PublishingScheduler({
               `}
             >
               <BarChart3 className="w-4 h-4" />
-              List
+              Danh sách
             </button>
             <button
               onClick={() => setView('calendar')}
@@ -202,7 +202,7 @@ export function PublishingScheduler({
               `}
             >
               <Calendar className="w-4 h-4" />
-              Calendar
+              Lịch
             </button>
           </div>
 
@@ -211,7 +211,7 @@ export function PublishingScheduler({
             className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg shadow-blue-500/30"
           >
             <Plus className="w-4 h-4" />
-            Schedule Post
+            Lên lịch bài viết
           </button>
         </div>
       </div>
@@ -260,11 +260,11 @@ export function PublishingScheduler({
             onChange={(e) => setFilterStatus(e.target.value)}
             className="px-4 py-2 rounded-lg bg-background/50 border border-border/40 focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20 transition-all outline-none"
           >
-            <option value="all">All Status</option>
-            <option value="scheduled">Scheduled</option>
-            <option value="publishing">Publishing</option>
-            <option value="published">Published</option>
-            <option value="failed">Failed</option>
+            <option value="all">-- Trạng thái --</option>
+            <option value="scheduled">Đã lên lịch</option>
+            <option value="publishing">Đang xuất bản</option>
+            <option value="published">Đã xuất bản</option>
+            <option value="failed">Thất bại</option>
           </select>
         </div>
       </div>
@@ -333,7 +333,7 @@ export function PublishingScheduler({
 
                     {/* Platforms */}
                     <div className="flex items-center gap-2 mb-4">
-                      <span className="text-xs text-muted-foreground">Platforms:</span>
+                      <span className="text-xs text-muted-foreground">Nền tảng:</span>
                       {post.platforms.map(platform => (
                         <span
                           key={platform}
@@ -349,13 +349,13 @@ export function PublishingScheduler({
                       {post.autoShare && (
                         <div className="flex items-center gap-1">
                           <Send className="w-3 h-3" />
-                          <span>Auto-share</span>
+                          <span>Tự động chia sẻ</span>
                         </div>
                       )}
                       {post.notifySubscribers && (
                         <div className="flex items-center gap-1">
                           <CheckCircle2 className="w-3 h-3" />
-                          <span>Notify subscribers</span>
+                          <span>Thông báo người theo dõi</span>
                         </div>
                       )}
                     </div>
@@ -376,21 +376,21 @@ export function PublishingScheduler({
                     <div className="flex items-center gap-2 mt-4 pt-4 border-t border-border/40">
                       <button className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-muted/60 hover:bg-muted transition-all text-sm">
                         <Eye className="w-3 h-3" />
-                        Preview
+                        Xem trước
                       </button>
                       
                       {post.status === 'scheduled' && (
                         <>
                           <button className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-blue-500/10 text-blue-600 hover:bg-blue-500/20 transition-all text-sm border border-blue-500/20">
                             <Edit3 className="w-3 h-3" />
-                            Reschedule
+                            Đổi lịch
                           </button>
                           <button
                             onClick={() => onCancel(post.id)}
                             className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-red-500/10 text-red-600 hover:bg-red-500/20 transition-all text-sm border border-red-500/20"
                           >
                             <X className="w-3 h-3" />
-                            Cancel
+                            Hủy lịch
                           </button>
                         </>
                       )}
@@ -398,13 +398,13 @@ export function PublishingScheduler({
                       {post.status === 'failed' && (
                         <button className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-yellow-500/10 text-yellow-600 hover:bg-yellow-500/20 transition-all text-sm border border-yellow-500/20">
                           <Play className="w-3 h-3" />
-                          Retry
+                          Thử lại
                         </button>
                       )}
 
                       <button className="ml-auto flex items-center gap-2 px-3 py-1.5 rounded-lg bg-muted/60 hover:bg-muted transition-all text-sm text-red-600">
                         <Trash2 className="w-3 h-3" />
-                        Delete
+                        Xóa
                       </button>
                     </div>
                   </div>
@@ -416,7 +416,7 @@ export function PublishingScheduler({
           {filteredPosts.length === 0 && (
             <div className="glass-card p-12 text-center">
               <CalendarDays className="w-12 h-12 mx-auto mb-3 text-muted-foreground/50" />
-              <p className="text-muted-foreground">No scheduled posts</p>
+              <p className="text-muted-foreground">Không có bài nào được lên lịch</p>
             </div>
           )}
         </div>
@@ -427,9 +427,9 @@ export function PublishingScheduler({
         <div className="glass-card p-6">
           <div className="text-center py-12">
             <Calendar className="w-16 h-16 mx-auto mb-4 text-muted-foreground/50" />
-            <p className="text-muted-foreground mb-2">Calendar View</p>
+            <p className="text-muted-foreground mb-2">Chế độ xem lịch</p>
             <p className="text-sm text-muted-foreground">
-              Visual calendar with scheduled posts (coming soon)
+              Lịch trực quan với các bài viết đã lên lịch (sắp ra mắt)
             </p>
           </div>
         </div>

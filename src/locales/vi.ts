@@ -36,7 +36,7 @@ export default {
     deleteCategory: 'Bạn có chắc chắn muốn xóa danh mục này?',
     deleteCategoryWithArticles: 'Bạn có chắc chắn muốn xóa danh mục này? Tất cả bài viết trong danh mục sẽ bị di chuyển về "Chưa phân loại".',
     deletePermissionGroup: 'Bạn có chắc chắn muốn xóa nhóm quyền "{{name}}"?',
-    deletePermissionGroupWithMembers: 'Bạn có chắc chắn muốn xóa nhóm quyền "{{name}}"? Tất cả thành viên sẽ mất quyền truy cập này.',
+    deletePermissionGroupWithMembers: 'Bạn có chắc chắn muốn xóa nhóm quyền "{{name}}"? Tất cả thành viên sẽ mất quyn truy cập này.',
     removeMember: 'Bạn có chắc chắn muốn xóa thành viên này khỏi nhóm?',
   },
 
@@ -107,20 +107,506 @@ export default {
     permissions: 'Nhóm quyền',
     aiTools: 'AI Tools',
     activity: 'Nhật ký hoạt động',
+    infographicBuilder: 'Trình tạo Infographic',
+    royalty: 'Nhuận Bút',
+  },
+
+  // Brand
+  brand: {
+    cmsPlatform: 'Nền tảng CMS',
+    vhvPlatform: 'VHV Platform',
+  },
+
+  // User Management Submenu
+  users: {
+    submenu: {
+      list: 'Danh sách người dùng',
+      roles: 'Vai trò & Quyền hạn',
+      groups: 'Nhóm người dùng',
+      accessLogs: 'Nhật ký truy cập',
+      security: 'Bảo mật',
+    },
+    
+    // User Management Page
+    management: {
+      title: 'Quản lý người dùng',
+      description: 'Quản lý tài khoản và phân quyền',
+      addUser: 'Thêm người dùng',
+      exportList: 'Xuất danh sách',
+      
+      // Roles stats
+      rolesPermissions: 'Vai trò & Quyền hạn',
+      
+      // Table headers
+      user: 'Người dùng',
+      role: 'Vai trò',
+      status: 'Trạng thái',
+      articles: 'Bài viết',
+      joined: 'Tham gia',
+      lastActivity: 'Hoạt động cuối',
+      actions: 'Thao tác',
+      
+      // Filters
+      allRoles: 'Tất cả vai trò',
+      filter: 'Lọc',
+      
+      // Status
+      active: 'Hoạt động',
+      inactive: 'Không hoạt động',
+      suspended: 'Tạm khóa',
+      
+      // Add User Modal
+      addUserTitle: 'Thêm người dùng mới',
+      fullName: 'Họ và tên',
+      fullNameRequired: 'Họ và tên *',
+      email: 'Email',
+      emailRequired: 'Email *',
+      phone: 'Số điện thoại',
+      roleRequired: 'Vai trò *',
+      password: 'Mật khẩu',
+      passwordRequired: 'Mật khẩu *',
+      confirmPassword: 'Xác nhận mật khẩu',
+      confirmPasswordRequired: 'Xác nhận mật khẩu *',
+      sendEmailNotification: 'Gửi email thông báo tài khoản cho người dùng',
+      createAccount: 'Tạo tài khoản',
+      saveAndAddAnother: 'Lưu và thêm người dùng khác',
+      cancel: 'Hủy',
+      
+      // Role badges
+      admin: 'Admin',
+      editor: 'Editor',
+      author: 'Author',
+      contributor: 'Contributor',
+      
+      // Role permissions
+      fullSystemAccess: 'Toàn quyền hệ thống',
+      approveArticles: 'Duyệt bài',
+      editAllArticles: 'Chỉnh sửa tất cả',
+      createEditOwn: 'Tạo & sửa bài của mình',
+      createDrafts: 'Tạo bài nháp',
+    },
+    
+    // User Roles Page
+    roles: {
+      title: 'Vai trò & Quyền hạn',
+      description: 'Quản lý vai trò và phân quyền cho người dùng',
+      createRole: 'Tạo vai trò mới',
+      editRole: 'Chỉnh sửa vai trò',
+      hidePermissions: 'Ẩn quyền',
+      showAllPermissions: 'Xem tất cả quyền',
+      
+      // Stats
+      totalRoles: 'Tổng vai trò',
+      totalUsers: 'Tổng người dùng',
+      totalPermissions: 'Tổng quyền hạn',
+      customRoles: 'Vai trò tùy chỉnh',
+      
+      // Permissions Panel
+      allSystemPermissions: 'Tất cả quyền hạn trong hệ thống',
+      
+      // Permission categories
+      articlesCategory: 'Bài viết',
+      categoriesCategory: 'Danh mục',
+      mediaCategory: 'Media',
+      usersCategory: 'Người dùng',
+      settingsCategory: 'Cài đặt',
+      advancedCategory: 'Nâng cao',
+      
+      // Article permissions
+      viewArticles: 'Xem bài viết',
+      viewArticlesDesc: 'Xem tất cả bài viết',
+      createArticles: 'Tạo bài viết',
+      createArticlesDesc: 'Tạo bài vit mới',
+      editOwnArticles: 'Sửa bài của mình',
+      editOwnArticlesDesc: 'Chỉnh sửa bài viết của bản thân',
+      editAllArticles: 'Sửa tất cả bài',
+      editAllArticlesDesc: 'Chỉnh sửa tất cả bài viết',
+      deleteOwnArticles: 'Xóa bài của mình',
+      deleteOwnArticlesDesc: 'Xóa bài viết của bản thân',
+      deleteAllArticles: 'Xóa tất cả bài',
+      deleteAllArticlesDesc: 'Xóa tất cả bài viết',
+      publishArticles: 'Xuất bản bài viết',
+      publishArticlesDesc: 'Xuất bản bài viết lên website',
+      approveArticles: 'Duyệt bài viết',
+      approveArticlesDesc: 'Phê duyệt bài viết từ người khác',
+      
+      // Category permissions
+      viewCategories: 'Xem danh mục',
+      viewCategoriesDesc: 'Xem tất cả danh mục',
+      createCategories: 'Tạo danh mục',
+      createCategoriesDesc: 'Tạo danh mục mới',
+      editCategories: 'Sửa danh mục',
+      editCategoriesDesc: 'Chỉnh sửa danh mục',
+      deleteCategories: 'Xóa danh mục',
+      deleteCategoriesDesc: 'Xóa danh mục',
+      
+      // Media permissions
+      viewMedia: 'Xem media',
+      viewMediaDesc: 'Xem thư viện media',
+      uploadMedia: 'Upload media',
+      uploadMediaDesc: 'Tải file lên thư viện',
+      editMedia: 'Sửa media',
+      editMediaDesc: 'Chỉnh sửa metadata của media',
+      deleteMedia: 'Xóa media',
+      deleteMediaDesc: 'Xóa file khỏi thư viện',
+      
+      // User permissions
+      viewUsers: 'Xem người dùng',
+      viewUsersDesc: 'Xem danh sách người dùng',
+      createUsers: 'Tạo người dùng',
+      createUsersDesc: 'Tạo tài khoản mới',
+      editUsers: 'Sửa người dùng',
+      editUsersDesc: 'Chỉnh sửa thông tin người dùng',
+      deleteUsers: 'Xóa người dùng',
+      deleteUsersDesc: 'Xóa tài khoản người dùng',
+      managePermissions: 'Quản lý quyền',
+      managePermissionsDesc: 'Phân quyền cho người dùng',
+      
+      // Settings permissions
+      viewSettings: 'Xem cài đặt',
+      viewSettingsDesc: 'Xem cài đặt hệ thống',
+      editSettings: 'Sửa cài đặt',
+      editSettingsDesc: 'Thay đổi cấu hình hệ thống',
+      
+      // Advanced permissions
+      viewLogs: 'Xem logs',
+      viewLogsDesc: 'Truy cập nhật ký hệ thống',
+      systemBackup: 'Backup hệ thống',
+      systemBackupDesc: 'Sao lưu và khôi phục dữ liệu',
+      apiAccess: 'Truy cập API',
+      apiAccessDesc: 'Sử dụng API keys',
+      
+      // Role descriptions (system roles)
+      superAdminDesc: 'Toàn quyền quản trị h thống, không bị giới hạn',
+      adminDesc: 'Quản trị viên với quyền quản lý nội dung và người dùng',
+      editorDesc: 'Biên tập viên có quyền duyệt và chỉnh sửa tất cả bài viết',
+      authorDesc: 'Tác giả có thể tạo và chỉnh sửa bài viết của mình',
+      contributorDesc: 'Cộng tác viên chỉ có thể tạo bài nháp',
+      seoSpecialistDesc: 'Chuyên viên SEO có quyền tối ưu nội dung',
+      
+      // Role form
+      roleNameLabel: 'Tên vai trò',
+      roleNameRequired: 'Tên vai trò *',
+      roleNamePlaceholder: 'VD: Content Manager',
+      roleKeyLabel: 'Key (slug)',
+      roleKeyRequired: 'Key (slug) *',
+      roleKeyPlaceholder: 'VD: content_manager',
+      roleDescriptionLabel: 'Mô tả',
+      roleDescriptionPlaceholder: 'Mô tả ngắn gọn về vai trò này...',
+      selectPermissions: 'Chọn quyền hạn',
+      selectAll: 'Chọn tất cả',
+      deselectAll: 'Bỏ chọn tất cả',
+      permissionsSelected: 'quyền đã chọn',
+      
+      // Actions
+      searchRoles: 'Tìm kiếm vai trò...',
+      systemRole: 'Vai trò hệ thống',
+      usersCount: 'người dùng',
+      save: 'Lưu vai trò',
+      saving: 'Đang lưu...',
+      
+      // Toast messages
+      roleCreated: 'Vai trò đã được tạo thành công',
+      roleUpdated: 'Vai trò đã được cập nhật',
+      roleDeleted: 'Vai trò đã được xóa',
+      
+      // Modal titles
+      createRoleTitle: 'Tạo vai trò mới',
+      editRoleTitle: 'Chỉnh sửa vai trò',
+      
+      // Confirm dialog
+      deleteRoleTitle: 'Xóa vai trò',
+      deleteRoleMessage: 'Bạn có chắc chắn muốn xóa vai trò "{{name}}"? Hành động này không thể hoàn tác.',
+      confirmDelete: 'Xóa vai trò',
+      
+      // Badge texts
+      systemRoleBadge: 'Vai trò hệ thống',
+      permissionsLabel: 'quyền',
+      mainPermissionsLabel: 'Quyền hạn chính',
+      morePermissions: 'khác',
+    },
+    
+    // User Groups Page
+    groups: {
+      title: 'Nhóm người dùng',
+      description: 'Quản lý nhóm và phân công người dùng',
+      createGroup: 'Tạo nhóm mới',
+      
+      // Stats
+      totalGroups: 'Tổng nhóm',
+      totalMembers: 'Tổng thành viên',
+      activeGroups: 'Nhóm hoạt động',
+      averageSize: 'Trung bình/nhóm',
+      groupsWithLeader: 'Nhóm có trưởng nhóm',
+      
+      // Group card
+      members: 'thành viên',
+      leader: 'Trưởng nhóm',
+      createdOn: 'Tạo ngày',
+      viewMembers: 'Xem thành viên',
+      editGroup: 'Sửa nhóm',
+      deleteGroup: 'Xóa nhóm',
+      
+      // Group detail
+      groupMembers: 'Thành viên nhóm',
+      addMember: 'Thêm thành viên',
+      removeMember: 'Xóa',
+      
+      // Group form
+      groupNameLabel: 'Tên nhóm',
+      groupNameRequired: 'Tên nhóm *',
+      groupNamePlaceholder: 'Ví dụ: Biên tập viên Công nghệ',
+      groupDescriptionLabel: 'Mô tả',
+      groupDescriptionPlaceholder: 'Mô tả ngắn gọn về nhóm này...',
+      groupColor: 'Màu sắc nhóm',
+      selectLeader: 'Chọn trưởng nhóm',
+      selectLeaderOptional: 'Chọn trưởng nhóm (không bắt buộc)',
+      selectMembers: 'Chọn thành viên',
+      
+      // Actions
+      searchGroups: 'Tìm kiếm nhóm...',
+      save: 'Lưu nhóm',
+      saving: 'Đang lưu...',
+      cancel: 'Hủy',
+      delete: 'Xóa',
+      deleteGroupConfirm: 'Bạn có chắc chắn muốn xóa nhóm "{{name}}"? Hành động này không thể hoàn tác.',
+      
+      // Sample groups
+      techEditorsName: 'Biên tập viên Công nghệ',
+      techEditorsDesc: 'Nhóm biên tập viên chuyên về nội dung công nghệ và AI',
+      sysAdminsName: 'Quản trị hệ thống',
+      sysAdminsDesc: 'Nhóm quản trị viên hệ thống CMS',
+      newsAuthorsName: 'Tác giả Tin tức',
+      newsAuthorsDesc: 'Nhóm tác giả viết nội dung tin tức thời sự',
+      multimediaContributorsName: 'Cộng tác viên Multimedia',
+      multimediaContributorsDesc: 'Nhóm cộng tác vin phụ trách nội dung video và podcast',
+      reviewersName: 'Người duyệt nội dung',
+      reviewersDesc: 'Nhóm phụ trách kiểm duyệt và phê duyệt bài viết',
+    },
+    
+    // Access Logs Page
+    accessLogs: {
+      title: 'Nhật ký truy cập',
+      description: 'Theo dõi hoạt động truy cập của người dùng',
+      exportCSV: 'Xuất CSV',
+      
+      // Stats
+      todayLogins: 'Đăng nhập hôm nay',
+      failedAttempts: 'Thất bại',
+      activeNow: 'Đang hoạt động',
+      totalActions: 'Tổng hành động',
+      activeUsers: 'Người dùng hoạt động',
+      
+      // Filters
+      allUsers: 'Tất cả người dùng',
+      allActions: 'Tất cả hành động',
+      today: 'Hôm nay',
+      yesterday: 'Hôm qua',
+      last7Days: '7 ngày qua',
+      last30Days: '30 ngày qua',
+      customRange: 'Tùy chỉnh',
+      
+      // Actions
+      login: 'Đăng nhập',
+      logout: 'Đăng xuất',
+      create: 'Tạo mới',
+      edit: 'Chỉnh sửa',
+      delete: 'Xóa',
+      view: 'Xem',
+      failedLogin: 'Đăng nhập thất bại',
+      
+      // Action labels (for display)
+      loginLabel: 'Đăng nhập',
+      logoutLabel: 'Đăng xuất',
+      createLabel: 'Tạo mới',
+      editLabel: 'Chỉnh sửa',
+      deleteLabel: 'Xóa',
+      viewLabel: 'Xem',
+      failedLoginLabel: 'Đăng nhập thất bại',
+      
+      // Table headers
+      user: 'Người dùng',
+      action: 'Hành động',
+      resource: 'Tài nguyên',
+      timestamp: 'Thời gian',
+      device: 'Thiết bị',
+      location: 'Vị trí',
+      status: 'Trạng thái',
+      
+      // Status
+      success: 'Thành công',
+      failed: 'Thất bại',
+      warning: 'Cảnh báo',
+      
+      // Actions performed
+      loggedIn: 'đã đăng nhập',
+      loggedOut: 'đã đăng xuất',
+      created: 'đã tạo',
+      edited: 'đã chỉnh sửa',
+      deleted: 'đã xóa',
+      viewed: 'đã xem',
+      
+      // Export
+      exporting: 'Đang xuất...',
+      exportSuccess: 'Đã xuất CSV thành công',
+      exportError: 'Lỗi khi xuất CSV',
+      
+      // Search
+      searchLogs: 'Tìm kiếm logs...',
+    },
+    
+    // Security Settings Page
+    security: {
+      title: 'Cài đặt Bảo mật',
+      description: 'Quản lý cài đặt bảo mật và quyền riêng tư',
+      
+      // Stats cards
+      twoFactorAuth: 'Xác thực 2 lớp',
+      enabled: 'Đã bật',
+      disabled: 'Chưa bật',
+      activeSessions: 'Phiên hoạt động',
+      sessionTimeout: 'Thời gian phiên',
+      minutes: 'phút',
+      
+      // Two-Factor Authentication
+      twoFactorTitle: 'Xác thực hai lớp (2FA)',
+      authenticatorApp: 'Authenticator App',
+      authenticatorDesc: 'Sử dụng ứng dụng như Google Authenticator hoặc Authy để tạo mã xác thực',
+      authenticatorConfigured: '✓ Đã cấu hình - Mã xác thực sẽ được yêu cầu khi đăng nhập',
+      authenticatorNotConfigured: '⚠ Chưa cấu hình - Tài khoản của bạn có thể kém an toàn hơn',
+      enable2FA: 'Bật 2FA',
+      disable2FA: 'Tắt 2FA',
+      configure: 'Cấu hình',
+      
+      // Password Policy
+      passwordPolicy: 'Chính sách mật khẩu',
+      enforcePasswordPolicy: 'Áp dụng chính sách mật khẩu',
+      enforcePasswordPolicyDesc: 'Yêu cầu mật khẩu mạnh',
+      minPasswordLength: 'Độ dài tối thiểu',
+      characters: 'ký tự',
+      requireSpecialChars: 'Yêu cầu ký tự đặc biệt',
+      requireNumbers: 'Yêu cầu số',
+      requireUppercase: 'Yêu cầu chữ hoa',
+      passwordExpiry: 'Hết hạn mật khẩu sau',
+      passwordExpiryDesc: 'Thời hạn mật khẩu',
+      days: 'ngày',
+      viewPolicy: 'Xem chính sách',
+      updatePolicy: 'Cập nhật chính sách',
+      
+      // Login Security
+      loginSecurity: 'Bảo mật đăng nhập',
+      emailVerification: 'Xác minh email',
+      emailVerificationDesc: 'Yêu cầu xác minh email khi đăng ký',
+      
+      // Session Management
+      sessionManagement: 'Quản lý phiên làm việc',
+      sessionTimeoutLabel: 'Thời gian timeout',
+      sessionTimeoutDesc: 'Phiên sẽ tự động đăng xuất sau thời gian không hoạt động',
+      blockSuspiciousLogin: 'Chặn đăng nhập khả nghi',
+      blockSuspiciousLoginDesc: 'Tự động chặn các lần đăng nhập từ vị trí hoặc thiết bị lạ',
+      notifyNewDevice: 'Thông báo thiết bị mới',
+      notifyNewDeviceDesc: 'Gửi email khi có đăng nhập từ thiết bị chưa biết',
+      
+      // IP Whitelist
+      ipWhitelist: 'Danh sách IP cho phép',
+      ipWhitelistDesc: 'Chỉ cho phép đăng nhập từ các IP này (để trống = cho phép tất cả)',
+      ipWhitelistPlaceholder: 'VD: 192.168.1.100, 10.0.0.0/24',
+      onePerLine: 'Mỗi IP một dòng hoặc dải CIDR',
+      
+      // Active Sessions
+      activeSessionsTitle: 'Phiên đang hoạt động',
+      currentSession: 'Phiên hiện tại',
+      device: 'Thiết bị',
+      location: 'Vị trí',
+      ipAddress: 'IP Address',
+      lastActive: 'Hoạt động lần cuối',
+      logout: 'Đăng xuất',
+      logoutAll: 'Đăng xuất tất cả thiết bị khác',
+      
+      // Change Password Modal
+      changePasswordTitle: 'Đổi mật khẩu',
+      currentPassword: 'Mật khẩu hiện tại',
+      newPassword: 'Mật khẩu mới',
+      confirmNewPassword: 'Xác nhận mật khẩu mới',
+      passwordStrength: 'Độ mạnh mật khẩu',
+      changePassword: 'Đổi mật khẩu',
+      
+      // 2FA Setup Modal
+      setup2FATitle: 'Cấu hình xác thực 2 lớp',
+      setup2FAStep1: 'Bước 1: Quét mã QR',
+      setup2FAStep1Desc: 'Sử dụng ứng dụng Authenticator (Google Authenticator, Authy, etc.) để quét mã QR này',
+      setup2FAStep2: 'Bước 2: Nhập mã xác thực',
+      setup2FAStep2Desc: 'Nhập mã 6 chữ số từ ứng dụng Authenticator để xác nhận',
+      verificationCode: 'Mã xác thực',
+      verificationCodePlaceholder: '000000',
+      enable: 'Bật',
+      
+      // Password Policy Modal
+      passwordPolicyTitle: 'Chính sách mt khẩu',
+      currentPolicy: 'Chính sách hiện tại',
+      policyMinLength: 'Độ dài tối thiểu',
+      policySpecialChars: 'Ký tự đặc biệt',
+      policyNumbers: 'Số',
+      policyUppercase: 'Chữ hoa',
+      policyExpiry: 'Hết hạn sau',
+      required: 'Bắt buộc',
+      notRequired: 'Không bắt buộc',
+      
+      // Actions
+      save: 'Lưu cài đặt',
+      saving: 'Đang lưu...',
+      cancel: 'Hủy',
+      
+      // Toast messages
+      settingsSaved: 'Cài đặt đã được lưu',
+      passwordChanged: 'Mật khẩu đã được thay đổi',
+      twoFactorEnabled: 'Xác thực 2 lớp đã được bật',
+      twoFactorDisabled: 'Xác thực 2 lớp đã được tắt',
+      sessionLoggedOut: 'Đã đăng xuất phiên',
+      allSessionsLoggedOut: 'Đã đăng xuất tất cả phiên',
+      
+      // Confirm dialogs
+      confirmLogout: 'Bạn có chắc chắn muốn đăng xuất thiết bị này?',
+      confirmLogoutAll: 'Bạn có chắc chắn muốn đăng xuất tất cả thiết bị khác? Bạn sẽ cần đăng nhập lại trên các thiết bị đó.',
+      confirmDisable2FA: 'Bạn có chắc chắn muốn tắt xác thực 2 lớp? Điều này sẽ giảm bảo mật cho tài khoản của bạn.',
+    },
   },
 
   // Article Types
   articleTypes: {
     news: 'Tin tức',
+    newsDesc: 'Bài viết tin tức thông thường',
     video: 'Video',
+    videoDesc: 'Bài viết kèm video',
     gallery: 'Thư viện ảnh',
+    galleryDesc: 'Bộ sưu tập hình ảnh',
+    document: 'Văn bản',
+    documentDesc: 'Văn bản tài liệu',
     legal: 'Văn bản pháp luật',
+    legalDesc: 'Văn bản pháp luật, quy định',
     legalShort: 'Văn bản PL',
+    personnel: 'Nhân sự',
+    personnelDesc: 'Thông tin nhân sự',
     staff: 'Nhân sự',
+    recruitment: 'Tuyển dụng',
+    recruitmentDesc: 'Thông tin tuyển dụng',
     job: 'Tuyển dụng',
     podcast: 'Podcast',
+    podcastDesc: 'Bài podcast audio',
     event: 'Sự kiện',
+    eventDesc: 'Thông tin sự kiện',
     download: 'Tải xuống',
+    downloadDesc: 'File tải xuống',
+    blog: 'Blog',
+    blogDesc: 'Bài viết blog',
+    tutorial: 'Hướng dẫn',
+    tutorialDesc: 'Bài hướng dẫn',
+    pressRelease: 'Thông cáo báo chí',
+    pressReleaseDesc: 'Thông cáo báo chí',
+    interview: 'Phỏng vấn',
+    interviewDesc: 'Bài phỏng vấn',
+    infographic: 'Infographic',
+    infographicDesc: 'Biểu đồ thông tin trực quan',
   },
 
   // Article Status
@@ -381,7 +867,7 @@ export default {
 
   // Dashboard
   dashboard: {
-    welcome: 'Chào mừng trở lại',
+    welcome: 'Chào mừng tr lại',
     overview: 'Đây là tổng quan hệ thống CMS của bạn',
     systemHealthy: 'Hệ thống hoạt động tốt',
     
@@ -430,58 +916,139 @@ export default {
     
     // Stats
     totalPending: 'Tổng chờ duyệt',
-    approvedToday: 'Đã duyệt hm nay',
+    approvedToday: 'Đã duyệt hôm nay',
     rejectedToday: 'Từ chối hôm nay',
-  },
-
-  // Users
-  users: {
-    title: 'Quản lý người dùng',
-    createNew: 'Thêm người dùng',
-    editUser: 'Chỉnh sửa người dùng',
-    
-    // Fields
-    username: 'Tên đăng nhập',
-    email: 'Email',
-    fullName: 'Họ và tên',
-    role: 'Vai trò',
-    status: 'Trạng thái',
-    lastLogin: 'Đăng nhập cuối',
-    
-    // Roles
-    admin: 'Quản trị viên',
-    editor: 'Biên tập viên',
-    author: 'Tác giả',
-    contributor: 'Cộng tác viên',
-    viewer: 'Người xem',
-    
-    // Status
-    active: 'Hoạt động',
-    inactive: 'Không hoạt động',
-    suspended: 'Tạm khóa',
   },
 
   // Settings
   settings: {
     title: 'Cài đặt',
+    
+    // Tabs
     general: 'Cài đặt chung',
+    features: 'Tính năng',
     appearance: 'Giao diện',
-    language: 'Ngôn ngữ',
     notifications: 'Thông báo',
     security: 'Bảo mật',
     email: 'Email',
     api_webhooks: 'API & Webhooks',
-    database: 'Database',
+    database: 'Cơ sở dữ liệu',
     
-    siteName: 'Tên website',
-    siteDescription: 'Mô tả website',
+    // Page header
+    systemSettings: 'Cài đặt hệ thống',
+    systemSettingsDesc: 'Quản lý cấu hình CMS',
+    
+    // General tab
+    generalSettings: 'Cài đặt chung',
+    websiteName: 'Tên website',
+    websiteDescription: 'Mô tả',
+    websiteDescriptionPlaceholder: 'Hệ thống quản lý nội dung chuyên nghiệp',
+    defaultLanguage: 'Ngôn ngữ mặc định',
     timezone: 'Múi giờ',
-    dateFormat: 'Định dạng ngày',
     
-    theme: 'Giao diện',
+    // Features tab
+    featureManagement: 'Quản lý tính năng',
+    featureManagementDesc: 'Bật/tắt các tính năng của hệ thống. Khi tắt, các tính năng liên quan sẽ bị ẩn khỏi giao diện.',
+    debugInfo: 'Debug Info',
+    resetAllSettings: 'Reset All Settings',
+    royaltyEnabled: 'Royalty Enabled',
+    mediaEnabled: 'Media Enabled',
+    crawlerEnabled: 'Crawler Enabled',
+    
+    // Feature toggles
+    royaltyManagement: 'Quản lý nhuận bút',
+    royaltyManagementDesc: 'Tính năng tính toán và quản lý nhuận bút cho tác giả',
+    royaltyIncludes: 'Bao gồm:',
+    royaltyFeature1: 'Tính toán nhuận bút theo lượt xem',
+    royaltyFeature2: 'Báo cáo thu nhập chi tiết',
+    royaltyFeature3: 'Quản lý thanh toán',
+    enabled: 'Đang bật',
+    
+    mediaLibrary: 'Thư viện Media',
+    mediaLibraryDesc: 'Quản lý file, ảnh, video, và tài liệu',
+    mediaIncludes: 'Bao gồm:',
+    mediaFeature1: 'Upload và quản lý file',
+    mediaFeature2: 'Tối ưu hóa ảnh tự động',
+    mediaFeature3: 'Tìm kiếm và lọc nâng cao',
+    
+    crawlerSystem: 'Hệ thống Crawler',
+    crawlerSystemDesc: 'Thu thập nội dung tự động từ các nguồn bên ngoài',
+    crawlerIncludes: 'Bao gồm:',
+    crawlerFeature1: 'Quản lý nguồn crawler',
+    crawlerFeature2: 'Lên lịch thu thập tự động',
+    crawlerFeature3: 'Kiểm duyệt nội dung đã crawl',
+    
+    commentsSystem: 'Hệ thống bình luận',
+    commentsSystemDesc: 'Quản lý bình luận từ người đọc',
+    
+    multiLanguage: 'Đa ngôn ngữ',
+    multiLanguageDesc: 'Hỗ trợ quản lý nội dung đa ngôn ngữ',
+    
+    versionControl: 'Version Control',
+    versionControlDesc: 'Lưu lịch sử thay đổi và khôi phục phiên bản',
+    
+    seoTools: 'SEO Tools',
+    seoToolsDesc: 'Công cụ tối ưu hóa công cụ tìm kiếm',
+    
+    // Appearance tab
+    appearanceSettings: 'Cài đặt giao diện',
+    themeModes: 'Chế độ giao diện',
     lightMode: 'Sáng',
     darkMode: 'Tối',
     autoMode: 'Tự động',
+    primaryColor: 'Màu chủ đạo',
+    accentColor: 'Màu nhấn',
+    fontFamily: 'Font chữ',
+    fontSize: 'Kích thước chữ',
+    small: 'Nhỏ',
+    medium: 'Trung bình',
+    large: 'Lớn',
+    
+    // Notifications tab
+    notificationSettings: 'Cài đặt thông báo',
+    emailNotifications: 'Thông báo qua Email',
+    pushNotifications: 'Thông báo đẩy',
+    newArticle: 'Bài viết mới',
+    newComment: 'Bình luận mới',
+    articleApproval: 'Phê duyệt bài viết',
+    systemUpdates: 'Cập nhật hệ thống',
+    
+    // Security tab
+    securitySettings: 'Cài đặt bảo mật',
+    twoFactorAuth: 'Xác thực 2 lớp',
+    sessionTimeout: 'Thời gian phiên',
+    passwordPolicy: 'Chính sách mật khẩu',
+    ipWhitelist: 'IP Whitelist',
+    
+    // Email tab
+    emailSettings: 'Cài đặt Email',
+    smtpServer: 'SMTP Server',
+    smtpPort: 'SMTP Port',
+    smtpUsername: 'SMTP Username',
+    smtpPassword: 'SMTP Password',
+    fromEmail: 'Email gửi đi',
+    fromName: 'Tên người gửi',
+    testEmail: 'Gửi email thử nghiệm',
+    
+    // API tab
+    apiSettings: 'Cài đặt API & Webhooks',
+    apiKeys: 'API Keys',
+    generateNewKey: 'Tạo key mới',
+    webhooks: 'Webhooks',
+    addWebhook: 'Thêm webhook',
+    
+    // Database tab
+    databaseSettings: 'Cài đặt cơ sở dữ liệu',
+    backup: 'Sao lưu',
+    restore: 'Khôi phục',
+    optimize: 'Tối ưu hóa',
+    lastBackup: 'Sao lưu lần cuối',
+    databaseSize: 'Kích thước database',
+    
+    // Actions
+    saveChanges: 'Lưu thay đổi',
+    resetToDefault: 'Đặt lại mặc định',
+    cancel: 'Hủy',
   },
   
   // Bulk Operations
@@ -495,7 +1062,7 @@ export default {
   archive_description: 'Chuyển vào kho lưu trữ',
   delete: 'Xóa',
   delete_description: 'Xóa vĩnh viễn',
-  move_category: 'Chuyển danh mục',
+  move_category: 'Chuyn danh mục',
   move_category_description: 'Di chuyển sang danh mục khác',
   assign_author: 'Gán tác giả',
   assign_author_description: 'Thay đổi tác giả',
@@ -666,6 +1233,17 @@ export default {
     custom: 'Tùy chỉnh',
   },
 
+  // Royalty Management
+  royalty: {
+    title: 'Nhuận Bút',
+    
+    // Submenu
+    submenu: {
+      management: 'Cấu hình',
+      integration: 'Quản lý & Báo cáo',
+    },
+  },
+
   // Permissions
   permissions: {
     title: 'Quản lý nhóm quyền',
@@ -809,7 +1387,7 @@ export default {
     
     // Automation
     ruleNameExample: 'VD: Auto-publish weekly article',
-    ruleDescription: 'Mô tả ngắn gọn về rule này...',
+    ruleDescription: 'M tả ngắn gọn về rule này...',
     
     // Bulk Operations
     addNewTag: 'Hoặc nhập tag mới...',
@@ -885,6 +1463,195 @@ export default {
     categoryDescVi: 'Mô tả ngắn gọn về danh mục này...',
     seoTitleOptimized: 'Optimized title for search engines',
     seoDescOptimized: 'Meta description for search results',
+  },
+
+  // Photo Editor
+  photoEditor: {
+    title: 'Chỉnh sửa ảnh',
+    subtitle: 'Công cụ chỉnh sửa ảnh chuyên nghiệp',
+    resetAll: 'Đặt lại tất cả',
+    saveChanges: 'Lưu thay đổi',
+    tabs: {
+      crop: 'Cắt ảnh',
+      adjust: 'Điều chỉnh',
+      filters: 'Bộ lọc',
+      effects: 'Hiệu ứng',
+    },
+    cropResize: 'Cắt & Thay đổi kích thước',
+    startCropping: 'Bắt đầu cắt',
+    applyCrop: 'Áp dụng cắt',
+    cancelCrop: 'Hủy bỏ',
+    aspectRatio: 'Tỷ lệ khung hình',
+    transform: 'Biến đổi',
+    rotateRight: 'Xoay phải',
+    rotateLeft: 'Xoay trái',
+    flipH: 'Lật ngang',
+    flipV: 'Lật dọc',
+    background: 'Nền ảnh',
+    removing: 'Đang xóa...',
+    bgRemoved: 'Đã xóa nền',
+    removeBg: 'Xóa nền ảnh',
+    bgAINote: 'Sử dụng AI để tự động xóa nền ảnh',
+    imageAdjustments: 'Điều chỉnh hình ảnh',
+    advanced: 'Nâng cao',
+    filterPresets: 'Bộ lọc có sẵn',
+    vivid: 'Rực rỡ',
+    dramatic: 'Kịch tính',
+    bw: 'Đen trắng',
+    sepia: 'Hoài cổ',
+    cool: 'Mát mẻ',
+    warm: 'Ấm áp',
+    specialEffects: 'Hiệu ứng đặc biệt',
+    aiEnhance: 'AI Nâng cao',
+    autoAdjust: 'Tự động điều chỉnh',
+    hdrEffect: 'Hiệu ứng HDR',
+    moreEffects: 'Thêm nhiều hiệu ứng sẽ sớm ra mắt! Bao gồm AI nâng cao, chế độ chân dung, làm mờ nền, và nhiều hơn nữa.',
+    fit: 'Vừa vặn',
+  },
+
+  // Smart Crop
+  smartCrop: {
+    title: 'Cắt ảnh thông minh',
+    subtitle: 'Cắt ảnh bằng AI với các mẫu có sẵn',
+    aiDetecting: 'Đang phát hiện...',
+    aiDetectSubject: 'AI Phát hiện chủ thể',
+    categories: 'Danh mục',
+    cropPresets: 'Mẫu cắt có sẵn',
+    freeRatio: 'Tỷ lệ tự do',
+    ratio: 'Tỷ lệ',
+    reset: 'Đặt lại',
+    applyCrop: 'Áp dụng cắt',
+    all: 'Tất cả',
+    social: 'Mạng xã hội',
+    print: 'In ấn',
+    web: 'Web',
+    custom: 'Tùy chỉnh',
+    instagramSquare: 'Instagram Vuông',
+    instagramPortrait: 'Instagram Dọc',
+    facebookCover: 'Ảnh bìa Facebook',
+    twitterPost: 'Bài đăng Twitter',
+    linkedinPost: 'Bài đăng LinkedIn',
+    youtubeThumbnail: 'Thumbnail YouTube',
+    a4Portrait: 'A4 Dọc',
+    a4Landscape: 'A4 Ngang',
+    letter: 'Khổ Letter',
+    businessCard: 'Danh thiếp',
+    webBanner: 'Banner Web',
+    heroImage: 'Ảnh Hero',
+    freeForm: 'Tự do',
+    square: 'Vuông',
+  },
+
+  // Text Effects
+  textEffects: {
+    title: 'Hiệu ứng văn bản nâng cao',
+    subtitle: 'Biến đổi văn bản với hiệu ứng ấn tượng',
+    effectTypes: 'Loại hiệu ứng',
+    presetsAvailable: 'mẫu có sẵn',
+    effectSettings: 'Cài đặt hiệu ứng',
+    previewText: 'Văn bản xem trước',
+    previewPlaceholder: 'Nhập văn bản...',
+    applyEffect: 'Áp dụng hiệu ứng',
+    gradient: 'Chuyển màu',
+    curved: 'Cong',
+    threeD: '3D',
+    outline: 'Viền',
+    shadow: 'Đổ bóng',
+    glow: 'Phát sáng',
+    neon: 'Neon',
+    metallic: 'Kim loại',
+    gradientType: 'Kiểu chuyển màu',
+    linear: 'Tuyến tính',
+    radial: 'Tỏa tròn',
+    conic: 'Hình nón',
+    angle: 'Góc',
+    curvature: 'Độ cong',
+    radius: 'Bán kính',
+    depth: 'Chiều sâu',
+    perspective: 'Phối cảnh',
+    lightAngle: 'Góc chiếu sáng',
+    width: 'Độ rộng',
+    color: 'Màu sắc',
+    xOffset: 'Lệch X',
+    yOffset: 'Lệch Y',
+    blur: 'Độ mờ',
+    intensity: 'Cường độ',
+    spread: 'Phạm vi',
+    flickerEffect: 'Hiệu ứng nhấp nháy',
+    type: 'Loại',
+    gold: 'Vàng',
+    silver: 'Bạc',
+    bronze: 'Đồng',
+    chrome: 'Chrome',
+    shine: 'Độ bóng',
+    proTip: 'Mẹo chuyên nghiệp',
+    proTipText: 'Kết hợp nhiều hiệu ứng để tạo phong cách độc đáo. Bạn có thể xếp chồng hiệu ứng chuyển màu, đổ bóng và viền.',
+  },
+
+  // Element Library Showcase
+  elementLibrary: {
+    title: 'Trình bày Thư viện phần tử',
+    subtitle: 'Khám phá các mẫu thiết kế có sẵn sử dụng Thư viện phần tử',
+    useCases: 'trường hợp sử dụng',
+    elementsAvailable: 'phần tử có sẵn',
+    categoriesCount: 'danh mục',
+    quickStart: 'Bắt đầu nhanh',
+    quickStartDesc: 'Nhấn tab ⭐ Phần tử để duyệt thư viện',
+    customize: 'Tùy chỉnh',
+    customizeDesc: 'Đổi màu, thay đổi kích thước, thêm hiệu ứng',
+    combine: 'Kết hợp',
+    combineDesc: 'Trộn các phần tử để tạo thiết kế độc đáo',
+    statsCard: 'Thẻ thống kê',
+    customerSatisfaction: 'Sự hài lòng khách hàng',
+    socialBanner: 'Banner mạng xã hội',
+    followUs: 'Theo dõi chúng tôi',
+    featureHighlight: 'Nổi bật tính năng',
+    newBadge: 'MỚI',
+    premiumFeature: 'Tính năng cao cấp',
+    advancedAnalytics: 'Phân tích nâng cao',
+    prioritySupport: 'Hỗ trợ ưu tiên',
+    contactInfo: 'Thông tin liên hệ',
+    getInTouch: 'Liên hệ với chúng tôi',
+    teamSection: 'Mục đội ngũ',
+    pricingDisplay: 'Hiển thị giá',
+    limitedOffer: 'ƯU ĐÃI CÓ HẠN',
+    specialPrice: 'Giá đặc biệt',
+    saveToday: 'Tiết kiệm 40% hôm nay!',
+  },
+
+  // Event Stream Embed
+  eventStreamEmbed: {
+    title: 'Nhúng & Chia sẻ',
+    subtitle: 'Nhúng dòng sự kiện vào website của bạn',
+    embedType: 'Kiểu nhúng',
+    customization: 'Tùy chỉnh',
+    embedCode: 'Mã nhúng',
+    copied: 'Đã copy',
+    copy: 'Copy',
+    timelineDesc: 'Hiển thị timeline đầy đủ với các bài viết',
+    cardDesc: 'Card compact hiển thị bài viết mới nhất',
+    bannerDesc: 'Banner ngang với featured articles',
+    floatingWidgetDesc: 'Widget floating ở góc màn hình',
+    showAuthor: 'Hiển thị tác giả',
+    showStats: 'Hiển thị thống kê',
+    showThumbnail: 'Hiển thị thumbnail',
+    showHeader: 'Hiển thị header',
+    maxArticles: 'Số bài viết tối đa',
+    primaryColor: 'Màu chính',
+    borderRadius: 'Bo góc',
+    newsAndEvents: 'Chuỗi tin tức và sự kiện',
+    latestArticle: 'Bài viết mới nhất',
+    articleExcerpt: 'Trích dẫn bài viết...',
+    readMore: 'Đọc thêm',
+    viewAll: 'Xem tất cả',
+    featuredTitle: 'Tiêu đề bài viết nổi bật',
+    explore: 'Khám phá',
+    newArticles: '3 bài viết mới',
+    instructions: 'Hướng dẫn sử dụng',
+    step1: 'Chọn kiểu embed phù hợp với website của bạn',
+    step2: 'Tùy chỉnh giao diện và chức năng theo ý muốn',
+    step3: 'Copy mã nhúng và paste vào HTML của website',
+    step4: 'Widget sẽ tự động cập nhật khi có bài viết mới',
   },
 
   // Tooltips (for title attributes)
